@@ -37,17 +37,17 @@ const NavItem = ({ icon: Icon, label, href, active, collapsed, onClick }: NavIte
             className={cn(
               "flex items-center gap-3 px-4 py-3 my-1 rounded-lg text-sm font-medium transition-all duration-200",
               active 
-                ? "bg-white text-vpro-coral shadow-sm" 
+                ? "bg-white text-vpro-pink shadow-sm" 
                 : "text-sidebar-foreground/80 hover:text-white hover:bg-sidebar-accent/30"
             )}
             onClick={onClick}
           >
-            <Icon className={cn("h-5 w-5 flex-shrink-0", active ? "text-vpro-coral" : "")} />
+            <Icon className={cn("h-5 w-5 flex-shrink-0", active ? "text-vpro-pink" : "")} />
             {!collapsed && (
               <span className={cn("truncate", active ? "font-semibold" : "")}>{label}</span>
             )}
             {active && !collapsed && (
-              <ChevronRight className="ml-auto h-4 w-4 text-vpro-coral" />
+              <ChevronRight className="ml-auto h-4 w-4 text-vpro-pink" />
             )}
           </Link>
         </TooltipTrigger>
@@ -80,20 +80,20 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
 
   return (
     <div className={cn(
-      "fixed inset-y-0 left-0 bg-sidebar z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
+      "fixed inset-y-0 left-0 bg-vpro-blue z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
       collapsed ? "w-16" : "w-64"
     )}>
-      <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
+      <div className="flex items-center justify-between p-4 border-b border-vpro-purple/30">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-md bg-vpro-coral flex items-center justify-center shadow-md">
+            <div className="h-10 w-10 rounded-md bg-vpro-pink flex items-center justify-center shadow-md">
               <span className="text-white font-bold text-lg">VP</span>
             </div>
             <span className="font-bold text-sidebar-foreground text-lg tracking-tight">VPRO</span>
           </div>
         )}
         {collapsed && (
-          <div className="h-10 w-10 rounded-md bg-vpro-coral mx-auto flex items-center justify-center shadow-md">
+          <div className="h-10 w-10 rounded-md bg-vpro-pink mx-auto flex items-center justify-center shadow-md">
             <span className="text-white font-bold text-lg">VP</span>
           </div>
         )}
@@ -101,13 +101,13 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
           variant="ghost" 
           size="icon" 
           onClick={onToggle}
-          className="text-sidebar-foreground hover:bg-sidebar-accent/30 hover:text-white ml-auto"
+          className="text-sidebar-foreground hover:bg-vpro-purple/30 hover:text-white ml-auto"
         >
           {collapsed ? <PanelRight className="h-5 w-5" /> : <PanelLeft className="h-5 w-5" />}
         </Button>
       </div>
 
-      <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-sidebar-accent/20 scrollbar-track-transparent">
+      <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-vpro-purple/20 scrollbar-track-transparent">
         {routes.map((route) => (
           <NavItem 
             key={route.href}
@@ -122,11 +122,11 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
         ))}
       </div>
       
-      <div className="p-4 border-t border-sidebar-border bg-sidebar-accent/10">
+      <div className="p-4 border-t border-vpro-purple/30 bg-vpro-purple/10">
         {!collapsed && (
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-vpro-coral">
-              <span className="text-vpro-coral font-medium">EF</span>
+            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-vpro-pink">
+              <span className="text-vpro-purple font-medium">EF</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">Eng. Fiscal</p>
@@ -136,8 +136,8 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
         )}
         {collapsed && (
           <div className="flex justify-center">
-            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-vpro-coral">
-              <span className="text-vpro-coral font-medium">EF</span>
+            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-vpro-pink">
+              <span className="text-vpro-purple font-medium">EF</span>
             </div>
           </div>
         )}

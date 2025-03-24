@@ -67,11 +67,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				vpro: {
-					blue: '#1E3A8A',
-					lightblue: '#3B82F6',
-					coral: '#F87171',
+					blue: '#3A0CA3',
+					lightblue: '#4361EE',
+					purple: '#7209B7',
+					pink: '#F72585',
 					gray: '#64748B',
-					lightgray: '#E2E8F0',
+					lightgray: '#F1F1F1',
 				}
 			},
 			borderRadius: {

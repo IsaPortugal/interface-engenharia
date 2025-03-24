@@ -52,8 +52,8 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ title, client, progress, dueDate, status, address, image }: ProjectCardProps) => {
   const statusColor = 
-    status === 'Em andamento' ? 'bg-blue-500' : 
-    status === 'Atrasado' ? 'bg-vpro-coral' : 'bg-green-500';
+    status === 'Em andamento' ? 'bg-vpro-blue' : 
+    status === 'Atrasado' ? 'bg-vpro-pink' : 'bg-green-500';
   
   return (
     <Card className="card-hover overflow-hidden border-none shadow-md">
@@ -112,9 +112,9 @@ const ProjectCard = ({ title, client, progress, dueDate, status, address, image 
 
 const UpcomingEventCard = ({ title, date, time, type, users }: any) => {
   const typeColor = 
-    type === 'Reunião' ? 'bg-blue-100 text-blue-800' : 
+    type === 'Reunião' ? 'bg-vpro-blue/10 text-vpro-blue' : 
     type === 'Visita' ? 'bg-green-100 text-green-800' : 
-    'bg-yellow-100 text-yellow-800';
+    'bg-vpro-purple/10 text-vpro-purple';
   
   return (
     <div className="flex items-center gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
@@ -145,9 +145,9 @@ const UpcomingEventCard = ({ title, date, time, type, users }: any) => {
 export default function Dashboard() {
   const stats = [
     { icon: Building, title: 'Obras Ativas', value: '12', trend: '+2', color: 'bg-vpro-blue' },
-    { icon: FileText, title: 'Relatórios Gerados', value: '48', trend: '+15', color: 'bg-vpro-lightblue' },
-    { icon: AlertTriangle, title: 'Incidentes', value: '3', trend: '-1', color: 'bg-vpro-coral' },
-    { icon: Calendar, title: 'Compromissos', value: '8', trend: '+3', color: 'bg-vpro-gray' },
+    { icon: FileText, title: 'Relatórios Gerados', value: '48', trend: '+15', color: 'bg-vpro-purple' },
+    { icon: AlertTriangle, title: 'Incidentes', value: '3', trend: '-1', color: 'bg-vpro-pink' },
+    { icon: Calendar, title: 'Compromissos', value: '8', trend: '+3', color: 'bg-gray-500' },
   ];
 
   const projects = [
