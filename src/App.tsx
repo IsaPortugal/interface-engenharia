@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Gallery from "./pages/Gallery";
 import NotFound from "./pages/NotFound";
@@ -22,7 +23,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Home />} />
               <Route path="/reports" element={<Dashboard />} />
               <Route path="/incidents" element={<Dashboard />} />
               <Route path="/schedule" element={<Dashboard />} />
