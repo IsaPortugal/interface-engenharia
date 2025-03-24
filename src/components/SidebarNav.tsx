@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { 
@@ -11,40 +11,59 @@ import {
   Settings, 
   Menu, 
   X, 
-  ChevronRight
+  ChevronRight,
+  PanelLeft,
+  PanelRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface NavItemProps {
   icon: React.ElementType;
   label: string;
   href: string;
   active?: boolean;
+  collapsed?: boolean;
   onClick?: () => void;
 }
 
-const NavItem = ({ icon: Icon, label, href, active, onClick }: NavItemProps) => {
+const NavItem = ({ icon: Icon, label, href, active, collapsed, onClick }: NavItemProps) => {
   return (
-    <Link
-      to={href}
-      className={cn(
-        "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-        active 
-          ? "bg-sidebar-accent text-sidebar-accent-foreground" 
-          : "text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
-      )}
-      onClick={onClick}
-    >
-      <Icon className="h-5 w-5" />
-      <span>{label}</span>
-      {active && <ChevronRight className="ml-auto h-4 w-4" />}
-    </Link>
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link
+            to={href}
+            className={cn(
+              "flex items-center gap-3 px-3 py-2 my-1 rounded-md text-sm font-medium transition-colors",
+              active 
+                ? "bg-sidebar-accent text-sidebar-accent-foreground" 
+                : "text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
+            )}
+            onClick={onClick}
+          >
+            <Icon className="h-5 w-5 flex-shrink-0" />
+            {!collapsed && <span className="truncate">{label}</span>}
+            {active && !collapsed && <ChevronRight className="ml-auto h-4 w-4" />}
+          </Link>
+        </TooltipTrigger>
+        {collapsed && (
+          <TooltipContent side="right">
+            {label}
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  collapsed: boolean;
+  onToggle: () => void;
+}
+
+export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
   
   const routes = [
     { icon: Home, label: "Dashboard", href: "/" },
@@ -57,11 +76,11 @@ export function SidebarNav() {
 
   return (
     <div className={cn(
-      "fixed inset-y-0 left-0 bg-sidebar z-40 flex flex-col transition-all duration-300 ease-in-out",
-      isCollapsed ? "w-16" : "w-64"
+      "fixed inset-y-0 left-0 bg-sidebar z-40 flex flex-col border-r border-sidebar-border transition-all duration-300 ease-in-out",
+      collapsed ? "w-16" : "w-64"
     )}>
       <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
-        {!isCollapsed && (
+        {!collapsed && (
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-md bg-vpro-coral flex items-center justify-center">
               <span className="text-white font-bold">VP</span>
@@ -69,13 +88,18 @@ export function SidebarNav() {
             <span className="font-bold text-sidebar-foreground">VPRO ENGENHARIA</span>
           </div>
         )}
+        {collapsed && (
+          <div className="h-8 w-8 rounded-md bg-vpro-coral mx-auto flex items-center justify-center">
+            <span className="text-white font-bold">VP</span>
+          </div>
+        )}
         <Button 
           variant="ghost" 
           size="icon" 
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="text-sidebar-foreground"
+          onClick={onToggle}
+          className="text-sidebar-foreground ml-auto"
         >
-          {isCollapsed ? <Menu className="h-5 w-5" /> : <X className="h-5 w-5" />}
+          {collapsed ? <PanelRight className="h-5 w-5" /> : <PanelLeft className="h-5 w-5" />}
         </Button>
       </div>
 
@@ -84,15 +108,16 @@ export function SidebarNav() {
           <NavItem 
             key={route.href}
             icon={route.icon}
-            label={isCollapsed ? "" : route.label}
+            label={route.label}
             href={route.href}
             active={location.pathname === route.href}
+            collapsed={collapsed}
           />
         ))}
       </div>
       
       <div className="p-4 border-t border-sidebar-border">
-        {!isCollapsed && (
+        {!collapsed && (
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center">
               <span className="text-sidebar-accent-foreground font-medium">EF</span>
