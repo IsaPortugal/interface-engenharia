@@ -31,13 +31,13 @@ export function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between p-4 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-30">
+    <header className="flex items-center justify-between p-4 border-b bg-white shadow-sm sticky top-0 z-30">
       <div className="flex-1 flex items-center max-w-md">
         <form onSubmit={handleSearch} className="w-full relative">
           <Input
             type="search"
             placeholder="Buscar relatórios, obras, ou incidentes..."
-            className="w-full pl-10 rounded-full bg-gray-50 border-gray-100"
+            className="w-full pl-10 rounded-full bg-gray-50 border-gray-200 focus-visible:ring-vpro-coral"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -46,18 +46,18 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-4 ml-4">
-        <Button variant="outline" size="icon" className="relative rounded-full">
+        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-coral">
           <HelpCircle className="h-5 w-5" />
         </Button>
 
-        <Button variant="outline" size="icon" className="relative rounded-full">
+        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-coral">
           <Calendar className="h-5 w-5" />
           <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-coral">
             3
           </Badge>
         </Button>
         
-        <Button variant="outline" size="icon" className="relative rounded-full">
+        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-coral">
           <Bell className="h-5 w-5" />
           <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-coral">
             2
@@ -66,10 +66,10 @@ export function Header() {
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-              <Avatar className="h-8 w-8">
+            <Button variant="ghost" className="relative h-10 w-10 rounded-full ring-2 ring-vpro-coral ring-offset-2">
+              <Avatar className="h-10 w-10 border-2 border-white">
                 <AvatarImage src="/placeholder.svg" alt="Avatar" />
-                <AvatarFallback>EF</AvatarFallback>
+                <AvatarFallback className="bg-vpro-coral text-white font-medium">EF</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
@@ -83,14 +83,16 @@ export function Header() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              Perfil
+            <DropdownMenuItem className="cursor-pointer">
+              <User className="mr-2 h-4 w-4" />
+              <span>Perfil</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              Configurações
+            <DropdownMenuItem className="cursor-pointer">
+              <HelpCircle className="mr-2 h-4 w-4" />
+              <span>Ajuda</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer text-red-500 focus:text-red-500">
               Sair
             </DropdownMenuItem>
           </DropdownMenuContent>
