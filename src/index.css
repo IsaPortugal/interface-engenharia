@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 262 93% 58%;
+    --primary: 199 100% 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -33,18 +33,18 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 262 93% 58%;
+    --ring: 199 100% 50%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 255 89% 36%;
+    --sidebar-background: 24 100% 50%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 210 40% 98%;
-    --sidebar-primary-foreground: 255 89% 36%;
-    --sidebar-accent: 327 100% 54%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 327 100% 54%;
-    --sidebar-ring: 255 89% 58%;
+    --sidebar-primary-foreground: 24 100% 50%;
+    --sidebar-accent: 51 100% 50%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 51 100% 50%;
+    --sidebar-ring: 24 100% 50%;
   }
 
   .dark {
@@ -76,11 +76,11 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
 
-    --sidebar-background: 255 89% 36%;
+    --sidebar-background: 24 100% 50%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 210 40% 98%;
     --sidebar-primary-foreground: 222.2 47.4% 11.2%;
-    --sidebar-accent: 327 100% 54%;
+    --sidebar-accent: 51 100% 50%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217.2 32.6% 17.5%;
     --sidebar-ring: 212.7 26.8% 83.9%;
@@ -111,7 +111,7 @@
   }
 
   .btn-primary {
-    @apply bg-vpro-blue text-white hover:bg-vpro-purple transition-colors;
+    @apply bg-vpro-blue text-white hover:bg-vpro-orange transition-colors;
   }
 
   .btn-secondary {
@@ -119,6 +119,6 @@
   }
 
   .btn-accent {
-    @apply bg-vpro-pink text-white hover:bg-pink-500 transition-colors;
+    @apply bg-vpro-yellow text-black hover:bg-yellow-400 transition-colors;
   }
 }

@@ -37,7 +37,7 @@ export function Header() {
           <Input
             type="search"
             placeholder="Buscar relatórios, obras, ou incidentes..."
-            className="w-full pl-10 rounded-full bg-vpro-lightgray border-gray-200 focus-visible:ring-vpro-pink"
+            className="w-full pl-10 rounded-full bg-vpro-lightgray border-gray-200 focus-visible:ring-vpro-blue"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -46,30 +46,30 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-4 ml-4">
-        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-purple">
+        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-blue">
           <HelpCircle className="h-5 w-5" />
         </Button>
 
-        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-purple">
+        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-blue">
           <Calendar className="h-5 w-5" />
-          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-pink">
+          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-yellow text-black">
             3
           </Badge>
         </Button>
         
-        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-purple">
+        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-blue">
           <Bell className="h-5 w-5" />
-          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-pink">
+          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-orange text-white">
             2
           </Badge>
         </Button>
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-10 w-10 rounded-full ring-2 ring-vpro-pink ring-offset-2">
+            <Button variant="ghost" className="relative h-10 w-10 rounded-full ring-2 ring-vpro-blue ring-offset-2">
               <Avatar className="h-10 w-10 border-2 border-white">
                 <AvatarImage src="/placeholder.svg" alt="Avatar" />
-                <AvatarFallback className="bg-vpro-purple text-white font-medium">EF</AvatarFallback>
+                <AvatarFallback className="bg-vpro-orange text-white font-medium">EF</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
