@@ -30,7 +30,7 @@ const App: React.FC = () => {
               <Route path="/schedule" element={<Dashboard />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/settings" element={<Dashboard />} />
-              {/* Nova rota para o projeto TCC-Obra */}
+              {/* Rota para o projeto TCC-Obra */}
               <Route path="/projeto-tcc-obra/*" element={<Index />} />
             </Route>
             <Route path="*" element={<NotFound />} />
