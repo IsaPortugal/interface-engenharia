@@ -14,28 +14,20 @@ export const ProjectTree = () => {
       icon: <Building className="h-4 w-4 mr-2" />,
       items: [
         {
-          name: "Connected Services",
-          icon: <Server className="h-4 w-4 mr-2" />,
-          isFolder: true,
-          items: []
-        },
-        {
-          name: "Dependências",
-          icon: <FileCode className="h-4 w-4 mr-2" />,
-          isFolder: true,
-          items: []
-        },
-        {
-          name: "Properties",
-          icon: <Settings className="h-4 w-4 mr-2" />,
-          isFolder: true,
-          items: []
+          name: "serviceDependencies.json",
+          icon: <FileText className="h-4 w-4 mr-2" />,
+          isFolder: false
         },
         {
           name: "wwwroot",
           icon: <Globe className="h-4 w-4 mr-2" />,
           isFolder: true,
-          items: []
+          items: [
+            "css/", 
+            "js/", 
+            "lib/", 
+            "favicon.ico"
+          ]
         },
         {
           name: "Areas",
@@ -48,11 +40,10 @@ export const ProjectTree = () => {
           icon: <FileCode className="h-4 w-4 mr-2" />,
           isFolder: true,
           items: [
+            "AgendamentosController.cs",
             "HomeController.cs",
+            "IncidentesController.cs",
             "ObrasController.cs",
-            "AtividadesController.cs",
-            "MateriaisController.cs",
-            "FornecedoresController.cs",
             "RelatoriosController.cs"
           ]
         },
@@ -61,8 +52,8 @@ export const ProjectTree = () => {
           icon: <Database className="h-4 w-4 mr-2" />,
           isFolder: true,
           items: [
-            "ApplicationDbContext.cs",
-            "Migrations/"
+            "Migrations/",
+            "ApplicationDbContext.cs"
           ]
         },
         {
@@ -70,11 +61,10 @@ export const ProjectTree = () => {
           icon: <Database className="h-4 w-4 mr-2" />,
           isFolder: true,
           items: [
+            "Agendamento.cs", 
+            "ErrorViewModel.cs", 
+            "Incidente.cs", 
             "Obra.cs", 
-            "Atividade.cs", 
-            "Material.cs", 
-            "Fornecedor.cs", 
-            "Usuario.cs", 
             "Relatorio.cs"
           ]
         },
@@ -83,13 +73,14 @@ export const ProjectTree = () => {
           icon: <LayoutList className="h-4 w-4 mr-2" />,
           isFolder: true,
           items: [
+            "Agendamentos/",
             "Home/",
+            "Incidentes/",
             "Obras/",
-            "Atividades/",
-            "Materiais/",
-            "Fornecedores/",
             "Relatorios/",
-            "Shared/_Layout.cshtml"
+            "Shared/",
+            "_ViewImports.cshtml",
+            "_ViewStart.cshtml"
           ]
         },
         {
@@ -121,12 +112,7 @@ export const ProjectTree = () => {
       </div>
       
       <div className="ml-6 mt-2">
-        <div className="flex items-center mb-1">
-          <FileCode className="h-5 w-5 mr-2 text-vpro-orange" />
-          <span className="font-medium">GitHub Actions</span>
-        </div>
-        
-        <div className="flex flex-col ml-6 mt-1">
+        <div className="flex flex-col">
           {projectStructure[0].items.map((item: any, index: number) => (
             <FolderStructure 
               key={index}
