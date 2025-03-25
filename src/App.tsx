@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Gallery from "./pages/Gallery";
 import NotFound from "./pages/NotFound";
+import Index from "./pages/Index";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -30,7 +31,7 @@ const App: React.FC = () => {
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/settings" element={<Dashboard />} />
               {/* Nova rota para o projeto TCC-Obra */}
-              <Route path="/projeto-tcc-obra/*" element={<Dashboard />} />
+              <Route path="/projeto-tcc-obra/*" element={<Index />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
