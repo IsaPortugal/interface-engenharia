@@ -29,6 +29,8 @@ const App: React.FC = () => {
               <Route path="/schedule" element={<Dashboard />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/settings" element={<Dashboard />} />
+              {/* Nova rota para o projeto TCC-Obra */}
+              <Route path="/projeto-tcc-obra/*" element={<Dashboard />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
