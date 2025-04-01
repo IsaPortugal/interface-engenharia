@@ -14,6 +14,7 @@ import Incidents from "./pages/Incidents";
 import Schedule from "./pages/Schedule";
 import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
+            <Route path="/login" element={<Login />} />
             <Route element={<Layout />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/reports" element={<Reports />} />

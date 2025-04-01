@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FileText, Plus, Search, Filter, Download, ArrowUpRight, PenSquare, Trash2, Image as ImageIcon, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import ReportDetail from '@/components/ReportDetail';
 
 const reportsData = [
   {
@@ -73,7 +73,7 @@ const reportsData = [
   }
 ];
 
-const ReportCard = ({ report }: { report: any }) => {
+const ReportCard = ({ report, onViewDetail }: { report: any, onViewDetail: (report: any) => void }) => {
   const statusColors = {
     'Aprovado': 'bg-green-100 text-green-800',
     'Em revisão': 'bg-yellow-100 text-yellow-800',
@@ -133,6 +133,9 @@ const ReportCard = ({ report }: { report: any }) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Opções</DropdownMenuLabel>
+            <DropdownMenuItem className="cursor-pointer" onClick={() => onViewDetail(report)}>
+              <FileText className="h-4 w-4 mr-2" /> Visualizar
+            </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
               <Download className="h-4 w-4 mr-2" /> Baixar
             </DropdownMenuItem>
@@ -265,12 +268,18 @@ const Reports = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState<any>(null);
+  const [detailDialogOpen, setDetailDialogOpen] = useState(false);
 
   const filteredReports = reportsData.filter(report => 
     report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     report.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
     report.type.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleViewReport = (report: any) => {
+    setSelectedReport(report);
+    setDetailDialogOpen(true);
+  };
 
   return (
     <div className="container max-w-6xl mx-auto py-6 animate-fade-in">
@@ -348,7 +357,11 @@ const Reports = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredReports.length > 0 ? (
               filteredReports.map(report => (
-                <ReportCard key={report.id} report={report} />
+                <ReportCard 
+                  key={report.id} 
+                  report={report} 
+                  onViewDetail={handleViewReport}
+                />
               ))
             ) : (
               <div className="col-span-full flex flex-col items-center justify-center py-12">
@@ -367,7 +380,11 @@ const Reports = () => {
             {filteredReports
               .filter(report => report.type === 'Mensal')
               .map(report => (
-                <ReportCard key={report.id} report={report} />
+                <ReportCard 
+                  key={report.id} 
+                  report={report} 
+                  onViewDetail={handleViewReport}
+                />
               ))}
           </div>
         </TabsContent>
@@ -377,7 +394,11 @@ const Reports = () => {
             {filteredReports
               .filter(report => report.type === 'Semanal')
               .map(report => (
-                <ReportCard key={report.id} report={report} />
+                <ReportCard 
+                  key={report.id} 
+                  report={report} 
+                  onViewDetail={handleViewReport}
+                />
               ))}
           </div>
         </TabsContent>
@@ -387,7 +408,11 @@ const Reports = () => {
             {filteredReports
               .filter(report => report.type === 'Técnico')
               .map(report => (
-                <ReportCard key={report.id} report={report} />
+                <ReportCard 
+                  key={report.id} 
+                  report={report} 
+                  onViewDetail={handleViewReport}
+                />
               ))}
           </div>
         </TabsContent>
@@ -403,6 +428,13 @@ const Reports = () => {
           />
         </DialogContent>
       </Dialog>
+
+      {/* Report Detail with Print/Download */}
+      <ReportDetail
+        report={selectedReport}
+        isOpen={detailDialogOpen}
+        onClose={() => setDetailDialogOpen(false)}
+      />
     </div>
   );
 };
