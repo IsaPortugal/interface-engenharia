@@ -78,21 +78,22 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
 
   return (
     <div className={cn(
-      "fixed inset-y-0 left-0 bg-sidebar z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
+      "fixed inset-y-0 left-0 z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
+      "bg-gradient-to-br from-[#6E59A5] to-[#9b87f5]", // New gradient background
       collapsed ? "w-16" : "w-64"
     )}>
       <div className="flex items-center justify-between p-4 border-b border-white/10">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-md bg-white flex items-center justify-center shadow-md">
-              <span className="text-sidebar font-bold text-lg">VP</span>
+            <div className="h-10 w-10 rounded-md bg-white/20 flex items-center justify-center shadow-md">
+              <span className="text-white font-bold text-lg">VP</span>
             </div>
-            <span className="font-bold text-sidebar-foreground text-lg tracking-tight">VPRO</span>
+            <span className="font-bold text-white text-lg tracking-tight">VPRO</span>
           </div>
         )}
         {collapsed && (
-          <div className="h-10 w-10 rounded-md bg-white mx-auto flex items-center justify-center shadow-md">
-            <span className="text-sidebar font-bold text-lg">VP</span>
+          <div className="h-10 w-10 rounded-md bg-white/20 mx-auto flex items-center justify-center shadow-md">
+            <span className="text-white font-bold text-lg">VP</span>
           </div>
         )}
         <Button 
@@ -123,8 +124,8 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
       <div className="p-4 border-t border-white/10 bg-white/5">
         {!collapsed && (
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-              <span className="text-sidebar font-medium">EF</span>
+            <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center shadow-sm">
+              <span className="text-white font-medium">EF</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">Eng. Fiscal</p>
@@ -134,8 +135,8 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
         )}
         {collapsed && (
           <div className="flex justify-center">
-            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-              <span className="text-sidebar font-medium">EF</span>
+            <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center shadow-sm">
+              <span className="text-white font-medium">EF</span>
             </div>
           </div>
         )}
