@@ -94,6 +94,8 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
   }
 }
 
@@ -107,7 +109,7 @@
   }
 
   .glass-panel {
-    @apply bg-white/70 backdrop-blur-md rounded-xl shadow-sm border;
+    @apply bg-white/80 backdrop-blur-md rounded-xl shadow-md border border-white/40;
   }
 
   .btn-primary {
@@ -121,4 +123,21 @@
   .btn-accent {
     @apply bg-sidebar-accent text-white hover:bg-sidebar-accent/90 transition-colors;
   }
+  
+  .gradient-card {
+    @apply bg-gradient-to-br from-white to-blue-50 border border-white/40 shadow-md;
+  }
+  
+  .main-gradient {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+  
+  .dark .main-gradient {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  }
+  
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/30 shadow-lg rounded-xl;
+  }
 }
+
