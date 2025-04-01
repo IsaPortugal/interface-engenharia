@@ -5,7 +5,6 @@ import {
   FileText, 
   AlertTriangle, 
   Calendar, 
-  TrendingUp, 
   Clock, 
   ArrowRight, 
   ArrowUpRight,
@@ -19,6 +18,20 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell
+} from 'recharts';
 
 const StatCard = ({ icon: Icon, title, value, trend, color }: any) => (
   <Card className="card-hover overflow-hidden border-none shadow-md">
@@ -52,8 +65,8 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ title, client, progress, dueDate, status, address, image }: ProjectCardProps) => {
   const statusColor = 
-    status === 'Em andamento' ? 'bg-vpro-blue' : 
-    status === 'Atrasado' ? 'bg-vpro-pink' : 'bg-green-500';
+    status === 'Em andamento' ? 'bg-blue-500' : 
+    status === 'Atrasado' ? 'bg-red-500' : 'bg-green-500';
   
   return (
     <Card className="card-hover overflow-hidden border-none shadow-md">
@@ -112,13 +125,13 @@ const ProjectCard = ({ title, client, progress, dueDate, status, address, image 
 
 const UpcomingEventCard = ({ title, date, time, type, users }: any) => {
   const typeColor = 
-    type === 'Reunião' ? 'bg-vpro-blue/10 text-vpro-blue' : 
+    type === 'Reunião' ? 'bg-blue-100 text-blue-800' : 
     type === 'Visita' ? 'bg-green-100 text-green-800' : 
-    'bg-vpro-purple/10 text-vpro-purple';
+    'bg-purple-100 text-purple-800';
   
   return (
     <div className="flex items-center gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
-      <div className="flex flex-col items-center justify-center text-center min-w-[48px] h-[48px] bg-vpro-lightgray rounded-md">
+      <div className="flex flex-col items-center justify-center text-center min-w-[48px] h-[48px] bg-gray-100 rounded-md">
         <span className="text-xl font-bold">{date.split(' ')[0]}</span>
         <span className="text-xs text-muted-foreground">{date.split(' ')[1]}</span>
       </div>
@@ -144,9 +157,9 @@ const UpcomingEventCard = ({ title, date, time, type, users }: any) => {
 
 export default function Dashboard() {
   const stats = [
-    { icon: Building, title: 'Obras Ativas', value: '12', trend: '+2', color: 'bg-vpro-blue' },
-    { icon: FileText, title: 'Relatórios Gerados', value: '48', trend: '+15', color: 'bg-vpro-purple' },
-    { icon: AlertTriangle, title: 'Incidentes', value: '3', trend: '-1', color: 'bg-vpro-pink' },
+    { icon: Building, title: 'Obras Ativas', value: '12', trend: '+2', color: 'bg-blue-500' },
+    { icon: FileText, title: 'Relatórios Gerados', value: '48', trend: '+15', color: 'bg-purple-500' },
+    { icon: AlertTriangle, title: 'Incidentes', value: '3', trend: '-1', color: 'bg-red-500' },
     { icon: Calendar, title: 'Compromissos', value: '8', trend: '+3', color: 'bg-gray-500' },
   ];
 
@@ -211,6 +224,27 @@ export default function Dashboard() {
     },
   ];
 
+  // Data for bar chart
+  const barChartData = [
+    { name: 'Jan', completadas: 4, emAndamento: 8, atrasadas: 2 },
+    { name: 'Fev', completadas: 5, emAndamento: 7, atrasadas: 1 },
+    { name: 'Mar', completadas: 6, emAndamento: 8, atrasadas: 3 },
+    { name: 'Abr', completadas: 7, emAndamento: 9, atrasadas: 2 },
+    { name: 'Mai', completadas: 8, emAndamento: 10, atrasadas: 1 },
+    { name: 'Jun', completadas: 7, emAndamento: 11, atrasadas: 2 },
+  ];
+
+  // Data for pie chart
+  const pieChartData = [
+    { name: 'Residencial', value: 35 },
+    { name: 'Comercial', value: 25 },
+    { name: 'Industrial', value: 20 },
+    { name: 'Infraestrutura', value: 15 },
+    { name: 'Outros', value: 5 },
+  ];
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD'];
+
   return (
     <div className="space-y-8 max-w-[1400px] mx-auto">
       <div>
@@ -271,9 +305,27 @@ export default function Dashboard() {
               </Button>
             </div>
             <Card className="border-none shadow-md">
-              <CardContent className="p-6">
-                <div className="h-[200px] flex items-center justify-center border rounded-md">
-                  <TrendingUp className="h-12 w-12 text-muted-foreground" />
+              <CardHeader>
+                <CardTitle className="text-base">Atividades por Mês</CardTitle>
+                <CardDescription>Distribuição de obras completadas, em andamento e atrasadas</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={barChartData}
+                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="completadas" name="Completadas" fill="#0088FE" />
+                      <Bar dataKey="emAndamento" name="Em Andamento" fill="#00C49F" />
+                      <Bar dataKey="atrasadas" name="Atrasadas" fill="#FF8042" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
               </CardContent>
             </Card>
@@ -300,6 +352,39 @@ export default function Dashboard() {
               </Button>
             </CardFooter>
           </Card>
+
+          <div className="mt-6">
+            <h2 className="text-xl font-bold mb-4">Distribuição por Tipo</h2>
+            <Card className="border-none shadow-md">
+              <CardHeader>
+                <CardTitle className="text-base">Tipos de Projeto</CardTitle>
+                <CardDescription>Distribuição de projetos por categoria</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={pieChartData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                      >
+                        {pieChartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

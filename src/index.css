@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 199 100% 50%;
+    --primary: 210 85% 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -33,18 +33,18 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 199 100% 50%;
+    --ring: 210 85% 50%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 24 100% 50%;
+    --sidebar-background: 210 85% 50%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 210 40% 98%;
-    --sidebar-primary-foreground: 24 100% 50%;
-    --sidebar-accent: 51 100% 50%;
-    --sidebar-accent-foreground: 0 0% 20%;
-    --sidebar-border: 51 100% 50%;
-    --sidebar-ring: 24 100% 50%;
+    --sidebar-primary-foreground: 210 85% 50%;
+    --sidebar-accent: 217 91% 60%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 95% 93%;
+    --sidebar-ring: 210 85% 50%;
   }
 
   .dark {
@@ -111,14 +111,14 @@
   }
 
   .btn-primary {
-    @apply bg-vpro-blue text-white hover:bg-vpro-orange transition-colors;
+    @apply bg-primary text-white hover:bg-primary/90 transition-colors;
   }
 
   .btn-secondary {
-    @apply bg-vpro-lightgray text-vpro-blue hover:bg-gray-200 transition-colors;
+    @apply bg-secondary text-primary hover:bg-gray-200 transition-colors;
   }
 
   .btn-accent {
-    @apply bg-vpro-yellow text-black hover:bg-yellow-400 transition-colors;
+    @apply bg-sidebar-accent text-white hover:bg-sidebar-accent/90 transition-colors;
   }
 }

@@ -9,6 +9,9 @@ import { Layout } from "./components/Layout";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Gallery from "./pages/Gallery";
+import Reports from "./pages/Reports";
+import Incidents from "./pages/Incidents";
+import Schedule from "./pages/Schedule";
 import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 
@@ -24,10 +27,10 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/reports" element={<Dashboard />} />
-              <Route path="/incidents" element={<Dashboard />} />
-              <Route path="/schedule" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/incidents" element={<Incidents />} />
+              <Route path="/schedule" element={<Schedule />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/settings" element={<Dashboard />} />
               {/* Rota para o projeto TCC-Obra */}

@@ -9,11 +9,9 @@ import {
   AlertTriangle, 
   Image, 
   Settings, 
-  Menu, 
-  X, 
-  ChevronRight,
   PanelLeft,
-  PanelRight
+  PanelRight,
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -37,17 +35,17 @@ const NavItem = ({ icon: Icon, label, href, active, collapsed, onClick }: NavIte
             className={cn(
               "flex items-center gap-3 px-4 py-3 my-1 rounded-lg text-sm font-medium transition-all duration-200",
               active 
-                ? "bg-white text-vpro-orange shadow-sm" 
-                : "text-sidebar-foreground/80 hover:text-white hover:bg-sidebar-accent/30"
+                ? "bg-white/10 text-white" 
+                : "text-white/80 hover:text-white hover:bg-white/10"
             )}
             onClick={onClick}
           >
-            <Icon className={cn("h-5 w-5 flex-shrink-0", active ? "text-vpro-orange" : "")} />
+            <Icon className="h-5 w-5 flex-shrink-0" />
             {!collapsed && (
               <span className={cn("truncate", active ? "font-semibold" : "")}>{label}</span>
             )}
             {active && !collapsed && (
-              <ChevronRight className="ml-auto h-4 w-4 text-vpro-orange" />
+              <ChevronRight className="ml-auto h-4 w-4" />
             )}
           </Link>
         </TooltipTrigger>
@@ -80,34 +78,34 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
 
   return (
     <div className={cn(
-      "fixed inset-y-0 left-0 bg-vpro-orange z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
+      "fixed inset-y-0 left-0 bg-sidebar z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
       collapsed ? "w-16" : "w-64"
     )}>
-      <div className="flex items-center justify-between p-4 border-b border-yellow-500/30">
+      <div className="flex items-center justify-between p-4 border-b border-white/10">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-md bg-vpro-yellow flex items-center justify-center shadow-md">
-              <span className="text-black font-bold text-lg">VP</span>
+            <div className="h-10 w-10 rounded-md bg-white flex items-center justify-center shadow-md">
+              <span className="text-sidebar font-bold text-lg">VP</span>
             </div>
             <span className="font-bold text-sidebar-foreground text-lg tracking-tight">VPRO</span>
           </div>
         )}
         {collapsed && (
-          <div className="h-10 w-10 rounded-md bg-vpro-yellow mx-auto flex items-center justify-center shadow-md">
-            <span className="text-black font-bold text-lg">VP</span>
+          <div className="h-10 w-10 rounded-md bg-white mx-auto flex items-center justify-center shadow-md">
+            <span className="text-sidebar font-bold text-lg">VP</span>
           </div>
         )}
         <Button 
           variant="ghost" 
           size="icon" 
           onClick={onToggle}
-          className="text-sidebar-foreground hover:bg-yellow-500/30 hover:text-white ml-auto"
+          className="text-white hover:bg-white/10 ml-auto"
         >
           {collapsed ? <PanelRight className="h-5 w-5" /> : <PanelLeft className="h-5 w-5" />}
         </Button>
       </div>
 
-      <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-500/20 scrollbar-track-transparent">
+      <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
         {routes.map((route) => (
           <NavItem 
             key={route.href}
@@ -122,22 +120,22 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
         ))}
       </div>
       
-      <div className="p-4 border-t border-yellow-500/30 bg-yellow-500/10">
+      <div className="p-4 border-t border-white/10 bg-white/5">
         {!collapsed && (
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-vpro-yellow">
-              <span className="text-vpro-orange font-medium">EF</span>
+            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+              <span className="text-sidebar font-medium">EF</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">Eng. Fiscal</p>
-              <p className="text-xs text-sidebar-foreground/70 truncate">engenheiro@vpro.com.br</p>
+              <p className="text-xs text-white/70 truncate">engenheiro@vpro.com.br</p>
             </div>
           </div>
         )}
         {collapsed && (
           <div className="flex justify-center">
-            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-vpro-yellow">
-              <span className="text-vpro-orange font-medium">EF</span>
+            <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+              <span className="text-sidebar font-medium">EF</span>
             </div>
           </div>
         )}
