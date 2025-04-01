@@ -9,7 +9,7 @@ export function Layout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   
   return (
-    <div className="min-h-screen main-gradient flex">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex">
       <SidebarNav 
         collapsed={sidebarCollapsed} 
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
@@ -22,7 +22,7 @@ export function Layout() {
         <Header />
         
         <main className="p-6 animate-fade-in">
-          <div className="glass-card p-6">
+          <div className="bg-white/80 backdrop-blur-md border border-white/30 shadow-lg rounded-xl p-6">
             <Outlet />
           </div>
         </main>

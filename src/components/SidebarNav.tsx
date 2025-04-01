@@ -11,7 +11,8 @@ import {
   Settings, 
   PanelLeft,
   PanelRight,
-  ChevronRight
+  ChevronRight,
+  Building
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -35,7 +36,7 @@ const NavItem = ({ icon: Icon, label, href, active, collapsed, onClick }: NavIte
             className={cn(
               "flex items-center gap-3 px-4 py-3 my-1 rounded-lg text-sm font-medium transition-all duration-200",
               active 
-                ? "bg-white/10 text-white" 
+                ? "bg-white/20 text-white shadow-sm" 
                 : "text-white/80 hover:text-white hover:bg-white/10"
             )}
             onClick={onClick}
@@ -69,6 +70,7 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
   
   const routes = [
     { icon: Home, label: "Dashboard", href: "/" },
+    { icon: Building, label: "Obras", href: "/obras" },
     { icon: FileText, label: "Relatórios", href: "/reports" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
     { icon: Calendar, label: "Agendamentos", href: "/schedule" },
@@ -79,21 +81,21 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
   return (
     <div className={cn(
       "fixed inset-y-0 left-0 z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
-      "bg-gradient-to-br from-[#6E59A5] to-[#9b87f5]", // New gradient background
+      "bg-gradient-to-br from-[#4b6cb7] to-[#182848]", // New elegant blue gradient
       collapsed ? "w-16" : "w-64"
     )}>
       <div className="flex items-center justify-between p-4 border-b border-white/10">
         {!collapsed && (
           <div className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-md bg-white/20 flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-lg">VP</span>
+              <span className="text-white font-bold text-lg">TC</span>
             </div>
-            <span className="font-bold text-white text-lg tracking-tight">VPRO</span>
+            <span className="font-bold text-white text-lg tracking-tight">TCC_Obra</span>
           </div>
         )}
         {collapsed && (
           <div className="h-10 w-10 rounded-md bg-white/20 mx-auto flex items-center justify-center shadow-md">
-            <span className="text-white font-bold text-lg">VP</span>
+            <span className="text-white font-bold text-lg">TC</span>
           </div>
         )}
         <Button 
