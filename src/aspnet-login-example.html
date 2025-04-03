@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Gerenciamento de Obras</title>
+    <!-- Adicione a referência ao seu arquivo CSS -->
+    <link rel="stylesheet" href="~/Content/aspnet-login-styles.css" />
+    <!-- Adicione seus scripts ASP.NET existentes -->
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1 class="login-title">Sistema de Gerenciamento de Obras</h1>
+            <p class="login-subtitle">Plataforma para engenheiros e arquitetos</p>
+        </div>
+        
+        <div class="login-card">
+            <div class="card-header">
+                <h2 class="card-title">Acesso ao Sistema</h2>
+                <p class="card-description">Faça login ou cadastre-se para acessar o painel</p>
+            </div>
+            
+            <div class="card-content">
+                <div class="tabs">
+                    <div class="tabs-list">
+                        <button class="tab-trigger active" onclick="showTab('login')">Login</button>
+                        <button class="tab-trigger" onclick="showTab('register')">Cadastro</button>
+                    </div>
+                    
+                    <div id="login-tab" class="tab-content active">
+                        <!-- 
+                        Aqui você deve manter seus elementos ASP.NET existentes.
+                        Por exemplo: 
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                        -->
+                        <form id="loginForm" action="/Account/Login" method="post">
+                            @Html.AntiForgeryToken()
+                            
+                            <div class="form-group">
+                                <label for="Email" class="form-label">Email</label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    <!-- Mantenha seu controle ASP.NET -->
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-input", placeholder = "seu@email.com" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="form-footer">
+                                    <label for="Password" class="form-label">Senha</label>
+                                    <!-- Mantenha seu link de redefinição de senha ASP.NET -->
+                                    <a href="@Url.Action("ForgotPassword", "Account")" class="forgot-password">Esqueceu a senha?</a>
+                                </div>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                    <!-- Mantenha seu controle ASP.NET -->
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-input form-input-password", placeholder = "••••••••" })
+                                    <button type="button" class="form-input-button toggle-password">
+                                        <svg class="show-password" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        <svg class="hide-password" style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                                        </svg>
+                                    </button>
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <span class="loading-spinner" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+                                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                                    </svg>
+                                    Entrando...
+                                </span>
+                                <span class="button-text">Entrar</span>
+                            </button>
+                        </form>
+                        <!-- Fechamento do seu formulário ASP.NET:
+                        }
+                        -->
+                    </div>
+                    
+                    <div id="register-tab" class="tab-content">
+                        <!-- 
+                        Aqui você deve manter seus elementos ASP.NET existentes.
+                        Por exemplo: 
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                        -->
+                        <form id="registerForm" action="/Account/Register" method="post">
+                            @Html.AntiForgeryToken()
+                            
+                            <div class="form-group">
+                                <label for="Name" class="form-label">Nome Completo</label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <!-- Mantenha seu controle ASP.NET -->
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-input", placeholder = "João Silva" })
+                                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <!-- Mantenha os outros campos do formulário seguindo a mesma estrutura -->
+                            
+                            <button type="submit" class="btn btn-secondary">
+                                <span class="loading-spinner" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+                                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                                    </svg>
+                                    Cadastrando...
+                                </span>
+                                <span class="button-text">Criar Conta</span>
+                            </button>
+                        </form>
+                        <!-- Fechamento do seu formulário ASP.NET:
+                        }
+                        -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <p class="terms-text">Ao continuar, você concorda com nossos Termos de Serviço e Política de Privacidade.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Script para controlar as tabs e a visibilidade da senha -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Controle das tabs
+            window.showTab = function(tabName) {
+                // Esconde todas as tabs
+                document.querySelectorAll('.tab-content').forEach(function(tab) {
+                    tab.classList.remove('active');
+                });
+                
+                // Remove a classe ativa de todos os botões
+                document.querySelectorAll('.tab-trigger').forEach(function(button) {
+                    button.classList.remove('active');
+                });
+                
+                // Mostra a tab selecionada
+                document.getElementById(tabName + '-tab').classList.add('active');
+                
+                // Ativa o botão clicado
+                event.target.classList.add('active');
+            };
+            
+            // Controle de visibilidade da senha
+            document.querySelectorAll('.toggle-password').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const input = this.parentNode.querySelector('input');
+                    const showIcon = this.querySelector('.show-password');
+                    const hideIcon = this.querySelector('.hide-password');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        showIcon.style.display = 'none';
+                        hideIcon.style.display = 'block';
+                    } else {
+                        input.type = 'password';
+                        showIcon.style.display = 'block';
+                        hideIcon.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Controle de estado de carregamento dos formulários
+            document.getElementById('loginForm').addEventListener('submit', function() {
+                const button = this.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.loading-spinner');
+                const text = button.querySelector('.button-text');
+                
+                button.classList.add('loading');
+                spinner.style.display = 'inline-flex';
+                text.style.display = 'none';
+            });
+            
+            document.getElementById('registerForm').addEventListener('submit', function() {
+                const button = this.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.loading-spinner');
+                const text = button.querySelector('.button-text');
+                
+                button.classList.add('loading');
+                spinner.style.display = 'inline-flex';
+                text.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
