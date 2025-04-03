@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { Button } from '@/components/ui/button';
 import { Download, Printer, Share2 } from 'lucide-react';
@@ -13,8 +13,8 @@ interface ReportActionsProps {
 const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
   const { toast } = useToast();
 
+  // Fix: The content property needs to be passed as a function
   const handlePrint = useReactToPrint({
-    content: () => printRef.current,
     documentTitle: `Relatório - ${report.title}`,
     onAfterPrint: () => {
       toast({
@@ -22,6 +22,8 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
         description: "O relatório foi enviado para impressão."
       });
     },
+    // This is the correct way to specify the content
+    content: () => printRef.current,
   });
 
   const handleDownload = () => {
@@ -114,7 +116,8 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
       <Button 
         variant="outline" 
         className="flex items-center gap-2" 
-        onClick={handlePrint}
+        // Fix: We need to create a wrapper function to handle the button click event
+        onClick={() => handlePrint()}
       >
         <Printer className="h-4 w-4" />
         Imprimir
