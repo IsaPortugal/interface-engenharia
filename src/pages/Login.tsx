@@ -19,6 +19,7 @@ const Login = () => {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
+    rememberMe: false
   });
 
   // Register form state
@@ -32,8 +33,11 @@ const Login = () => {
   });
 
   const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoginData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setLoginData(prev => ({ 
+      ...prev, 
+      [name]: type === 'checkbox' ? checked : value 
+    }));
   };
 
   const handleRegisterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +49,12 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login process
+    // This would be replaced by your actual ASP.NET form submission
+    // Example: document.getElementById('aspnetForm').submit();
+    
+    // Simulate login process for preview
     setTimeout(() => {
       setIsLoading(false);
-      // Success toast
       toast({
         title: "Login bem-sucedido",
         description: "Bem-vindo de volta ao sistema.",
@@ -72,7 +78,10 @@ const Login = () => {
     
     setIsLoading(true);
     
-    // Simulate registration process
+    // This would be replaced by your actual ASP.NET form submission
+    // Example: document.getElementById('aspnetRegisterForm').submit();
+    
+    // Simulate registration process for preview
     setTimeout(() => {
       setIsLoading(false);
       toast({
@@ -107,7 +116,10 @@ const Login = () => {
               </TabsList>
               
               <TabsContent value="login">
-                <form onSubmit={handleLoginSubmit}>
+                {/* This form would be replaced by your ASP.NET form */}
+                {/* Begin ASP.NET Form Adaptation */}
+                <form onSubmit={handleLoginSubmit} id="loginForm">
+                  {/* This is where your @Html.AntiForgeryToken() would go */}
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
@@ -122,7 +134,10 @@ const Login = () => {
                           value={loginData.email}
                           onChange={handleLoginChange}
                           required
+                          // This would be your ASP.NET model binding
+                          // @Html.TextBoxFor(m => m.Email, new { @class = "pl-9 form-input" })
                         />
+                        {/* @Html.ValidationMessageFor would go here */}
                       </div>
                     </div>
                     
@@ -144,6 +159,8 @@ const Login = () => {
                           value={loginData.password}
                           onChange={handleLoginChange}
                           required
+                          // This would be your ASP.NET model binding
+                          // @Html.PasswordFor(m => m.Password, new { @class = "pl-9 pr-9 form-input" })
                         />
                         <button 
                           type="button"
@@ -152,7 +169,22 @@ const Login = () => {
                         >
                           {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
+                        {/* @Html.ValidationMessageFor would go here */}
                       </div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="rememberMe"
+                        name="rememberMe"
+                        checked={loginData.rememberMe}
+                        onChange={handleLoginChange}
+                        className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                        // This would be your ASP.NET model binding
+                        // @Html.CheckBoxFor(m => m.RememberMe)
+                      />
+                      <Label htmlFor="rememberMe" className="text-sm text-gray-600">Lembrar-me</Label>
                     </div>
                     
                     <Button 
@@ -169,10 +201,14 @@ const Login = () => {
                     </Button>
                   </div>
                 </form>
+                {/* End ASP.NET Form Adaptation */}
               </TabsContent>
               
               <TabsContent value="register">
-                <form onSubmit={handleRegisterSubmit}>
+                {/* This form would be replaced by your ASP.NET register form */}
+                {/* Begin ASP.NET Register Form Adaptation */}
+                <form onSubmit={handleRegisterSubmit} id="registerForm">
+                  {/* This is where your @Html.AntiForgeryToken() would go */}
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Nome Completo</Label>
@@ -186,7 +222,10 @@ const Login = () => {
                           value={registerData.name}
                           onChange={handleRegisterChange}
                           required
+                          // This would be your ASP.NET model binding
+                          // @Html.TextBoxFor(m => m.Name, new { @class = "pl-9 form-input" })
                         />
+                        {/* @Html.ValidationMessageFor would go here */}
                       </div>
                     </div>
                     
@@ -203,7 +242,10 @@ const Login = () => {
                           value={registerData.email}
                           onChange={handleRegisterChange}
                           required
+                          // This would be your ASP.NET model binding
+                          // @Html.TextBoxFor(m => m.Email, new { @class = "pl-9 form-input" })
                         />
+                        {/* @Html.ValidationMessageFor would go here */}
                       </div>
                     </div>
                     
@@ -216,7 +258,10 @@ const Login = () => {
                         value={registerData.profession}
                         onChange={handleRegisterChange}
                         required
+                        // This would be your ASP.NET model binding
+                        // @Html.TextBoxFor(m => m.Profession, new { @class = "form-input" })
                       />
+                      {/* @Html.ValidationMessageFor would go here */}
                     </div>
                     
                     <div className="space-y-2">
@@ -228,7 +273,10 @@ const Login = () => {
                         value={registerData.registration}
                         onChange={handleRegisterChange}
                         required
+                        // This would be your ASP.NET model binding
+                        // @Html.TextBoxFor(m => m.Registration, new { @class = "form-input" })
                       />
+                      {/* @Html.ValidationMessageFor would go here */}
                     </div>
                     
                     <div className="grid grid-cols-2 gap-4">
@@ -245,7 +293,10 @@ const Login = () => {
                             value={registerData.password}
                             onChange={handleRegisterChange}
                             required
+                            // This would be your ASP.NET model binding
+                            // @Html.PasswordFor(m => m.Password, new { @class = "pl-9 form-input" })
                           />
+                          {/* @Html.ValidationMessageFor would go here */}
                         </div>
                       </div>
                       
@@ -262,7 +313,10 @@ const Login = () => {
                             value={registerData.confirmPassword}
                             onChange={handleRegisterChange}
                             required
+                            // This would be your ASP.NET model binding
+                            // @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "pl-9 form-input" })
                           />
+                          {/* @Html.ValidationMessageFor would go here */}
                         </div>
                       </div>
                     </div>
@@ -299,6 +353,7 @@ const Login = () => {
                     </Button>
                   </div>
                 </form>
+                {/* End ASP.NET Register Form Adaptation */}
               </TabsContent>
             </Tabs>
           </CardContent>
