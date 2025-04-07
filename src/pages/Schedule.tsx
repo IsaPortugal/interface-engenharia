@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { Calendar as CalendarIcon, Clock, Users, MapPin, Search, Plus, Filter, ArrowUpRight, Building } from 'lucide-react';
+import { CalendarIcon, Clock, Users, MapPin, Search, Plus, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
+// Dados de exemplo para agendamentos
 const scheduleData = [
   {
     id: 1,
@@ -26,7 +27,7 @@ const scheduleData = [
     location: 'Av. Paulista, 1000, São Paulo',
     type: 'Visita',
     participants: ['EF', 'RS', 'JC'],
-    description: 'Visita técnica para acompanhamento do cronograma de obras e verificação da qualidade dos serviços realizados.'
+    description: 'Visita técnica para acompanhamento do cronograma.'
   },
   {
     id: 2,
@@ -37,7 +38,7 @@ const scheduleData = [
     location: 'Escritório VPRO',
     type: 'Reunião',
     participants: ['EF', 'PL'],
-    description: 'Apresentação do andamento das obras e discussão sobre ajustes no cronograma.'
+    description: 'Apresentação do andamento das obras.'
   },
   {
     id: 3,
@@ -48,33 +49,12 @@ const scheduleData = [
     location: 'Rua das Flores, 500, Florianópolis',
     type: 'Inspeção',
     participants: ['EF', 'TC', 'MR'],
-    description: 'Vistoria final para liberação da fase 1 do projeto.'
-  },
-  {
-    id: 4,
-    title: 'Reunião de kick-off',
-    project: 'Condomínio Park Avenue',
-    date: '2023-12-05',
-    time: '09:30 - 11:30',
-    location: 'Escritório VPRO',
-    type: 'Reunião',
-    participants: ['EF', 'RS', 'JC', 'PL'],
-    description: 'Reunião inicial para alinhamento da equipe e fornecedores.'
-  },
-  {
-    id: 5,
-    title: 'Entrega de material',
-    project: 'Edifício Residencial Aurora',
-    date: '2023-12-10',
-    time: '08:00 - 10:00',
-    location: 'Av. Paulista, 1000, São Paulo',
-    type: 'Entrega',
-    participants: ['TC', 'MR'],
-    description: 'Acompanhamento da entrega de material para a próxima fase da construção.'
+    description: 'Vistoria final para liberação da fase 1.'
   }
 ];
 
-const ScheduleCard = ({ event }: { event: any }) => {
+// Componente para exibir um agendamento
+const ScheduleCard = ({ event }) => {
   const typeColors = {
     'Visita': 'bg-green-100 text-green-800',
     'Reunião': 'bg-blue-100 text-blue-800',
@@ -86,14 +66,14 @@ const ScheduleCard = ({ event }: { event: any }) => {
   const formattedDate = format(date, 'dd MMM', { locale: ptBR });
 
   return (
-    <Card className="transition-all duration-200 hover:shadow-md">
+    <Card>
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <div className="space-y-1">
             <CardTitle className="text-base font-semibold">{event.title}</CardTitle>
-            <CardDescription className="text-sm">{event.project}</CardDescription>
+            <CardDescription>{event.project}</CardDescription>
           </div>
-          <Badge className={typeColors[event.type as keyof typeof typeColors]}>
+          <Badge className={typeColors[event.type]}>
             {event.type}
           </Badge>
         </div>
@@ -109,14 +89,14 @@ const ScheduleCard = ({ event }: { event: any }) => {
           </div>
           
           <div className="flex items-center text-sm text-muted-foreground">
-            <MapPin className="h-4 w-4 mr-2 flex-shrink-0" />
-            <span className="truncate">{event.location}</span>
+            <MapPin className="h-4 w-4 mr-2" />
+            <span>{event.location}</span>
           </div>
           
           <div className="flex items-center">
             <Users className="h-4 w-4 mr-2 text-muted-foreground" />
             <div className="flex -space-x-2">
-              {event.participants.map((participant: string, index: number) => (
+              {event.participants.map((participant, index) => (
                 <Avatar key={index} className="h-6 w-6 border-2 border-background">
                   <AvatarFallback className="text-xs">{participant}</AvatarFallback>
                 </Avatar>
@@ -132,8 +112,9 @@ const ScheduleCard = ({ event }: { event: any }) => {
   );
 };
 
-const ScheduleForm = ({ onClose }: { onClose: () => void }) => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+// Formulário para criar/editar agendamentos
+const ScheduleForm = ({ onClose }) => {
+  const [date, setDate] = useState(new Date());
 
   return (
     <>
@@ -154,10 +135,7 @@ const ScheduleForm = ({ onClose }: { onClose: () => void }) => {
             <Label htmlFor="date">Data</Label>
             <Popover>
               <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="justify-start text-left font-normal"
-                >
+                <Button variant="outline" className="justify-start text-left font-normal">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {date ? format(date, 'PPP', { locale: ptBR }) : <span>Selecione uma data</span>}
                 </Button>
@@ -184,9 +162,6 @@ const ScheduleForm = ({ onClose }: { onClose: () => void }) => {
                 <SelectItem value="1000">10:00 - 11:00</SelectItem>
                 <SelectItem value="1100">11:00 - 12:00</SelectItem>
                 <SelectItem value="1300">13:00 - 14:00</SelectItem>
-                <SelectItem value="1400">14:00 - 15:00</SelectItem>
-                <SelectItem value="1500">15:00 - 16:00</SelectItem>
-                <SelectItem value="1600">16:00 - 17:00</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -202,7 +177,6 @@ const ScheduleForm = ({ onClose }: { onClose: () => void }) => {
               <SelectItem value="aurora">Edifício Residencial Aurora</SelectItem>
               <SelectItem value="vitoria">Centro Comercial Vitória</SelectItem>
               <SelectItem value="park">Condomínio Park Avenue</SelectItem>
-              <SelectItem value="hospital">Hospital São Lucas</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -217,7 +191,6 @@ const ScheduleForm = ({ onClose }: { onClose: () => void }) => {
               <SelectItem value="visita">Visita</SelectItem>
               <SelectItem value="reuniao">Reunião</SelectItem>
               <SelectItem value="inspecao">Inspeção</SelectItem>
-              <SelectItem value="entrega">Entrega</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -225,23 +198,6 @@ const ScheduleForm = ({ onClose }: { onClose: () => void }) => {
         <div className="grid gap-2">
           <Label htmlFor="location">Local</Label>
           <Input id="location" placeholder="Endereço ou nome do local" />
-        </div>
-        
-        <div className="grid gap-2">
-          <Label htmlFor="participants">Participantes</Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione participantes" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ef">Eng. Fiscal (EF)</SelectItem>
-              <SelectItem value="rs">Roberto Silva (RS)</SelectItem>
-              <SelectItem value="tc">Técnico Carlos (TC)</SelectItem>
-              <SelectItem value="mf">Maria Fernandes (MF)</SelectItem>
-              <SelectItem value="jc">João Costa (JC)</SelectItem>
-              <SelectItem value="pl">Paulo Lima (PL)</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
         
         <div className="grid gap-2">
@@ -257,16 +213,12 @@ const ScheduleForm = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-const statsData = [
-  { title: 'Agendamentos', value: '32', trend: '+5', icon: CalendarIcon, color: 'bg-blue-100 text-blue-800' },
-  { title: 'Esta Semana', value: '8', trend: '+2', icon: Clock, color: 'bg-green-100 text-green-800' },
-  { title: 'Próximo Mês', value: '15', trend: '+4', icon: Building, color: 'bg-purple-100 text-purple-800' },
-];
-
+// Página de Agendamentos
 const Schedule = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  // Filtragem de agendamentos
   const filteredEvents = scheduleData.filter(event => 
     event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     event.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -274,18 +226,18 @@ const Schedule = () => {
   );
 
   return (
-    <div className="container max-w-6xl mx-auto py-6 animate-fade-in">
+    <div className="container mx-auto py-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-bold flex items-center">
-            <CalendarIcon className="mr-2 h-6 w-6 text-blue-500" />
+          <h1 className="text-2xl font-bold">
+            <CalendarIcon className="inline mr-2 h-6 w-6 text-blue-500" />
             Agendamentos
           </h1>
-          <p className="text-muted-foreground">Gerencie seus compromissos e eventos relacionados às obras</p>
+          <p className="text-muted-foreground">Gerencie seus compromissos relacionados às obras</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-primary hover:bg-primary/90 text-white">
+            <Button>
               <Plus className="mr-2 h-4 w-4" /> 
               Novo Agendamento
             </Button>
@@ -296,36 +248,12 @@ const Schedule = () => {
         </Dialog>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {statsData.map((stat, index) => (
-          <Card key={index}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">{stat.title}</p>
-                  <p className="text-2xl font-bold">{stat.value}</p>
-                </div>
-                <div className={`p-3 rounded-full ${stat.color}`}>
-                  <stat.icon className="h-5 w-5" />
-                </div>
-              </div>
-              <div className="mt-2">
-                <span className="text-xs flex items-center text-green-500">
-                  <ArrowUpRight className="h-3 w-3 mr-1" />
-                  {stat.trend} este mês
-                </span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
       <div className="mb-6">
         <div className="flex items-center gap-4 mb-4">
           <div className="relative flex-1">
             <Search className="absolute left-2.5 top-3 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Buscar agendamentos por título, projeto ou tipo..."
+              placeholder="Buscar agendamentos..."
               className="pl-9"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
