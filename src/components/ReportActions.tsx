@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,7 @@ interface ReportActionsProps {
 const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
   const { toast } = useToast();
 
-  // Fix: The content property needs to be passed as a function
+  // Fix: The correct way to specify the component to print in current version
   const handlePrint = useReactToPrint({
     documentTitle: `Relatório - ${report.title}`,
     onAfterPrint: () => {
@@ -22,8 +21,8 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
         description: "O relatório foi enviado para impressão."
       });
     },
-    // This is the correct way to specify the content
-    content: () => printRef.current,
+    // Using contentRef instead of content function
+    contentRef: printRef,
   });
 
   const handleDownload = () => {
@@ -116,7 +115,6 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
       <Button 
         variant="outline" 
         className="flex items-center gap-2" 
-        // Fix: We need to create a wrapper function to handle the button click event
         onClick={() => handlePrint()}
       >
         <Printer className="h-4 w-4" />
