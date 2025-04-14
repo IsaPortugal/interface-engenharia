@@ -51,7 +51,7 @@ const NavItem = ({ icon: Icon, label, href, active, collapsed, onClick }: NavIte
           </Link>
         </TooltipTrigger>
         {collapsed && (
-          <TooltipContent side="right" className="bg-white text-gray-800 border-none shadow-lg">
+          <TooltipContent side="left" className="bg-white text-gray-800 border-none shadow-lg">
             {label}
           </TooltipContent>
         )}
@@ -73,15 +73,14 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
     { icon: Building, label: "Obras", href: "/obras" },
     { icon: FileText, label: "Relatórios", href: "/reports" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
-    { icon: Calendar, label: "Agendamentos", href: "/schedule" },
     { icon: Image, label: "Galeria", href: "/gallery" },
     { icon: Settings, label: "Configurações", href: "/settings" },
   ];
 
   return (
     <div className={cn(
-      "fixed inset-y-0 left-0 z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
-      "bg-gradient-to-br from-[#4b6cb7] to-[#182848]", // New elegant blue gradient
+      "fixed inset-y-0 right-0 z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
+      "bg-gradient-to-br from-[#4b6cb7] to-[#182848]",
       collapsed ? "w-16" : "w-64"
     )}>
       <div className="flex items-center justify-between p-4 border-b border-white/10">
@@ -104,7 +103,7 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
           onClick={onToggle}
           className="text-white hover:bg-white/10 ml-auto"
         >
-          {collapsed ? <PanelRight className="h-5 w-5" /> : <PanelLeft className="h-5 w-5" />}
+          {collapsed ? <PanelLeft className="h-5 w-5" /> : <PanelRight className="h-5 w-5" />}
         </Button>
       </div>
 

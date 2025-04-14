@@ -10,14 +10,9 @@ export function Layout() {
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex">
-      <SidebarNav 
-        collapsed={sidebarCollapsed} 
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-      />
-      
       <div className={cn(
         "flex-1 transition-all duration-300",
-        sidebarCollapsed ? "ml-16" : "ml-64"
+        sidebarCollapsed ? "mr-16" : "mr-64"
       )}>
         <Header />
         
@@ -27,6 +22,11 @@ export function Layout() {
           </div>
         </main>
       </div>
+
+      <SidebarNav 
+        collapsed={sidebarCollapsed} 
+        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+      />
     </div>
   );
 }
