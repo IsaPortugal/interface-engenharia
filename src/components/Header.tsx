@@ -31,7 +31,18 @@ export function Header() {
 
   return (
     <header className="flex items-center justify-between p-4 border-b bg-white shadow-sm sticky top-0 z-30">
-      <div className="flex-1 flex items-center max-w-md">
+      {/* Logo Section */}
+      <div className="flex items-center">
+        <div className="flex items-center gap-2">
+          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-vpro-blue to-vpro-orange flex items-center justify-center shadow-md">
+            <span className="text-white font-bold text-lg">TC</span>
+          </div>
+          <span className="font-bold text-vpro-blue text-lg tracking-tight hidden md:block">TCC_Obra</span>
+        </div>
+      </div>
+
+      {/* Centered Search Section */}
+      <div className="flex-1 flex justify-center max-w-2xl mx-auto px-4">
         <form onSubmit={handleSearch} className="w-full relative">
           <Input
             type="search"
@@ -44,7 +55,8 @@ export function Header() {
         </form>
       </div>
 
-      <div className="flex items-center ml-4">
+      {/* User Profile Section */}
+      <div className="flex items-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-10 w-10 rounded-full ring-2 ring-vpro-blue ring-offset-2">
