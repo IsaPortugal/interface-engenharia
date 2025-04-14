@@ -78,8 +78,10 @@ const ObraCard = ({ obra }) => {
           alt={obra.nome}
           className="w-full h-full object-cover"
           onError={(e) => {
+            // Properly type the event target to access the src property
+            const imgElement = e.target as HTMLImageElement;
             // Fallback para imagem padrão em caso de erro
-            e.target.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop";
+            imgElement.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop";
           }}
         />
         <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
