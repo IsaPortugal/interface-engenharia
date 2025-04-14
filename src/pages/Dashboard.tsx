@@ -28,9 +28,6 @@ import {
   Tooltip, 
   Legend, 
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell
 } from 'recharts';
 
 const StatCard = ({ icon: Icon, title, value, trend, color }: any) => (
@@ -73,9 +70,15 @@ const ProjectCard = ({ title, client, progress, dueDate, status, address, image 
       {image && (
         <div className="relative h-40 w-full overflow-hidden">
           <img 
-            src={image || "/placeholder.svg"} 
+            src={image} 
             alt={title} 
             className="object-cover w-full h-full"
+            onError={(e) => {
+              // Properly type the event target to access the src property
+              const imgElement = e.target as HTMLImageElement;
+              // Fallback para imagem padrão em caso de erro
+              imgElement.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop";
+            }}
           />
           <div className={`${statusColor} text-white text-xs font-medium py-1 px-2 rounded-full absolute top-3 right-3`}>
             {status}
@@ -171,7 +174,7 @@ export default function Dashboard() {
       dueDate: '15/12/2023', 
       status: 'Em andamento' as const,
       address: 'Porto Alegre, RS',
-      image: 'public/lovable-uploads/90ed10ea-b3e2-4f93-83a0-9d102f1713e1.png'
+      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop'
     },
     { 
       title: 'Centro Comercial Vitória', 
@@ -180,7 +183,7 @@ export default function Dashboard() {
       dueDate: '30/01/2024', 
       status: 'Em andamento' as const,
       address: 'Florianópolis, SC',
-      image: 'public/lovable-uploads/138e1e42-e6d9-41f4-99d9-5c3d18a47ff0.png'
+      image: 'https://images.unsplash.com/photo-1460574283810-2aab119d8511?q=80&w=2670&auto=format&fit=crop'
     },
     { 
       title: 'Condomínio Park Avenue', 
@@ -233,17 +236,6 @@ export default function Dashboard() {
     { name: 'Mai', completadas: 8, emAndamento: 10, atrasadas: 1 },
     { name: 'Jun', completadas: 7, emAndamento: 11, atrasadas: 2 },
   ];
-
-  // Data for pie chart
-  const pieChartData = [
-    { name: 'Residencial', value: 35 },
-    { name: 'Comercial', value: 25 },
-    { name: 'Industrial', value: 20 },
-    { name: 'Infraestrutura', value: 15 },
-    { name: 'Outros', value: 5 },
-  ];
-
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD'];
 
   return (
     <div className="space-y-8 max-w-[1400px] mx-auto">
@@ -352,39 +344,6 @@ export default function Dashboard() {
               </Button>
             </CardFooter>
           </Card>
-
-          <div className="mt-6">
-            <h2 className="text-xl font-bold mb-4">Distribuição por Tipo</h2>
-            <Card className="border-none shadow-md">
-              <CardHeader>
-                <CardTitle className="text-base">Tipos de Projeto</CardTitle>
-                <CardDescription>Distribuição de projetos por categoria</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={pieChartData}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                      >
-                        {pieChartData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
     </div>
