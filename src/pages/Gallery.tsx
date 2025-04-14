@@ -74,6 +74,11 @@ const Gallery = () => {
     return matchesSearch && matchesCategory;
   });
 
+  // Adicionar manipulação de erro para imagens
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop";
+  };
+
   return (
     <div className="container mx-auto py-6 max-w-7xl animate-fade-in">
       <div className="flex justify-between items-center mb-6">
@@ -143,6 +148,7 @@ const Gallery = () => {
                       src={item.thumbnail} 
                       alt={item.title} 
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      onError={handleImageError}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                     <div className="absolute bottom-3 left-3 right-3">

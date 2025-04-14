@@ -14,6 +14,7 @@ import Schedule from "./pages/Schedule";
 import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import Obras from "./pages/Obras";
 
 // Criar cliente de Query para API
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => {
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/settings" element={<Dashboard />} />
+              <Route path="/obras" element={<Obras />} />
               <Route path="/projeto-tcc-obra/*" element={<Index />} />
             </Route>
             
