@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
-import { Search, Bell, Calendar, HelpCircle, User } from 'lucide-react';
+import { Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -45,25 +44,7 @@ export function Header() {
         </form>
       </div>
 
-      <div className="flex items-center gap-4 ml-4">
-        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-blue">
-          <HelpCircle className="h-5 w-5" />
-        </Button>
-
-        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-blue">
-          <Calendar className="h-5 w-5" />
-          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-yellow text-black">
-            3
-          </Badge>
-        </Button>
-        
-        <Button variant="outline" size="icon" className="relative rounded-full border-gray-200 hover:bg-gray-100 hover:text-vpro-blue">
-          <Bell className="h-5 w-5" />
-          <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-vpro-orange text-white">
-            2
-          </Badge>
-        </Button>
-        
+      <div className="flex items-center ml-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-10 w-10 rounded-full ring-2 ring-vpro-blue ring-offset-2">
@@ -86,10 +67,6 @@ export function Header() {
             <DropdownMenuItem className="cursor-pointer">
               <User className="mr-2 h-4 w-4" />
               <span>Perfil</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <HelpCircle className="mr-2 h-4 w-4" />
-              <span>Ajuda</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer text-red-500 focus:text-red-500">

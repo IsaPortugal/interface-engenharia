@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Building, 
@@ -15,9 +14,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { 
   BarChart, 
@@ -74,9 +71,7 @@ const ProjectCard = ({ title, client, progress, dueDate, status, address, image 
             alt={title} 
             className="object-cover w-full h-full"
             onError={(e) => {
-              // Properly type the event target to access the src property
               const imgElement = e.target as HTMLImageElement;
-              // Fallback para imagem padrão em caso de erro
               imgElement.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop";
             }}
           />
@@ -227,7 +222,6 @@ export default function Dashboard() {
     },
   ];
 
-  // Data for bar chart
   const barChartData = [
     { name: 'Jan', completadas: 4, emAndamento: 8, atrasadas: 2 },
     { name: 'Fev', completadas: 5, emAndamento: 7, atrasadas: 1 },
@@ -261,32 +255,11 @@ export default function Dashboard() {
               </Button>
             </div>
             
-            <Tabs defaultValue="cards" className="mb-4">
-              <TabsList>
-                <TabsTrigger value="cards">Lista</TabsTrigger>
-                <TabsTrigger value="carousel">Destaques</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="cards" className="mt-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {projects.map((project, index) => (
-                    <ProjectCard key={index} {...project} />
-                  ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="carousel" className="mt-4">
-                <Carousel className="w-full">
-                  <CarouselContent>
-                    {projects.filter(p => p.image).map((project, index) => (
-                      <CarouselItem key={index} className="md:basis-1/2">
-                        <ProjectCard {...project} />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-              </TabsContent>
-            </Tabs>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {projects.map((project, index) => (
+                <ProjectCard key={index} {...project} />
+              ))}
+            </div>
           </div>
 
           <div>
