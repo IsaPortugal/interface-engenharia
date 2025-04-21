@@ -38,7 +38,6 @@ const App = () => {
               <Route path="/incidents" element={<Incidents />} />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/gallery" element={<Gallery />} />
-              <Route path="/settings" element={<Dashboard />} />
               <Route path="/obras" element={<Obras />} />
               <Route path="/projeto-tcc-obra/*" element={<Index />} />
             </Route>

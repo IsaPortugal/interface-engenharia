@@ -3,10 +3,10 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { 
-  GalleryHorizontal, 
-  GalleryVertical, 
+  Building, 
   FileText, 
   AlertTriangle, 
+  Calendar,
   PanelLeft,
   PanelRight,
   ChevronRight
@@ -66,10 +66,11 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
   const location = useLocation();
   
   const routes = [
-    { icon: GalleryHorizontal, label: "Dashboard", href: "/" },
-    { icon: GalleryVertical, label: "Obras", href: "/obras" },
+    { icon: Building, label: "Painel", href: "/" },
+    { icon: Building, label: "Obras", href: "/obras" },
     { icon: FileText, label: "Relatórios", href: "/reports" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
+    { icon: Calendar, label: "Compromissos", href: "/schedule" },
   ];
 
   return (
