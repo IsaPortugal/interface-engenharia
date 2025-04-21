@@ -1,16 +1,17 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { GalleryHorizontal, GalleryVertical, FileText, AlertTriangle, Settings } from "lucide-react";
+import { Building, FileText, AlertTriangle, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 
-// Troque os ícones permitidos
+// Usando os mesmos ícones da dashboard e só as 4 rotas principais
 const routes = [
-  { icon: GalleryHorizontal, label: "Dashboard", href: "/" },
-  { icon: GalleryVertical, label: "Obras", href: "/obras" },
+  { icon: Building, label: "Painel", href: "/" },
+  { icon: Building, label: "Obras", href: "/obras" },
   { icon: FileText, label: "Relatórios", href: "/reports" },
   { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
+  { icon: Calendar, label: "Compromissos", href: "/schedule" },
 ];
 
 export function TopNavBar() {
@@ -52,24 +53,24 @@ export function TopNavBar() {
         {/* Espaço para futuro/avatar, se quiser adicionar */}
         <div className="w-16 flex-shrink-0" />
       </div>
-      {/* Menu de Navegação no Topo */}
-      <ul className="flex gap-4 w-full justify-center ">
+      {/* Menu de Navegação no Topo Horizontal */}
+      <ul className="flex gap-8 w-full max-w-4xl justify-center text-white font-semibold">
         {routes.map((route) => (
           <li key={route.href}>
             <Link
               to={route.href}
               className={cn(
-                "flex items-center px-4 py-2 text-white/90 font-medium rounded hover:bg-white/15 transition",
+                "flex items-center px-3 py-2 rounded hover:bg-white/20 transition",
                 location.pathname === route.href ||
-                  (location.pathname !== "/" &&
-                    route.href !== "/" &&
-                    location.pathname.startsWith(route.href))
-                  ? "bg-white/20 text-white shadow"
-                  : ""
+                (location.pathname !== "/" &&
+                  route.href !== "/" &&
+                  location.pathname.startsWith(route.href))
+                  ? "bg-white/30 shadow text-white"
+                  : "text-white/90"
               )}
             >
-              <route.icon className="w-6 h-6 mr-2" />
-              <span className="hidden xs:inline">{route.label}</span>
+              <route.icon className="w-5 h-5 mr-2" />
+              <span>{route.label}</span>
             </Link>
           </li>
         ))}
