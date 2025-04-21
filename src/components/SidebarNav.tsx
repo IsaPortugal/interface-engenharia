@@ -3,16 +3,13 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { 
-  Home, 
+  GalleryHorizontal, 
+  GalleryVertical, 
   FileText, 
-  Calendar, 
   AlertTriangle, 
-  Image, 
-  Settings, 
   PanelLeft,
   PanelRight,
-  ChevronRight,
-  Building
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -69,12 +66,10 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
   const location = useLocation();
   
   const routes = [
-    { icon: Home, label: "Dashboard", href: "/" },
-    { icon: Building, label: "Obras", href: "/obras" },
+    { icon: GalleryHorizontal, label: "Dashboard", href: "/" },
+    { icon: GalleryVertical, label: "Obras", href: "/obras" },
     { icon: FileText, label: "Relatórios", href: "/reports" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
-    { icon: Image, label: "Galeria", href: "/gallery" },
-    { icon: Settings, label: "Configurações", href: "/settings" },
   ];
 
   return (
