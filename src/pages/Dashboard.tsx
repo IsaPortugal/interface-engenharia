@@ -155,68 +155,68 @@ const UpcomingEventCard = ({ title, date, time, type, users }: any) => {
 
 export default function Dashboard() {
   const stats = [
-    { icon: Building, title: 'Obras Ativas', value: '12', trend: '+2', color: 'bg-blue-500' },
-    { icon: FileText, title: 'Relatórios Gerados', value: '48', trend: '+15', color: 'bg-purple-500' },
-    { icon: AlertTriangle, title: 'Incidentes', value: '3', trend: '-1', color: 'bg-red-500' },
-    { icon: Calendar, title: 'Compromissos', value: '8', trend: '+3', color: 'bg-gray-500' },
+    { icon: Building, title: 'Obras Ativas', value: '4', trend: '+2', color: 'bg-blue-500' },
+    { icon: FileText, title: 'Relatórios Gerados', value: '2', trend: '+15', color: 'bg-purple-500' },
+    { icon: AlertTriangle, title: 'Incidentes', value: '4', trend: '-1', color: 'bg-red-500' },
+    { icon: Calendar, title: 'Compromissos', value: '4', trend: '+3', color: 'bg-gray-500' },
   ];
 
   const projects = [
-    { 
-      title: 'Edifício Residencial Aurora', 
-      client: 'Construtora Horizonte', 
-      progress: 75, 
-      dueDate: '15/12/2023', 
+    {
+      title: 'Edifício Residencial Aurora',
+      client: 'Construtora Horizonte',
+      progress: 75,
+      dueDate: '15/12/2023',
       status: 'Em andamento' as const,
       address: 'Porto Alegre, RS',
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop'
     },
-    { 
-      title: 'Centro Comercial Vitória', 
-      client: 'Empreendimentos RS', 
-      progress: 45, 
-      dueDate: '30/01/2024', 
+    {
+      title: 'Centro Comercial Vitória',
+      client: 'Empreendimentos RS',
+      progress: 45,
+      dueDate: '30/01/2024',
       status: 'Em andamento' as const,
       address: 'Florianópolis, SC',
       image: 'https://images.unsplash.com/photo-1460574283810-2aab119d8511?q=80&w=2670&auto=format&fit=crop'
     },
-    { 
-      title: 'Condomínio Park Avenue', 
-      client: 'Grupo Construtora ABC', 
-      progress: 65, 
-      dueDate: '10/11/2023', 
+    {
+      title: 'Condomínio Park Avenue',
+      client: 'Grupo Construtora ABC',
+      progress: 65,
+      dueDate: '10/11/2023',
       status: 'Atrasado' as const,
       address: 'Curitiba, PR'
     },
-    { 
-      title: 'Hospital São Lucas - Ampliação', 
-      client: 'Secretaria de Saúde', 
-      progress: 90, 
-      dueDate: '05/12/2023', 
+    {
+      title: 'Hospital São Lucas - Ampliação',
+      client: 'Secretaria de Saúde',
+      progress: 90,
+      dueDate: '05/12/2023',
       status: 'Em andamento' as const,
       address: 'Joinville, SC'
     },
   ];
 
   const upcomingEvents = [
-    { 
-      title: 'Visita técnica - Aurora', 
-      date: '25 Nov', 
-      time: '09:00 - 11:00', 
+    {
+      title: 'Visita técnica - Aurora',
+      date: '25 Nov',
+      time: '09:00 - 11:00',
       type: 'Visita',
       users: ['JC', 'MF', 'RS']
     },
-    { 
-      title: 'Reunião com cliente - Grupo ABC', 
-      date: '27 Nov', 
-      time: '14:30 - 15:30', 
+    {
+      title: 'Reunião com cliente - Grupo ABC',
+      date: '27 Nov',
+      time: '14:30 - 15:30',
       type: 'Reunião',
       users: ['EF', 'PL']
     },
-    { 
-      title: 'Vistoria final - Hospital', 
-      date: '30 Nov', 
-      time: '10:00 - 12:00', 
+    {
+      title: 'Vistoria final - Hospital',
+      date: '30 Nov',
+      time: '10:00 - 12:00',
       type: 'Inspeção',
       users: ['EF', 'TC', 'MR']
     },
@@ -254,7 +254,7 @@ export default function Dashboard() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {projects.map((project, index) => (
                 <ProjectCard key={index} {...project} />
