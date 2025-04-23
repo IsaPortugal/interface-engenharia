@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -25,6 +24,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import MainDashboardCards from "./Home/MainDashboardCards";
+import UpcomingEvents from "./Home/UpcomingEvents";
+import RecentActivities from "./Home/RecentActivities";
 
 const projetosTCC = [
   { 
@@ -119,145 +121,10 @@ const Home = () => {
         </TabsList>
         
         <TabsContent value="dashboard" className="space-y-6">
-          {/* Cards principais */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="card-hover">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Obras Ativas</CardTitle>
-                <CardDescription>Total de obras em andamento</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold text-vpro-blue">3</div>
-                <div className="flex items-center text-gray-500 text-sm mt-1">
-                  <Building className="h-4 w-4 mr-1" />
-                  <span>Obras cadastradas</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-hover">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Compromissos</CardTitle>
-                <CardDescription>Pendentes nesta semana</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold text-green-500">3</div>
-                <div className="flex items-center text-gray-500 text-sm mt-1">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  <span>Agendados</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-hover">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Incidentes</CardTitle>
-                <CardDescription>Reportados em aberto</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold text-vpro-orange">3</div>
-                <div className="flex items-center text-amber-500 text-sm mt-1">
-                  <AlertTriangle className="h-4 w-4 mr-1" />
-                  <span>Pendentes</span>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="card-hover">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Relatórios</CardTitle>
-                <CardDescription>Gerados este mês</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold text-vpro-yellow">3</div>
-                <div className="flex items-center text-green-500 text-sm mt-1">
-                  <FileText className="h-4 w-4 mr-1" />
-                  <span>Completos</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Próximos Eventos em tela cheia */}
+          <MainDashboardCards />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Próximos Eventos */}
-            <Card className="card-hover lg:col-span-1">
-              <CardHeader>
-                <CardTitle>Próximos Eventos</CardTitle>
-                <CardDescription>Seus próximos compromissos</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {proximoEventos.map(evento => (
-                    <div key={evento.id} className="border rounded-lg p-4 mb-2 transition-shadow flex flex-col">
-                      <div className="flex items-center mb-2">
-                        <Calendar className="h-5 w-5 mr-2 text-vpro-blue" />
-                        <span className="font-medium">{evento.title}</span>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 text-sm text-muted-foreground">
-                        <div className="flex items-center mb-1">
-                          <span className="mr-2 font-semibold">Data:</span>
-                          <span>{evento.date}</span>
-                        </div>
-                        <div className="flex items-center mb-1">
-                          <span className="mr-2 font-semibold">Horário:</span>
-                          <span>{evento.time}</span>
-                        </div>
-                        <div className="flex items-center mb-1">
-                          <span className="mr-2 font-semibold">Local:</span>
-                          <span>{evento.location}</span>
-                        </div>
-                        <div className="flex items-center mb-1">
-                          <span className="mr-2 font-semibold">Tipo:</span>
-                          <span>{evento.type}</span>
-                        </div>
-                      </div>
-                      <div className="mt-2 text-xs text-gray-500">
-                        {evento.description}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Atividades Recentes mantidas ao lado */}
-            <Card className="card-hover lg:col-span-1">
-              <CardHeader>
-                <CardTitle>Atividades Recentes</CardTitle>
-                <CardDescription>Últimas 24 horas</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {activityItems.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div key={item.id} className="flex items-start">
-                        <div className={`flex items-center justify-center h-9 w-9 rounded-full mr-3 ${
-                          item.status === 'success' ? 'bg-green-100 text-green-600' :
-                          item.status === 'warning' ? 'bg-amber-100 text-amber-600' :
-                          'bg-blue-100 text-blue-600'
-                        }`}>
-                          <Icon className="h-5 w-5" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium">{item.title}</p>
-                          <div className="flex items-center text-gray-500 text-sm">
-                            <Clock className="h-3 w-3 mr-1" />
-                            <span>{item.time}</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-              <CardFooter className="border-t px-6 py-4">
-                <Button variant="ghost" className="text-vpro-blue hover:text-vpro-orange hover:bg-vpro-lightgray w-full justify-center">
-                  Ver todas as atividades
-                </Button>
-              </CardFooter>
-            </Card>
+            <UpcomingEvents />
+            <RecentActivities />
           </div>
         </TabsContent>
         
@@ -445,4 +312,3 @@ const Home = () => {
 };
 
 export default Home;
-
