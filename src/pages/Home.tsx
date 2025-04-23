@@ -1,19 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { 
-  LineChart, 
-  Line, 
-  AreaChart, 
-  Area, 
-  BarChart,
-  Bar,
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer 
-} from "recharts";
-import { 
   ChevronRight, 
   Calendar, 
   TrendingUp, 
@@ -23,6 +10,8 @@ import {
   Clock, 
   CheckCircle2,
   FolderClosed,
+  Building,
+  HomeIcon,
   Code,
   Database,
   LayoutGrid,
@@ -30,36 +19,11 @@ import {
   Github,
   Server,
   Package,
-  Building,
-  HomeIcon,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-
-const mockData = [
-  { name: "Jan", visitas: 400, incidentes: 240, relatorios: 180 },
-  { name: "Fev", visitas: 300, incidentes: 139, relatorios: 220 },
-  { name: "Mar", visitas: 500, incidentes: 350, relatorios: 250 },
-  { name: "Abr", visitas: 780, incidentes: 390, relatorios: 330 },
-  { name: "Mai", visitas: 600, incidentes: 300, relatorios: 290 },
-  { name: "Jun", visitas: 700, incidentes: 200, relatorios: 320 },
-];
-
-const progressData = [
-  { name: "Projeto A", progresso: 75, meta: 100 },
-  { name: "Projeto B", progresso: 85, meta: 100 },
-  { name: "Projeto C", progresso: 35, meta: 100 },
-  { name: "Projeto D", progresso: 90, meta: 100 },
-];
-
-const activityItems = [
-  { id: 1, title: "Relatório diário concluído", time: "09:15", status: "success", icon: CheckCircle2 },
-  { id: 2, title: "Incidente reportado", time: "11:30", status: "warning", icon: AlertTriangle },
-  { id: 3, title: "Visita técnica agendada", time: "13:45", status: "info", icon: Calendar },
-  { id: 4, title: "Análise de métricas", time: "16:20", status: "success", icon: Activity },
-];
 
 const projetosTCC = [
   { 
@@ -87,6 +51,7 @@ const estruturaProjeto = [
   { id: 12, nome: "Program.cs", tipo: "codigo", icon: Code },
 ];
 
+// Remove any performance-related mock data
 const proximoEventos = [
   {
     id: 1,
@@ -115,6 +80,13 @@ const proximoEventos = [
     type: "Inspeção",
     description: "Vistoria final para liberação da fase 1."
   }
+];
+
+const activityItems = [
+  { id: 1, title: "Relatório diário concluído", time: "09:15", status: "success", icon: CheckCircle2 },
+  { id: 2, title: "Incidente reportado", time: "11:30", status: "warning", icon: AlertTriangle },
+  { id: 3, title: "Visita técnica agendada", time: "13:45", status: "info", icon: Calendar },
+  { id: 4, title: "Análise de métricas", time: "16:20", status: "success", icon: Activity },
 ];
 
 const Home = () => {
@@ -206,7 +178,7 @@ const Home = () => {
             </Card>
           </div>
 
-          {/* Próximos eventos em destaque, organizado */}
+          {/* Próximos Eventos em tela cheia */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Próximos Eventos */}
             <Card className="card-hover lg:col-span-1">
@@ -287,8 +259,6 @@ const Home = () => {
               </CardFooter>
             </Card>
           </div>
-          
-          {/* Seções de progresso/distribuição removidas do Painel */}
         </TabsContent>
         
         <TabsContent value="projetos" className="space-y-6">
