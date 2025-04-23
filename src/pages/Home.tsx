@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -51,7 +52,6 @@ const estruturaProjeto = [
   { id: 12, nome: "Program.cs", tipo: "codigo", icon: Code },
 ];
 
-// Remove any performance-related mock data
 const proximoEventos = [
   {
     id: 1,
@@ -445,3 +445,4 @@ const Home = () => {
 };
 
 export default Home;
+
