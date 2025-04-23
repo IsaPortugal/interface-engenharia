@@ -155,10 +155,10 @@ const UpcomingEventCard = ({ title, date, time, type, users }: any) => {
 
 export default function Dashboard() {
   const stats = [
-    { icon: Building, title: 'Obras Ativas', value: '4', trend: '+2', color: 'bg-blue-500' },
-    { icon: FileText, title: 'Relatórios Gerados', value: '2', trend: '+15', color: 'bg-purple-500' },
-    { icon: AlertTriangle, title: 'Incidentes', value: '4', trend: '-1', color: 'bg-red-500' },
-    { icon: Calendar, title: 'Compromissos', value: '4', trend: '+3', color: 'bg-gray-500' },
+    { icon: Building, title: 'Obras Ativas', value: '3', trend: '+2', color: 'bg-blue-500' },
+    { icon: FileText, title: 'Relatórios Gerados', value: '3', trend: '+15', color: 'bg-purple-500' },
+    { icon: AlertTriangle, title: 'Incidentes', value: '3', trend: '-1', color: 'bg-red-500' },
+    { icon: Calendar, title: 'Compromissos', value: '3', trend: '+3', color: 'bg-gray-500' },
   ];
 
   const projects = [
@@ -188,15 +188,7 @@ export default function Dashboard() {
       status: 'Atrasado' as const,
       address: 'Curitiba, PR'
     },
-    {
-      title: 'Hospital São Lucas - Ampliação',
-      client: 'Secretaria de Saúde',
-      progress: 90,
-      dueDate: '05/12/2023',
-      status: 'Em andamento' as const,
-      address: 'Joinville, SC'
-    },
-  ];
+  ].slice(0, 3);
 
   const upcomingEvents = [
     {
@@ -220,7 +212,7 @@ export default function Dashboard() {
       type: 'Inspeção',
       users: ['EF', 'TC', 'MR']
     },
-  ];
+  ].slice(0, 3);
 
   const barChartData = [
     { name: 'Jan', completadas: 4, emAndamento: 8, atrasadas: 2 },

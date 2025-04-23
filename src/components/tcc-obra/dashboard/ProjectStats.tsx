@@ -11,7 +11,7 @@ export const ProjectStats = () => {
           <CardDescription>Obras cadastradas no sistema</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="text-3xl font-bold text-vpro-blue">12</div>
+          <div className="text-3xl font-bold text-vpro-blue">3</div>
         </CardContent>
       </Card>
       <Card>
@@ -20,7 +20,7 @@ export const ProjectStats = () => {
           <CardDescription>Atividades em andamento</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="text-3xl font-bold text-vpro-orange">28</div>
+          <div className="text-3xl font-bold text-vpro-orange">3</div>
         </CardContent>
       </Card>
       <Card>
@@ -29,7 +29,7 @@ export const ProjectStats = () => {
           <CardDescription>Relatórios gerados este mês</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="text-3xl font-bold text-vpro-yellow">7</div>
+          <div className="text-3xl font-bold text-vpro-yellow">3</div>
         </CardContent>
       </Card>
     </div>

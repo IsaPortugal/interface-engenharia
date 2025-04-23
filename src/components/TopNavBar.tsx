@@ -1,13 +1,11 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Building, FileText, AlertTriangle, Calendar } from "lucide-react";
+import { LayoutDashboard, Building, FileText, AlertTriangle, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 
-// Usando os mesmos ícones da dashboard e só as 4 rotas principais
 const routes = [
-  { icon: Building, label: "Painel", href: "/" },
+  { icon: LayoutDashboard, label: "Painel", href: "/" },
   { icon: Building, label: "Obras", href: "/obras" },
   { icon: FileText, label: "Relatórios", href: "/reports" },
   { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },

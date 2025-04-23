@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -9,7 +8,8 @@ import {
   Calendar,
   PanelLeft,
   PanelRight,
-  ChevronRight
+  ChevronRight,
+  LayoutDashboard
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -62,11 +62,11 @@ interface SidebarNavProps {
   onToggle: () => void;
 }
 
-export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
+const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
   const location = useLocation();
   
   const routes = [
-    { icon: Building, label: "Painel", href: "/" },
+    { icon: LayoutDashboard, label: "Painel", href: "/" },
     { icon: Building, label: "Obras", href: "/obras" },
     { icon: FileText, label: "Relatórios", href: "/reports" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
@@ -140,4 +140,6 @@ export function SidebarNav({ collapsed, onToggle }: SidebarNavProps) {
       </div>
     </div>
   );
-}
+};
+
+export { SidebarNav };
