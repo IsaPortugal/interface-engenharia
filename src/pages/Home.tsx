@@ -29,7 +29,9 @@ import {
   Settings,
   Github,
   Server,
-  Package
+  Package,
+  Building,
+  HomeIcon,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -85,6 +87,36 @@ const estruturaProjeto = [
   { id: 12, nome: "Program.cs", tipo: "codigo", icon: Code },
 ];
 
+const proximoEventos = [
+  {
+    id: 1,
+    title: "Visita técnica com engenheiro",
+    date: "25/06/2023",
+    time: "09:00 - 11:00",
+    location: "Av. Paulista, 1000, São Paulo",
+    type: "Visita",
+    description: "Visita técnica para acompanhamento do cronograma."
+  },
+  {
+    id: 2,
+    title: "Reunião com cliente",
+    date: "27/06/2023",
+    time: "14:30 - 15:30",
+    location: "Escritório VPRO",
+    type: "Reunião",
+    description: "Apresentação do andamento das obras."
+  },
+  {
+    id: 3,
+    title: "Vistoria final",
+    date: "30/06/2023",
+    time: "10:00 - 12:00",
+    location: "Rua das Flores, 500, Florianópolis",
+    type: "Inspeção",
+    description: "Vistoria final para liberação da fase 1."
+  }
+];
+
 const Home = () => {
   return (
     <div className="space-y-6 animate-fade-in">
@@ -115,17 +147,32 @@ const Home = () => {
         </TabsList>
         
         <TabsContent value="dashboard" className="space-y-6">
+          {/* Cards principais */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card className="card-hover">
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Visitas Técnicas</CardTitle>
-                <CardDescription>Total neste mês</CardDescription>
+                <CardTitle className="text-lg font-medium">Obras Ativas</CardTitle>
+                <CardDescription>Total de obras em andamento</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-vpro-orange">24</div>
-                <div className="flex items-center text-green-500 text-sm mt-1">
-                  <TrendingUp className="h-4 w-4 mr-1" />
-                  <span>12% acima da média</span>
+                <div className="text-3xl font-bold text-vpro-blue">3</div>
+                <div className="flex items-center text-gray-500 text-sm mt-1">
+                  <Building className="h-4 w-4 mr-1" />
+                  <span>Obras cadastradas</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="card-hover">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-medium">Compromissos</CardTitle>
+                <CardDescription>Pendentes nesta semana</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-green-500">3</div>
+                <div className="flex items-center text-gray-500 text-sm mt-1">
+                  <Calendar className="h-4 w-4 mr-1" />
+                  <span>Agendados</span>
                 </div>
               </CardContent>
             </Card>
@@ -133,76 +180,77 @@ const Home = () => {
             <Card className="card-hover">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg font-medium">Incidentes</CardTitle>
-                <CardDescription>Reportados neste mês</CardDescription>
+                <CardDescription>Reportados em aberto</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-vpro-blue">7</div>
+                <div className="text-3xl font-bold text-vpro-orange">3</div>
                 <div className="flex items-center text-amber-500 text-sm mt-1">
                   <AlertTriangle className="h-4 w-4 mr-1" />
-                  <span>2 pendentes de resolução</span>
+                  <span>Pendentes</span>
                 </div>
               </CardContent>
             </Card>
-
+            
             <Card className="card-hover">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg font-medium">Relatórios</CardTitle>
-                <CardDescription>Completados neste mês</CardDescription>
+                <CardDescription>Gerados este mês</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-vpro-yellow">18</div>
+                <div className="text-3xl font-bold text-vpro-yellow">3</div>
                 <div className="flex items-center text-green-500 text-sm mt-1">
                   <FileText className="h-4 w-4 mr-1" />
-                  <span>100% entregues no prazo</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-hover">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Agendamentos</CardTitle>
-                <CardDescription>Próximos 7 dias</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold text-green-500">5</div>
-                <div className="flex items-center text-gray-500 text-sm mt-1">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  <span>Próximo: Amanhã, 10:00</span>
+                  <span>Completos</span>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="lg:col-span-2 card-hover">
+          {/* Próximos eventos em destaque, organizado */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Próximos Eventos */}
+            <Card className="card-hover lg:col-span-1">
               <CardHeader>
-                <CardTitle>Visão Geral</CardTitle>
-                <CardDescription>Desempenho mensal das atividades principais</CardDescription>
+                <CardTitle>Próximos Eventos</CardTitle>
+                <CardDescription>Seus próximos compromissos</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={mockData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="visitas" stroke="#0099FF" strokeWidth={2} />
-                      <Line type="monotone" dataKey="incidentes" stroke="#FF6600" strokeWidth={2} />
-                      <Line type="monotone" dataKey="relatorios" stroke="#FFD700" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
+                <div className="space-y-4">
+                  {proximoEventos.map(evento => (
+                    <div key={evento.id} className="border rounded-lg p-4 mb-2 transition-shadow flex flex-col">
+                      <div className="flex items-center mb-2">
+                        <Calendar className="h-5 w-5 mr-2 text-vpro-blue" />
+                        <span className="font-medium">{evento.title}</span>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 text-sm text-muted-foreground">
+                        <div className="flex items-center mb-1">
+                          <span className="mr-2 font-semibold">Data:</span>
+                          <span>{evento.date}</span>
+                        </div>
+                        <div className="flex items-center mb-1">
+                          <span className="mr-2 font-semibold">Horário:</span>
+                          <span>{evento.time}</span>
+                        </div>
+                        <div className="flex items-center mb-1">
+                          <span className="mr-2 font-semibold">Local:</span>
+                          <span>{evento.location}</span>
+                        </div>
+                        <div className="flex items-center mb-1">
+                          <span className="mr-2 font-semibold">Tipo:</span>
+                          <span>{evento.type}</span>
+                        </div>
+                      </div>
+                      <div className="mt-2 text-xs text-gray-500">
+                        {evento.description}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
-              <CardFooter className="border-t px-6 py-4">
-                <Link to="/reports" className="text-vpro-blue hover:text-vpro-orange transition-colors">
-                  Ver relatório completo
-                  <ChevronRight className="inline ml-1 h-4 w-4" />
-                </Link>
-              </CardFooter>
             </Card>
 
-            <Card className="card-hover">
+            {/* Atividades Recentes mantidas ao lado */}
+            <Card className="card-hover lg:col-span-1">
               <CardHeader>
                 <CardTitle>Atividades Recentes</CardTitle>
                 <CardDescription>Últimas 24 horas</CardDescription>
@@ -239,71 +287,8 @@ const Home = () => {
               </CardFooter>
             </Card>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="card-hover">
-              <CardHeader>
-                <CardTitle>Progresso dos Projetos</CardTitle>
-                <CardDescription>Situação atual dos projetos principais</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={progressData} layout="vertical" margin={{ top: 5, right: 20, left: 40, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" horizontal={true} />
-                      <XAxis type="number" domain={[0, 100]} />
-                      <YAxis type="category" dataKey="name" />
-                      <Tooltip />
-                      <Bar dataKey="progresso" fill="#0099FF" radius={[0, 4, 4, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-hover">
-              <CardHeader>
-                <CardTitle>Distribuição por Tipo</CardTitle>
-                <CardDescription>Divisão das atividades mensais</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={mockData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Area 
-                        type="monotone" 
-                        dataKey="visitas" 
-                        stackId="1"
-                        stroke="#0099FF" 
-                        fill="#0099FF" 
-                        fillOpacity={0.6} 
-                      />
-                      <Area 
-                        type="monotone" 
-                        dataKey="incidentes" 
-                        stackId="1"
-                        stroke="#FF6600" 
-                        fill="#FF6600" 
-                        fillOpacity={0.6} 
-                      />
-                      <Area 
-                        type="monotone" 
-                        dataKey="relatorios" 
-                        stackId="1"
-                        stroke="#FFD700" 
-                        fill="#FFD700" 
-                        fillOpacity={0.6} 
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          
+          {/* Seções de progresso/distribuição removidas do Painel */}
         </TabsContent>
         
         <TabsContent value="projetos" className="space-y-6">
