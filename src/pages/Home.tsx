@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { 
   ChevronRight, 
   Calendar, 
-  TrendingUp, 
   AlertTriangle, 
   Activity, 
   FileText, 
@@ -11,7 +10,6 @@ import {
   CheckCircle2,
   FolderClosed,
   Building,
-  HomeIcon,
   Code,
   Database,
   LayoutGrid,
