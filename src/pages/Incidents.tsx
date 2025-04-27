@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { AlertTriangle, Plus, Calendar, Search, Filter, CheckCircle2, Clock, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -118,16 +117,13 @@ const IncidentCard = ({ incident }: { incident: any }) => {
 const IncidentForm = ({ onClose }: { onClose: () => void }) => {
   return (
     <>
-      <DialogHeader>
+      <DialogHeader className="text-center">
         <DialogTitle>Registrar Novo Incidente</DialogTitle>
-        <DialogDescription>
-          Preencha os detalhes do incidente ocorrido na obra.
-        </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4 py-4">
         <div className="grid gap-2">
           <Label htmlFor="title">Título</Label>
-          <Input id="title" placeholder="Ex: Vazamento hidráulico" />
+          <Input id="title" placeholder="Digite o título do incidente" />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="project">Projeto</Label>
@@ -143,39 +139,23 @@ const IncidentForm = ({ onClose }: { onClose: () => void }) => {
             </SelectContent>
           </Select>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="severity">Severidade</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="baixa">Baixa</SelectItem>
-                <SelectItem value="media">Média</SelectItem>
-                <SelectItem value="alta">Alta</SelectItem>
-                <SelectItem value="critica">Crítica</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="assigned">Responsável</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Atribuir a" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ef">Eng. Fiscal (EF)</SelectItem>
-                <SelectItem value="rs">Roberto Silva (RS)</SelectItem>
-                <SelectItem value="tc">Técnico Carlos (TC)</SelectItem>
-                <SelectItem value="mf">Maria Fernandes (MF)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="grid gap-2">
+          <Label htmlFor="assigned">Responsável</Label>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione o responsável" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ef">Eng. Fiscal (EF)</SelectItem>
+              <SelectItem value="rs">Roberto Silva (RS)</SelectItem>
+              <SelectItem value="tc">Técnico Carlos (TC)</SelectItem>
+              <SelectItem value="mf">Maria Fernandes (MF)</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div className="grid gap-2">
           <Label htmlFor="description">Descrição</Label>
-          <Textarea id="description" placeholder="Descreva detalhadamente o ocorrido..." />
+          <Textarea id="description" placeholder="Descreva o incidente..." />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="image">Imagens (opcional)</Label>
