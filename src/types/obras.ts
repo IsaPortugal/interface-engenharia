@@ -10,7 +10,7 @@ export interface Obra {
   progresso: number;
   status: string;
   imagem: string;
-  cliente?: number;
+  cliente: number;
 }
 
 export interface Cliente {

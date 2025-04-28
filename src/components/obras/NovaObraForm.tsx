@@ -46,7 +46,13 @@ const NovaObraForm = ({ clientes, onClose, onSave, onNovoCliente }: NovaObraForm
 
   const handleSubmit = (data: ObraFormValues) => {
     onSave({
-      ...data,
+      nome: data.nome,
+      cliente: parseInt(data.cliente), // Convert string to number for cliente ID
+      endereco: data.endereco,
+      inicio: data.inicio,
+      prazo: data.prazo,
+      responsavel: data.responsavel,
+      tipo: data.tipo,
       progresso: 0,
       status: 'Em andamento',
       imagem: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
