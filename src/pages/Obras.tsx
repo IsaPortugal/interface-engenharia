@@ -1,14 +1,12 @@
 
 import React, { useState } from 'react';
-import { Building, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Building } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ObraCard from '@/components/obras/ObraCard';
 import ObraFilters from '@/components/obras/ObraFilters';
 import EmptyObras from '@/components/obras/EmptyObras';
-import NovaObraForm from '@/components/obras/NovaObraForm';
-import NovoClienteForm from '@/components/obras/NovoClienteForm';
+import NovaObraDialog from '@/components/obras/NovaObraDialog';
+import NovoClienteDialog from '@/components/obras/NovoClienteDialog';
 import { obrasData as initialObras, clientesData as initialClientes } from '@/data/obrasData';
 import { Obra, Cliente } from '@/types/obras';
 import { toast } from "@/hooks/use-toast";
@@ -29,7 +27,7 @@ const Obras = () => {
   );
 
   // Manipuladores de eventos
-  const handleSaveObra = (data: any) => {
+  const handleSaveObra = (data: Omit<Obra, 'id'>) => {
     const novaObra: Obra = {
       id: obras.length > 0 ? Math.max(...obras.map(o => o.id)) + 1 : 1,
       ...data,
@@ -43,7 +41,7 @@ const Obras = () => {
     });
   };
 
-  const handleSaveCliente = (data: any) => {
+  const handleSaveCliente = (data: Omit<Cliente, 'id'>) => {
     const novoCliente: Cliente = {
       id: clientes.length > 0 ? Math.max(...clientes.map(c => c.id)) + 1 : 1,
       ...data,
@@ -81,31 +79,21 @@ const Obras = () => {
           </h1>
           <p className="text-muted-foreground">Gerencie e monitore todas as obras em andamento</p>
         </div>
-        <Dialog open={isNovaObraOpen} onOpenChange={setIsNovaObraOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" /> 
-              Nova Obra
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
-            <NovaObraForm 
-              clientes={clientes} 
-              onClose={() => setIsNovaObraOpen(false)} 
-              onSave={handleSaveObra}
-              onNovoCliente={handleOpenNovoCliente}
-            />
-          </DialogContent>
-        </Dialog>
+        
+        {/* Dialogs para criar nova obra e novo cliente */}
+        <NovaObraDialog 
+          clientes={clientes}
+          isOpen={isNovaObraOpen}
+          onOpenChange={setIsNovaObraOpen}
+          onSave={handleSaveObra}
+          onNovoCliente={handleOpenNovoCliente}
+        />
 
-        <Dialog open={isNovoClienteOpen} onOpenChange={setIsNovoClienteOpen}>
-          <DialogContent className="sm:max-w-[500px]">
-            <NovoClienteForm 
-              onClose={() => setIsNovoClienteOpen(false)} 
-              onSave={handleSaveCliente} 
-            />
-          </DialogContent>
-        </Dialog>
+        <NovoClienteDialog 
+          isOpen={isNovoClienteOpen}
+          onOpenChange={setIsNovoClienteOpen}
+          onSave={handleSaveCliente}
+        />
       </div>
 
       <ObraFilters searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

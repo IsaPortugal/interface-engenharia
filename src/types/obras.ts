@@ -16,7 +16,7 @@ export interface Obra {
 export interface Cliente {
   id: number;
   nome: string;
-  tipo: string;
+  tipo: 'pf' | 'pj';
   documento: string;
   email: string;
   telefone: string;

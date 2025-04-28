@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Cliente } from '@/types/obras';
+import { Cliente, Obra } from '@/types/obras';
 
 // Schema de validação para o formulário
 const obraFormSchema = z.object({
@@ -21,15 +21,17 @@ const obraFormSchema = z.object({
   tipo: z.string().min(1, { message: 'Tipo de obra é obrigatório' }),
 });
 
+type ObraFormValues = z.infer<typeof obraFormSchema>;
+
 interface NovaObraFormProps {
   clientes: Cliente[];
   onClose: () => void;
-  onSave: (data: any) => void;
+  onSave: (data: Omit<Obra, 'id'>) => void;
   onNovoCliente: () => void;
 }
 
 const NovaObraForm = ({ clientes, onClose, onSave, onNovoCliente }: NovaObraFormProps) => {
-  const form = useForm({
+  const form = useForm<ObraFormValues>({
     resolver: zodResolver(obraFormSchema),
     defaultValues: {
       nome: '',
@@ -42,7 +44,7 @@ const NovaObraForm = ({ clientes, onClose, onSave, onNovoCliente }: NovaObraForm
     },
   });
 
-  const handleSubmit = (data: z.infer<typeof obraFormSchema>) => {
+  const handleSubmit = (data: ObraFormValues) => {
     onSave({
       ...data,
       progresso: 0,

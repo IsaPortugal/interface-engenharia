@@ -18,13 +18,15 @@ const clienteFormSchema = z.object({
   telefone: z.string().min(10, { message: 'Telefone deve ter pelo menos 10 dígitos' }),
 });
 
+type ClienteFormValues = z.infer<typeof clienteFormSchema>;
+
 interface NovoClienteFormProps {
   onClose: () => void;
-  onSave: (data: any) => void;
+  onSave: (data: ClienteFormValues) => void;
 }
 
 const NovoClienteForm = ({ onClose, onSave }: NovoClienteFormProps) => {
-  const form = useForm({
+  const form = useForm<ClienteFormValues>({
     resolver: zodResolver(clienteFormSchema),
     defaultValues: {
       nome: '',
@@ -37,7 +39,7 @@ const NovoClienteForm = ({ onClose, onSave }: NovoClienteFormProps) => {
 
   const clientType = form.watch('tipo');
 
-  const handleSubmit = (data: z.infer<typeof clienteFormSchema>) => {
+  const handleSubmit = (data: ClienteFormValues) => {
     onSave(data);
   };
 
