@@ -1,0 +1,29 @@
+
+export interface Obra {
+  id: number;
+  nome: string;
+  endereco: string;
+  responsavel: string;
+  inicio: string;
+  prazo: string;
+  tipo: string;
+  progresso: number;
+  status: string;
+  imagem: string;
+  cliente?: number;
+}
+
+export interface Cliente {
+  id: number;
+  nome: string;
+  tipo: string;
+  documento: string;
+  email: string;
+  telefone: string;
+}
+
+export interface ImagemProgress {
+  url: string;
+  legenda: string;
+  data: string;
+}
