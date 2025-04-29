@@ -2,7 +2,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { FileText, Eye, Pencil, Trash2, FileDown } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -49,21 +49,28 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onViewDetail, onEdit, o
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{report.description}</p>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-end">
-        <div className="flex gap-2">
-          <Button size="sm" onClick={() => onViewDetail(report)}>
-            <Eye className="h-4 w-4 mr-1" /> Visualizar
-          </Button>
-          <Button size="sm" variant="outline" onClick={() => onEdit(report)}>
-            <Pencil className="h-4 w-4 mr-1" /> Editar
-          </Button>
-          <Button size="sm" variant="destructive" onClick={() => onDelete(report.id)}>
-            <Trash2 className="h-4 w-4 mr-1" /> Excluir
-          </Button>
-          <Button size="sm" variant="secondary" onClick={() => onGeneratePDF(report)}>
-            <FileDown className="h-4 w-4 mr-1" /> PDF
-          </Button>
-        </div>
+      <CardFooter className="pt-0 flex justify-center gap-4">
+        <Button 
+          variant="outline" 
+          onClick={() => onViewDetail(report)}
+          className="rounded-full px-6"
+        >
+          Visualizar
+        </Button>
+        <Button 
+          variant="outline" 
+          onClick={() => onEdit(report)}
+          className="rounded-full px-6"
+        >
+          Editar
+        </Button>
+        <Button 
+          variant="outline" 
+          onClick={() => onDelete(report.id)}
+          className="rounded-full px-6 text-red-500 hover:text-red-600 hover:bg-red-50"
+        >
+          Excluir
+        </Button>
       </CardFooter>
     </Card>
   );
