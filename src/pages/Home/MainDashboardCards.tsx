@@ -21,7 +21,7 @@ const MainDashboardCards = () => (
 
     <Card className="card-hover">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-medium">Compromissos</CardTitle>
+        <CardTitle className="text-lg font-medium">Agendamentos</CardTitle>
         <CardDescription>Pendentes nesta semana</CardDescription>
       </CardHeader>
       <CardContent>

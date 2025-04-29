@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -70,7 +71,7 @@ const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
     { icon: Building, label: "Obras", href: "/obras" },
     { icon: FileText, label: "Relatórios", href: "/reports" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
-    { icon: Calendar, label: "Compromissos", href: "/schedule" },
+    { icon: Calendar, label: "Agendamentos", href: "/schedule" },
   ];
 
   return (

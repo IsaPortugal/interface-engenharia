@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   Building, 
@@ -12,11 +13,10 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-const StatCard = ({ icon: Icon, title, value, trend, color }: any) => (
+const StatCard = ({ icon: Icon, title, value, color }: any) => (
   <Card className="card-hover overflow-hidden border-none shadow-md">
     <CardContent className="p-6 flex items-center gap-4">
       <div className={`h-12 w-12 rounded-full flex items-center justify-center ${color}`}>
@@ -25,12 +25,6 @@ const StatCard = ({ icon: Icon, title, value, trend, color }: any) => (
       <div>
         <p className="text-sm font-medium text-muted-foreground">{title}</p>
         <h3 className="text-2xl font-bold">{value}</h3>
-        {trend && (
-          <p className={`text-xs ${trend.includes('+') ? 'text-green-500' : 'text-red-500'} flex items-center`}>
-            {trend.includes('+') ? <ArrowUpRight className="h-3 w-3 mr-1" /> : <ArrowUpRight className="h-3 w-3 mr-1 rotate-180" />}
-            {trend} em relação ao mês anterior
-          </p>
-        )}
       </div>
     </CardContent>
   </Card>
@@ -46,7 +40,7 @@ interface ProjectCardProps {
   image?: string;
 }
 
-const ProjectCard = ({ title, client, progress, dueDate, status, address, image }: ProjectCardProps) => {
+const ProjectCard = ({ title, client, dueDate, status, address, image }: ProjectCardProps) => {
   const statusColor = 
     status === 'Em andamento' ? 'bg-blue-500' : 
     status === 'Atrasado' ? 'bg-red-500' : 'bg-green-500';
@@ -88,15 +82,6 @@ const ProjectCard = ({ title, client, progress, dueDate, status, address, image 
           )}
         </div>
       </CardHeader>
-      <CardContent className="pb-2">
-        <div className="space-y-2">
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Progresso</span>
-            <span className="font-medium">{progress}%</span>
-          </div>
-          <Progress value={progress} className="h-2" />
-        </div>
-      </CardContent>
       <CardFooter className="flex justify-between pt-2">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <Clock className="h-3 w-3" />
@@ -144,10 +129,10 @@ const UpcomingEventCard = ({ title, date, time, type, users }: any) => {
 
 export default function Dashboard() {
   const stats = [
-    { icon: Building, title: 'Obras Ativas', value: '3', trend: '+2', color: 'bg-blue-500' },
-    { icon: FileText, title: 'Relatórios Gerados', value: '3', trend: '+15', color: 'bg-purple-500' },
-    { icon: AlertTriangle, title: 'Incidentes', value: '3', trend: '-1', color: 'bg-red-500' },
-    { icon: Calendar, title: 'Compromissos', value: '3', trend: '+3', color: 'bg-gray-500' },
+    { icon: Building, title: 'Obras Ativas', value: '3', color: 'bg-blue-500' },
+    { icon: FileText, title: 'Relatórios Gerados', value: '3', color: 'bg-purple-500' },
+    { icon: AlertTriangle, title: 'Incidentes', value: '3', color: 'bg-red-500' },
+    { icon: Calendar, title: 'Agendamentos', value: '3', color: 'bg-gray-500' },
   ];
 
   const projects = [
@@ -243,7 +228,7 @@ export default function Dashboard() {
           <Card className="border-none shadow-md">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg">Agenda</CardTitle>
-              <CardDescription>Próximas atividades e compromissos agendados</CardDescription>
+              <CardDescription>Próximas atividades e agendamentos</CardDescription>
             </CardHeader>
             <CardContent className="p-4">
               <ul className="space-y-3">
