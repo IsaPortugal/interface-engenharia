@@ -1,19 +1,19 @@
 
 import React from 'react';
-import { MapPin } from 'lucide-react';
+import { MapPin, Eye, Pencil, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Obra } from '@/types/obras';
 
 interface ObraCardProps {
   obra: Obra;
   onViewDetails: (id: number) => void;
+  onEdit?: (id: number) => void;
+  onDelete?: (id: number) => void;
 }
 
-const ObraCard = ({ obra, onViewDetails }: ObraCardProps) => {
+const ObraCard = ({ obra, onViewDetails, onEdit, onDelete }: ObraCardProps) => {
   const statusColors = {
     'Em andamento': 'bg-blue-100 text-blue-800',
     'Concluído': 'bg-green-100 text-green-800',
@@ -47,12 +47,6 @@ const ObraCard = ({ obra, onViewDetails }: ObraCardProps) => {
       </CardHeader>
       <CardContent className="pb-3">
         <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm">
-            <span>Progresso:</span>
-            <span>{obra.progresso}%</span>
-          </div>
-          <Progress value={obra.progresso} className="h-2" />
-          
           <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
             <div>
               <p className="font-semibold">Início:</p>
@@ -66,13 +60,21 @@ const ObraCard = ({ obra, onViewDetails }: ObraCardProps) => {
         </div>
       </CardContent>
       <CardFooter className="pt-0 flex justify-between">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-7 w-7">
-            <AvatarFallback className="text-xs">{obra.responsavel}</AvatarFallback>
-          </Avatar>
-          <span className="text-xs text-muted-foreground">Responsável</span>
+        <div className="flex gap-1">
+          <Button size="sm" variant="outline" className="h-8 w-8 p-0" onClick={() => onViewDetails(obra.id)}>
+            <Eye className="h-4 w-4" />
+          </Button>
+          {onEdit && (
+            <Button size="sm" variant="outline" className="h-8 w-8 p-0" onClick={() => onEdit(obra.id)}>
+              <Pencil className="h-4 w-4" />
+            </Button>
+          )}
+          {onDelete && (
+            <Button size="sm" variant="outline" className="h-8 w-8 p-0 text-red-500 hover:text-red-600" onClick={() => onDelete(obra.id)}>
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          )}
         </div>
-        <Button size="sm" variant="outline" onClick={() => onViewDetails(obra.id)}>Detalhes</Button>
       </CardFooter>
     </Card>
   );

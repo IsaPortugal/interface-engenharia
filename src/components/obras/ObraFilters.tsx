@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Filter, Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 interface ObraFiltersProps {
@@ -21,9 +20,6 @@ const ObraFilters = ({ searchTerm, setSearchTerm }: ObraFiltersProps) => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      <Button variant="outline" className="gap-2">
-        <Filter className="h-4 w-4" /> Filtrar
-      </Button>
     </div>
   );
 };

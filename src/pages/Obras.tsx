@@ -10,6 +10,7 @@ import NovoClienteDialog from '@/components/obras/NovoClienteDialog';
 import { obrasData as initialObras, clientesData as initialClientes } from '@/data/obrasData';
 import { Obra, Cliente } from '@/types/obras';
 import { toast } from "@/hooks/use-toast";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 // Página principal de Obras
 const Obras = () => {
@@ -18,6 +19,8 @@ const Obras = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isNovaObraOpen, setIsNovaObraOpen] = useState(false);
   const [isNovoClienteOpen, setIsNovoClienteOpen] = useState(false);
+  const [deleteObraId, setDeleteObraId] = useState<number | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   // Filtrar obras com base no termo de busca
   const filteredObras = obras.filter(obra => 
@@ -61,12 +64,36 @@ const Obras = () => {
   };
 
   const handleViewDetails = (id: number) => {
-    // Aqui você pode implementar a navegação para a página de detalhes da obra
     console.log("Ver detalhes da obra ID:", id);
     toast({
       title: "Visualizando detalhes",
       description: `Detalhes da obra ID: ${id}`,
     });
+  };
+
+  const handleEditObra = (id: number) => {
+    console.log("Editar obra ID:", id);
+    toast({
+      title: "Editar obra",
+      description: `Editando obra ID: ${id}`,
+    });
+  };
+
+  const confirmDeleteObra = () => {
+    if (deleteObraId) {
+      const obraToDelete = obras.find(obra => obra.id === deleteObraId);
+      setObras(obras.filter(obra => obra.id !== deleteObraId));
+      setIsDeleteDialogOpen(false);
+      toast({
+        title: "Obra excluída com sucesso!",
+        description: `A obra ${obraToDelete?.nome} foi removida.`,
+      });
+    }
+  };
+
+  const handleDeleteObra = (id: number) => {
+    setDeleteObraId(id);
+    setIsDeleteDialogOpen(true);
   };
 
   return (
@@ -109,7 +136,13 @@ const Obras = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredObras.length > 0 ? (
               filteredObras.map(obra => (
-                <ObraCard key={obra.id} obra={obra} onViewDetails={handleViewDetails} />
+                <ObraCard 
+                  key={obra.id} 
+                  obra={obra} 
+                  onViewDetails={handleViewDetails} 
+                  onEdit={handleEditObra}
+                  onDelete={handleDeleteObra}
+                />
               ))
             ) : (
               <EmptyObras />
@@ -122,7 +155,13 @@ const Obras = () => {
             {filteredObras
               .filter(obra => obra.status === 'Em andamento')
               .map(obra => (
-                <ObraCard key={obra.id} obra={obra} onViewDetails={handleViewDetails} />
+                <ObraCard 
+                  key={obra.id} 
+                  obra={obra} 
+                  onViewDetails={handleViewDetails} 
+                  onEdit={handleEditObra}
+                  onDelete={handleDeleteObra}
+                />
               ))}
           </div>
         </TabsContent>
@@ -132,11 +171,35 @@ const Obras = () => {
             {filteredObras
               .filter(obra => obra.status === 'Concluído')
               .map(obra => (
-                <ObraCard key={obra.id} obra={obra} onViewDetails={handleViewDetails} />
+                <ObraCard 
+                  key={obra.id} 
+                  obra={obra} 
+                  onViewDetails={handleViewDetails} 
+                  onEdit={handleEditObra}
+                  onDelete={handleDeleteObra}
+                />
               ))}
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Delete confirmation dialog */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir esta obra? Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteObra} className="bg-red-600 hover:bg-red-700">
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

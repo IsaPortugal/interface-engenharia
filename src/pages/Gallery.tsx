@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Image as ImageIcon, Filter, Plus, Search, Tag } from 'lucide-react';
+import { Image as ImageIcon, Plus, Search, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -98,9 +98,7 @@ const Gallery = () => {
         {/* Sidebar filters */}
         <Card className="bg-white shadow-sm h-fit">
           <CardContent className="p-4">
-            <h2 className="font-semibold text-lg mb-4 flex items-center">
-              <Filter className="mr-2 h-4 w-4 text-primary" /> Filtros
-            </h2>
+            <h2 className="font-semibold text-lg mb-4">Filtros</h2>
             
             <div className="relative mb-4">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
