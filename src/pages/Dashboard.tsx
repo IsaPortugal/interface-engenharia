@@ -50,21 +50,7 @@ export default function Dashboard() {
       time: '09:00 - 11:00',
       type: 'Visita',
       users: ['JC', 'MF', 'RS']
-    },
-    {
-      title: 'Reunião com cliente - Grupo ABC',
-      date: '27 Nov',
-      time: '14:30 - 15:30',
-      type: 'Reunião',
-      users: ['EF', 'PL']
-    },
-    {
-      title: 'Vistoria final - Hospital',
-      date: '30 Nov',
-      time: '10:00 - 12:00',
-      type: 'Inspeção',
-      users: ['EF', 'TC', 'MR']
-    },
+    }
   ];
 
   return (

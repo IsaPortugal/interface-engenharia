@@ -1,12 +1,13 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Building, FileText, AlertTriangle, Calendar } from "lucide-react";
+import { LayoutDashboard, Building, FileText, AlertTriangle, Calendar, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
 
 const routes = [
   { icon: LayoutDashboard, label: "Painel", href: "/" },
   { icon: Building, label: "Obras", href: "/obras" },
+  { icon: Users, label: "Clientes", href: "/clientes" },
   { icon: FileText, label: "Relatórios", href: "/reports" },
   { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
   { icon: Calendar, label: "Compromissos", href: "/schedule" },
@@ -14,16 +15,10 @@ const routes = [
 
 export function TopNavBar() {
   const location = useLocation();
-  const [search, setSearch] = React.useState("");
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSearch("");
-  };
 
   return (
-    <nav className="w-full px-6 py-3 bg-gradient-to-br from-[#4b6cb7] to-[#182848] shadow-md flex flex-col items-center">
-      <div className="flex items-center justify-between w-full mb-3">
+    <nav className="w-full px-6 py-3 bg-gradient-to-br from-[#4b6cb7] to-[#182848] shadow-md flex items-center justify-center">
+      <div className="flex items-center justify-between w-full mb-0">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="h-10 w-10 rounded-full bg-gradient-to-br from-vpro-blue to-vpro-orange flex items-center justify-center shadow-md">
@@ -35,44 +30,31 @@ export function TopNavBar() {
           </div>
           <span className="text-lg font-bold text-white tracking-tight hidden sm:block">TCC_Obra</span>
         </div>
-        {/* Busca Centralizada */}
-        <form
-          onSubmit={handleSearch}
-          className="flex-1 flex justify-center max-w-md mx-5"
-        >
-          <Input
-            type="search"
-            className="w-full rounded-full bg-white/20 border-none text-white placeholder:text-white/60 focus-visible:ring-vpro-blue"
-            placeholder="Buscar relatórios, obras, incidentes..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-        </form>
-        {/* Espaço para futuro/avatar, se quiser adicionar */}
+        {/* Menu de Navegação no Topo Horizontal */}
+        <ul className="flex gap-4 md:gap-8 justify-center text-white font-semibold">
+          {routes.map((route) => (
+            <li key={route.href}>
+              <Link
+                to={route.href}
+                className={cn(
+                  "flex items-center px-2 md:px-3 py-2 rounded hover:bg-white/20 transition",
+                  location.pathname === route.href ||
+                  (location.pathname !== "/" &&
+                    route.href !== "/" &&
+                    location.pathname.startsWith(route.href))
+                    ? "bg-white/30 shadow text-white"
+                    : "text-white/90"
+                )}
+              >
+                <route.icon className="w-5 h-5 mr-1 md:mr-2" />
+                <span>{route.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {/* Empty space to balance the layout */}
         <div className="w-16 flex-shrink-0" />
       </div>
-      {/* Menu de Navegação no Topo Horizontal */}
-      <ul className="flex gap-8 w-full max-w-4xl justify-center text-white font-semibold">
-        {routes.map((route) => (
-          <li key={route.href}>
-            <Link
-              to={route.href}
-              className={cn(
-                "flex items-center px-3 py-2 rounded hover:bg-white/20 transition",
-                location.pathname === route.href ||
-                (location.pathname !== "/" &&
-                  route.href !== "/" &&
-                  location.pathname.startsWith(route.href))
-                  ? "bg-white/30 shadow text-white"
-                  : "text-white/90"
-              )}
-            >
-              <route.icon className="w-5 h-5 mr-2" />
-              <span>{route.label}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
     </nav>
   );
 }

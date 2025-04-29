@@ -8,7 +8,8 @@ import {
   Calendar, 
   Image, 
   Settings,
-  Building
+  Building,
+  Users
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -24,6 +25,12 @@ export const sidebarLinks = [
     title: 'Obras',
     icon: Building,
     href: '/obras',
+    variant: 'ghost'
+  },
+  {
+    title: 'Clientes',
+    icon: Users,
+    href: '/clientes',
     variant: 'ghost'
   },
   {
