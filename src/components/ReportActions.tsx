@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { Button } from '@/components/ui/button';
-import { Download, Printer, Share2 } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { Download, Printer } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface ReportActionsProps {
   report: any;
@@ -12,7 +13,7 @@ interface ReportActionsProps {
 const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
   const { toast } = useToast();
 
-  // Fix: The correct way to specify the component to print in current version
+  // Handling print functionality
   const handlePrint = useReactToPrint({
     documentTitle: `Relatório - ${report.title}`,
     onAfterPrint: () => {
@@ -21,7 +22,6 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
         description: "O relatório foi enviado para impressão."
       });
     },
-    // Using contentRef instead of content function
     contentRef: printRef,
   });
 
@@ -82,61 +82,23 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
     });
   };
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `Relatório - ${report.title}`,
-          text: `Compartilhando o relatório "${report.title}" do projeto "${report.project}"`,
-        });
-        
-        toast({
-          title: "Compartilhamento iniciado",
-          description: "Use as opções do seu dispositivo para compartilhar."
-        });
-      } catch (error) {
-        toast({
-          title: "Erro ao compartilhar",
-          description: "Ocorreu um problema ao tentar compartilhar.",
-          variant: "destructive"
-        });
-      }
-    } else {
-      toast({
-        title: "Compartilhamento não suportado",
-        description: "Seu navegador não suporta a API de compartilhamento.",
-        variant: "destructive"
-      });
-    }
-  };
-
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex gap-3">
       <Button 
-        variant="outline" 
-        className="flex items-center gap-2" 
+        className="flex-1 py-5"
         onClick={() => handlePrint()}
       >
-        <Printer className="h-4 w-4" />
+        <Printer className="h-5 w-5 mr-2" />
         Imprimir
       </Button>
       
       <Button 
-        variant="outline" 
-        className="flex items-center gap-2" 
+        variant="secondary"
+        className="flex-1 py-5"
         onClick={handleDownload}
       >
-        <Download className="h-4 w-4" />
+        <Download className="h-5 w-5 mr-2" />
         Baixar
-      </Button>
-      
-      <Button 
-        variant="outline" 
-        className="flex items-center gap-2" 
-        onClick={handleShare}
-      >
-        <Share2 className="h-4 w-4" />
-        Compartilhar
       </Button>
     </div>
   );

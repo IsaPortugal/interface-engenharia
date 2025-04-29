@@ -5,7 +5,6 @@ import { ptBR } from 'date-fns/locale';
 import { FileText, Eye, Pencil, Trash2, FileDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface ReportCardProps {
   report: {
@@ -50,21 +49,18 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onViewDetail, onEdit, o
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{report.description}</p>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-between">
-        <Avatar className="h-8 w-8">
-          <AvatarFallback>{report.author}</AvatarFallback>
-        </Avatar>
-        <div className="flex gap-1">
-          <Button size="sm" variant="outline" onClick={() => onViewDetail(report)}>
+      <CardFooter className="pt-0 flex justify-end">
+        <div className="flex gap-2">
+          <Button size="sm" onClick={() => onViewDetail(report)}>
             <Eye className="h-4 w-4 mr-1" /> Visualizar
           </Button>
           <Button size="sm" variant="outline" onClick={() => onEdit(report)}>
             <Pencil className="h-4 w-4 mr-1" /> Editar
           </Button>
-          <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => onDelete(report.id)}>
+          <Button size="sm" variant="destructive" onClick={() => onDelete(report.id)}>
             <Trash2 className="h-4 w-4 mr-1" /> Excluir
           </Button>
-          <Button size="sm" variant="outline" onClick={() => onGeneratePDF(report)}>
+          <Button size="sm" variant="secondary" onClick={() => onGeneratePDF(report)}>
             <FileDown className="h-4 w-4 mr-1" /> PDF
           </Button>
         </div>
