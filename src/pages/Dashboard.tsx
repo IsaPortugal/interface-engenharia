@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import ClientPanelCard from '@/components/dashboard/ClientPanelCard';
 
 const StatCard = ({ icon: Icon, title, value, color }: any) => (
   <Card className="card-hover overflow-hidden border-none shadow-md">
@@ -202,6 +203,9 @@ export default function Dashboard() {
       </div>
 
       <div className="space-y-6">
+        {/* Client Panel Card - New Addition */}
+        <ClientPanelCard />
+
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold">Obras em Andamento</h2>
