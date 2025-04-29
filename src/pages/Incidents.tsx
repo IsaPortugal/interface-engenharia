@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { AlertTriangle, Plus, Calendar, Search, CheckCircle2, Clock } from 'lucide-react';
+import { AlertTriangle, Plus, Calendar, Search, CheckCircle2, Clock, Eye, Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -10,13 +10,14 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { toast } from "sonner";
 
 const incidentsData = [
   {
     id: 1,
     title: 'Vazamento hidráulico',
     project: 'Edifício Residencial Aurora',
-    status: 'Pendente',
+    status: 'Em aberto',
     severity: 'Alta',
     date: '23/11/2023',
     assignedTo: 'EF',
@@ -46,9 +47,20 @@ const incidentsData = [
 
 const IncidentCard = ({ incident }: { incident: any }) => {
   const statusColors = {
-    'Pendente': 'bg-yellow-100 text-yellow-800',
     'Em aberto': 'bg-blue-100 text-blue-800',
     'Resolvido': 'bg-green-100 text-green-800'
+  };
+
+  const handleViewClick = () => {
+    toast.info(`Visualizando incidente: ${incident.title}`);
+  };
+
+  const handleEditClick = () => {
+    toast.info(`Editando incidente: ${incident.title}`);
+  };
+
+  const handleDeleteClick = () => {
+    toast.error(`Excluindo incidente: ${incident.title}`);
   };
 
   return (
@@ -73,8 +85,19 @@ const IncidentCard = ({ incident }: { incident: any }) => {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-end">
-        <Button size="sm" variant="outline">Ver detalhes</Button>
+      <CardFooter className="pt-0 flex justify-between">
+        <Button size="sm" variant="outline" onClick={handleViewClick}>
+          <Eye className="mr-1 h-4 w-4" />
+          Visualizar
+        </Button>
+        <Button size="sm" variant="outline" onClick={handleEditClick}>
+          <Pencil className="mr-1 h-4 w-4" />
+          Editar
+        </Button>
+        <Button size="sm" variant="outline" className="text-red-500 hover:text-red-700" onClick={handleDeleteClick}>
+          <Trash2 className="mr-1 h-4 w-4" />
+          Excluir
+        </Button>
       </CardFooter>
     </Card>
   );
@@ -126,7 +149,6 @@ const IncidentForm = ({ onClose }: { onClose: () => void }) => {
               <SelectValue placeholder="Selecione o status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="pendente">Pendente</SelectItem>
               <SelectItem value="em-aberto">Em aberto</SelectItem>
               <SelectItem value="resolvido">Resolvido</SelectItem>
             </SelectContent>
@@ -227,7 +249,7 @@ const Incidents = () => {
         <TabsList className="mb-4">
           <TabsTrigger value="all">Todos</TabsTrigger>
           <TabsTrigger value="open">Em aberto</TabsTrigger>
-          <TabsTrigger value="pending">Pendentes</TabsTrigger>
+          <TabsTrigger value="resolved">Resolvidos</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all">
@@ -248,20 +270,20 @@ const Incidents = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="pending">
+        <TabsContent value="open">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredIncidents
-              .filter(incident => incident.status === 'Pendente')
+              .filter(incident => incident.status === 'Em aberto')
               .map(incident => (
                 <IncidentCard key={incident.id} incident={incident} />
               ))}
           </div>
         </TabsContent>
 
-        <TabsContent value="open">
+        <TabsContent value="resolved">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredIncidents
-              .filter(incident => incident.status === 'Em aberto')
+              .filter(incident => incident.status === 'Resolvido')
               .map(incident => (
                 <IncidentCard key={incident.id} incident={incident} />
               ))}
