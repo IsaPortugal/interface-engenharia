@@ -8,6 +8,10 @@ export interface ReportData {
   type: string;
   description: string;
   attachments: number;
+  progress?: number;
+  nextSteps?: string;
+  incidents?: any[];
+  imageDetails?: {caption: string, fileName: string}[];
 }
 
 // Reduced to just 3 reports as requested
@@ -20,7 +24,19 @@ export const reportsData: ReportData[] = [
     author: 'EF',
     type: 'Mensal',
     description: 'Relatório de acompanhamento mensal das obras do Edifício Residencial Aurora, incluindo análise de cronograma, custos e qualidade.',
-    attachments: 3
+    attachments: 3,
+    progress: 75,
+    nextSteps: 'Finalização da estrutura do 5º andar e início das instalações hidráulicas nos andares já concluídos.',
+    incidents: [
+      {
+        title: 'Vazamento hidráulico',
+        project: 'Edifício Residencial Aurora',
+        status: 'Em aberto',
+        severity: 'Alta',
+        date: '23/11/2023',
+        description: 'Vazamento identificado na tubulação principal do 3º andar.'
+      }
+    ]
   },
   {
     id: 2,
@@ -30,7 +46,9 @@ export const reportsData: ReportData[] = [
     author: 'RS',
     type: 'Semanal',
     description: 'Relatório de acompanhamento semanal das atividades executadas no Centro Comercial Vitória.',
-    attachments: 2
+    attachments: 2,
+    progress: 45,
+    nextSteps: 'Continuação da fundação do setor oeste e preparação para concretagem.'
   },
   {
     id: 3,
@@ -40,6 +58,17 @@ export const reportsData: ReportData[] = [
     author: 'TC',
     type: 'Semanal',
     description: 'Relatório de acompanhamento semanal das atividades executadas no Hospital São Lucas.',
-    attachments: 5
+    attachments: 5,
+    progress: 30,
+    incidents: [
+      {
+        title: 'Problema elétrico',
+        project: 'Hospital São Lucas',
+        status: 'Resolvido',
+        severity: 'Média',
+        date: '15/11/2023',
+        description: 'Curto-circuito no quadro elétrico principal. Resolvido pela equipe técnica.'
+      }
+    ]
   }
 ];

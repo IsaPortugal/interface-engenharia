@@ -4,8 +4,9 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Calendar, User, CheckCircle, Clock } from 'lucide-react';
+import { FileText, Calendar, User, CheckCircle, Clock, AlertTriangle } from 'lucide-react';
 import ReportActions from './ReportActions';
+import { Progress } from '@/components/ui/progress';
 
 interface ReportDetailProps {
   report: any;
@@ -28,11 +29,11 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
     'Rejeitado': 'bg-red-100 text-red-800'
   };
   
-  // Mock images for the demo
-  const reportImages = [
-    '/placeholder.svg',
-    '/placeholder.svg',
-    '/placeholder.svg'
+  // Use actual image details if available or fallback to mock images
+  const reportImages = report.imageDetails || [
+    { caption: 'Avanço da estrutura', fileName: '/placeholder.svg' },
+    { caption: 'Fundações concluídas', fileName: '/placeholder.svg' },
+    { caption: 'Vista geral da obra', fileName: '/placeholder.svg' }
   ];
 
   return (
@@ -82,6 +83,16 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
                   <p className="font-medium">{report.project}</p>
                 </div>
                 
+                {report.progress !== undefined && (
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Progresso da Obra</p>
+                    <div className="space-y-2">
+                      <Progress value={report.progress} className="h-2" />
+                      <p className="text-sm font-medium text-right">{report.progress}% concluído</p>
+                    </div>
+                  </div>
+                )}
+                
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Descrição</p>
                   <p className="text-gray-700">{report.description}</p>
@@ -111,7 +122,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
                 <section>
                   <h4 className="text-base font-medium mb-2">Progresso da Obra</h4>
                   <p>
-                    A obra avançou conforme planejado, com conclusão de 85% das fundações
+                    A obra avançou conforme planejado, com conclusão de {report.progress || 85}% das fundações
                     e início da montagem das estruturas metálicas.
                   </p>
                   
@@ -119,17 +130,43 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
                     {reportImages.map((img, index) => (
                       <div key={index} className="border rounded-md overflow-hidden">
                         <img 
-                          src={img} 
+                          src={img.fileName.startsWith('/') ? img.fileName : URL.createObjectURL(new Blob())} 
                           alt={`Imagem da obra ${index + 1}`} 
                           className="w-full h-48 object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = '/placeholder.svg';
+                          }}
                         />
                         <div className="p-2 text-sm text-center text-gray-600">
-                          Foto {index + 1}: Avanço da estrutura
+                          {img.caption || `Foto ${index + 1}: Avanço da estrutura`}
                         </div>
                       </div>
                     ))}
                   </div>
                 </section>
+                
+                {report.incidents && report.incidents.length > 0 && (
+                  <section>
+                    <h4 className="text-base font-medium mb-2 flex items-center">
+                      <AlertTriangle className="h-5 w-5 mr-1 text-amber-500" />
+                      Incidentes Registrados
+                    </h4>
+                    <div className="space-y-3">
+                      {report.incidents.map((incident: any, idx: number) => (
+                        <div key={idx} className="border rounded-md p-3 bg-amber-50">
+                          <div className="flex justify-between">
+                            <h5 className="font-medium">{incident.title}</h5>
+                            <Badge variant={incident.status === 'Resolvido' ? 'outline' : 'destructive'}>
+                              {incident.status}
+                            </Badge>
+                          </div>
+                          <p className="text-sm mt-1 text-gray-600">Data: {incident.date}</p>
+                          <p className="text-sm mt-2">{incident.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
                 
                 <section>
                   <h4 className="text-base font-medium mb-2">Questões e Riscos</h4>
@@ -141,14 +178,20 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
                 
                 <section>
                   <h4 className="text-base font-medium mb-2">Próximas Etapas</h4>
-                  <p>
-                    Para o próximo período, está planejado:
-                  </p>
-                  <ul className="list-disc pl-5 space-y-2 mt-2">
-                    <li>Conclusão da estrutura metálica do bloco A</li>
-                    <li>Início das instalações elétricas</li>
-                    <li>Concretagem da laje do segundo pavimento</li>
-                  </ul>
+                  {report.nextSteps ? (
+                    <p>{report.nextSteps}</p>
+                  ) : (
+                    <>
+                      <p>
+                        Para o próximo período, está planejado:
+                      </p>
+                      <ul className="list-disc pl-5 space-y-2 mt-2">
+                        <li>Conclusão da estrutura metálica do bloco A</li>
+                        <li>Início das instalações elétricas</li>
+                        <li>Concretagem da laje do segundo pavimento</li>
+                      </ul>
+                    </>
+                  )}
                 </section>
               </div>
             </div>
