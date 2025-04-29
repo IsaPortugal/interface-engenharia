@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Eye, Pencil, Trash2 } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -60,18 +60,18 @@ const ObraCard = ({ obra, onViewDetails, onEdit, onDelete }: ObraCardProps) => {
         </div>
       </CardContent>
       <CardFooter className="pt-0 flex justify-between">
-        <div className="flex gap-1">
-          <Button size="sm" variant="outline" className="h-8 w-8 p-0" onClick={() => onViewDetails(obra.id)}>
-            <Eye className="h-4 w-4" />
+        <div className="flex gap-1 flex-wrap">
+          <Button size="sm" variant="outline" onClick={() => onViewDetails(obra.id)}>
+            Visualizar
           </Button>
           {onEdit && (
-            <Button size="sm" variant="outline" className="h-8 w-8 p-0" onClick={() => onEdit(obra.id)}>
-              <Pencil className="h-4 w-4" />
+            <Button size="sm" variant="outline" onClick={() => onEdit(obra.id)}>
+              Editar
             </Button>
           )}
           {onDelete && (
-            <Button size="sm" variant="outline" className="h-8 w-8 p-0 text-red-500 hover:text-red-600" onClick={() => onDelete(obra.id)}>
-              <Trash2 className="h-4 w-4" />
+            <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => onDelete(obra.id)}>
+              Excluir
             </Button>
           )}
         </div>

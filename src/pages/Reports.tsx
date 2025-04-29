@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { FileText, Plus, Search, Filter, Download, ArrowUpRight, PenSquare, Trash2, Image as ImageIcon, Upload } from 'lucide-react';
+
+import React, { useState } from 'react';
+import { FileText, Plus, Search, ArrowUpRight, PenSquare, Trash2, Image as ImageIcon, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -23,70 +24,55 @@ const reportsData = [
     date: '2023-10-31',
     author: 'EF',
     type: 'Mensal',
-    status: 'Aprovado',
     description: 'Relatório de acompanhamento mensal das obras do Edifício Residencial Aurora, incluindo análise de cronograma, custos e qualidade.',
     attachments: 3
   },
   {
     id: 2,
-    title: 'Vistoria Estrutural',
+    title: 'Relatório Semanal - Semana 45',
     project: 'Centro Comercial Vitória',
     date: '2023-11-15',
     author: 'RS',
-    type: 'Técnico',
-    status: 'Em revisão',
-    description: 'Relatório técnico sobre a análise estrutural do Centro Comercial Vitória, com foco nas fundações e pilares principais.',
+    type: 'Semanal',
+    description: 'Relatório de acompanhamento semanal das atividades executadas no Centro Comercial Vitória.',
     attachments: 2
   },
   {
     id: 3,
-    title: 'Inspeção de Qualidade',
+    title: 'Relatório Semanal - Semana 46',
     project: 'Hospital São Lucas',
     date: '2023-11-05',
     author: 'TC',
-    type: 'Inspeção',
-    status: 'Aprovado',
-    description: 'Relatório de inspeção de qualidade das instalações elétricas e hidráulicas do Hospital São Lucas.',
+    type: 'Semanal',
+    description: 'Relatório de acompanhamento semanal das atividades executadas no Hospital São Lucas.',
     attachments: 5
   },
   {
     id: 4,
-    title: 'Análise de Custos',
+    title: 'Relatório Mensal - Novembro/2023',
     project: 'Condomínio Park Avenue',
     date: '2023-11-10',
     author: 'EF',
-    type: 'Financeiro',
-    status: 'Pendente',
-    description: 'Relatório detalhando a análise de custos e fluxo financeiro do projeto Condomínio Park Avenue no terceiro trimestre.',
+    type: 'Mensal',
+    description: 'Relatório de acompanhamento mensal das obras do Condomínio Park Avenue, incluindo análise de cronograma, custos e qualidade.',
     attachments: 4
   },
   {
     id: 5,
-    title: 'Relatório Semanal - Semana 45',
+    title: 'Relatório Semanal - Semana 47',
     project: 'Edifício Residencial Aurora',
     date: '2023-11-12',
     author: 'MF',
     type: 'Semanal',
-    status: 'Aprovado',
     description: 'Relatório de acompanhamento semanal das atividades executadas no Edifício Residencial Aurora.',
     attachments: 1
   }
 ];
 
 const ReportCard = ({ report, onViewDetail }: { report: any, onViewDetail: (report: any) => void }) => {
-  const statusColors = {
-    'Aprovado': 'bg-green-100 text-green-800',
-    'Em revisão': 'bg-yellow-100 text-yellow-800',
-    'Pendente': 'bg-blue-100 text-blue-800',
-    'Rejeitado': 'bg-red-100 text-red-800'
-  };
-
   const typeColors = {
     'Mensal': 'text-purple-600',
-    'Semanal': 'text-blue-600',
-    'Técnico': 'text-orange-600',
-    'Inspeção': 'text-green-600',
-    'Financeiro': 'text-gray-600'
+    'Semanal': 'text-blue-600'
   };
 
   const date = new Date(report.date);
@@ -100,9 +86,6 @@ const ReportCard = ({ report, onViewDetail }: { report: any, onViewDetail: (repo
             <CardTitle className="text-base font-semibold">{report.title}</CardTitle>
             <CardDescription className="text-sm">{report.project}</CardDescription>
           </div>
-          <Badge className={statusColors[report.status as keyof typeof statusColors]}>
-            {report.status}
-          </Badge>
         </div>
       </CardHeader>
       <CardContent className="pb-3">
@@ -135,9 +118,6 @@ const ReportCard = ({ report, onViewDetail }: { report: any, onViewDetail: (repo
             <DropdownMenuLabel>Opções</DropdownMenuLabel>
             <DropdownMenuItem className="cursor-pointer" onClick={() => onViewDetail(report)}>
               <FileText className="h-4 w-4 mr-2" /> Visualizar
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <Download className="h-4 w-4 mr-2" /> Baixar
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
               <PenSquare className="h-4 w-4 mr-2" /> Editar
@@ -175,10 +155,10 @@ const ReportForm = ({ onClose, editMode = false, reportData = null }: { onClose:
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="project">Projeto</Label>
+          <Label htmlFor="project">Obra</Label>
           <Select defaultValue={editMode && reportData ? reportData.project : undefined}>
             <SelectTrigger>
-              <SelectValue placeholder="Selecione o projeto" />
+              <SelectValue placeholder="Selecione a obra" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Edifício Residencial Aurora">Edifício Residencial Aurora</SelectItem>
@@ -189,37 +169,17 @@ const ReportForm = ({ onClose, editMode = false, reportData = null }: { onClose:
           </Select>
         </div>
         
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="type">Tipo</Label>
-            <Select defaultValue={editMode && reportData ? reportData.type : undefined}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o tipo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Mensal">Mensal</SelectItem>
-                <SelectItem value="Semanal">Semanal</SelectItem>
-                <SelectItem value="Técnico">Técnico</SelectItem>
-                <SelectItem value="Inspeção">Inspeção</SelectItem>
-                <SelectItem value="Financeiro">Financeiro</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div className="grid gap-2">
-            <Label htmlFor="status">Status</Label>
-            <Select defaultValue={editMode && reportData ? reportData.status : "Pendente"}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Pendente">Pendente</SelectItem>
-                <SelectItem value="Em revisão">Em revisão</SelectItem>
-                <SelectItem value="Aprovado">Aprovado</SelectItem>
-                <SelectItem value="Rejeitado">Rejeitado</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="grid gap-2">
+          <Label htmlFor="type">Tipo</Label>
+          <Select defaultValue={editMode && reportData ? reportData.type : undefined}>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione o tipo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Mensal">Mensal</SelectItem>
+              <SelectItem value="Semanal">Semanal</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         
         <div className="grid gap-2">
@@ -257,12 +217,6 @@ const ReportForm = ({ onClose, editMode = false, reportData = null }: { onClose:
   );
 };
 
-const statsData = [
-  { title: 'Total Relatórios', value: '48', trend: '+5', icon: FileText, color: 'bg-blue-100 text-blue-800' },
-  { title: 'Aprovados', value: '32', trend: '+3', icon: FileText, color: 'bg-green-100 text-green-800' },
-  { title: 'Em Revisão', value: '10', trend: '+1', icon: FileText, color: 'bg-yellow-100 text-yellow-800' },
-];
-
 const Reports = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -271,9 +225,10 @@ const Reports = () => {
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
 
   const filteredReports = reportsData.filter(report => 
-    report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     report.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    report.type.toLowerCase().includes(searchTerm.toLowerCase())
+    report.type.toLowerCase().includes(searchTerm.toLowerCase())) &&
+    (report.type === 'Mensal' || report.type === 'Semanal')  // Only show Mensal or Semanal reports
   );
 
   const handleViewReport = (report: any) => {
@@ -304,44 +259,17 @@ const Reports = () => {
         </Dialog>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {statsData.map((stat, index) => (
-          <Card key={index}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">{stat.title}</p>
-                  <p className="text-2xl font-bold">{stat.value}</p>
-                </div>
-                <div className={`p-3 rounded-full ${stat.color}`}>
-                  <stat.icon className="h-5 w-5" />
-                </div>
-              </div>
-              <div className="mt-2">
-                <span className="text-xs flex items-center text-green-500">
-                  <ArrowUpRight className="h-3 w-3 mr-1" />
-                  {stat.trend} este mês
-                </span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
       <div className="mb-6">
         <div className="flex items-center gap-4 mb-4">
           <div className="relative flex-1">
             <Search className="absolute left-2.5 top-3 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Buscar relatórios por título, projeto ou tipo..."
+              placeholder="Buscar relatórios por título ou obra..."
               className="pl-9"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button variant="outline" className="gap-2">
-            <Filter className="h-4 w-4" /> Filtrar
-          </Button>
         </div>
       </div>
 
@@ -350,7 +278,6 @@ const Reports = () => {
           <TabsTrigger value="all">Todos</TabsTrigger>
           <TabsTrigger value="monthly">Mensais</TabsTrigger>
           <TabsTrigger value="weekly">Semanais</TabsTrigger>
-          <TabsTrigger value="technical">Técnicos</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all">
@@ -393,20 +320,6 @@ const Reports = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredReports
               .filter(report => report.type === 'Semanal')
-              .map(report => (
-                <ReportCard 
-                  key={report.id} 
-                  report={report} 
-                  onViewDetail={handleViewReport}
-                />
-              ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="technical">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredReports
-              .filter(report => report.type === 'Técnico')
               .map(report => (
                 <ReportCard 
                   key={report.id} 
