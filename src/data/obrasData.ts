@@ -13,7 +13,8 @@ export const obrasData: Obra[] = [
     tipo: 'Residencial',
     progresso: 75,
     status: 'Em andamento',
-    imagem: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop'
+    imagem: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
+    cliente: 1
   },
   {
     id: 2,
@@ -25,7 +26,8 @@ export const obrasData: Obra[] = [
     tipo: 'Comercial',
     progresso: 45,
     status: 'Em andamento',
-    imagem: 'https://images.unsplash.com/photo-1460574283810-2aab119d8511?q=80&w=2670&auto=format&fit=crop'
+    imagem: 'https://images.unsplash.com/photo-1460574283810-2aab119d8511?q=80&w=2670&auto=format&fit=crop',
+    cliente: 2
   },
   {
     id: 3,
@@ -37,7 +39,8 @@ export const obrasData: Obra[] = [
     tipo: 'Saúde',
     progresso: 30,
     status: 'Em andamento',
-    imagem: 'https://images.unsplash.com/photo-1527576539890-dfa815648363?q=80&w=2671&auto=format&fit=crop'
+    imagem: 'https://images.unsplash.com/photo-1527576539890-dfa815648363?q=80&w=2671&auto=format&fit=crop',
+    cliente: 3
   },
   {
     id: 4,
@@ -49,7 +52,8 @@ export const obrasData: Obra[] = [
     tipo: 'Residencial',
     progresso: 100,
     status: 'Concluído',
-    imagem: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2670&auto=format&fit=crop'
+    imagem: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2670&auto=format&fit=crop',
+    cliente: 1
   }
 ];
 

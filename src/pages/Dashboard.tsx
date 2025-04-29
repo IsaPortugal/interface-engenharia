@@ -5,7 +5,7 @@ import {
   AlertTriangle, 
   Calendar, 
   Clock, 
-  ArrowRight, 
+  ArrowRight,
   ArrowUpRight,
   MapPin,
   Users
@@ -15,17 +15,6 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer,
-} from 'recharts';
 
 const StatCard = ({ icon: Icon, title, value, trend, color }: any) => (
   <Card className="card-hover overflow-hidden border-none shadow-md">
@@ -212,21 +201,12 @@ export default function Dashboard() {
       type: 'Inspeção',
       users: ['EF', 'TC', 'MR']
     },
-  ].slice(0, 3);
-
-  const barChartData = [
-    { name: 'Jan', completadas: 4, emAndamento: 8, atrasadas: 2 },
-    { name: 'Fev', completadas: 5, emAndamento: 7, atrasadas: 1 },
-    { name: 'Mar', completadas: 6, emAndamento: 8, atrasadas: 3 },
-    { name: 'Abr', completadas: 7, emAndamento: 9, atrasadas: 2 },
-    { name: 'Mai', completadas: 8, emAndamento: 10, atrasadas: 1 },
-    { name: 'Jun', completadas: 7, emAndamento: 11, atrasadas: 2 },
   ];
 
   return (
     <div className="space-y-8 max-w-[1400px] mx-auto">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Painel</h1>
         <p className="text-muted-foreground">Bem-vindo ao seu painel de controle, aqui você pode monitorar todas as suas obras.</p>
       </div>
 
@@ -236,56 +216,20 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">Obras em Andamento</h2>
-              <Button variant="outline" className="text-sm">
-                Ver todas
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {projects.map((project, index) => (
-                <ProjectCard key={index} {...project} />
-              ))}
-            </div>
+      <div className="space-y-6">
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold">Obras em Andamento</h2>
+            <Button variant="outline" className="text-sm">
+              Ver todas
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">Desempenho</h2>
-              <Button variant="outline" className="text-sm">
-                Relatório Completo
-              </Button>
-            </div>
-            <Card className="border-none shadow-md">
-              <CardHeader>
-                <CardTitle className="text-base">Atividades por Mês</CardTitle>
-                <CardDescription>Distribuição de obras completadas, em andamento e atrasadas</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={barChartData}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="completadas" name="Completadas" fill="#0088FE" />
-                      <Bar dataKey="emAndamento" name="Em Andamento" fill="#00C49F" />
-                      <Bar dataKey="atrasadas" name="Atrasadas" fill="#FF8042" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {projects.map((project, index) => (
+              <ProjectCard key={index} {...project} />
+            ))}
           </div>
         </div>
 
@@ -297,10 +241,18 @@ export default function Dashboard() {
             </Button>
           </div>
           <Card className="border-none shadow-md">
-            <CardContent className="p-4 space-y-3">
-              {upcomingEvents.map((event, index) => (
-                <UpcomingEventCard key={index} {...event} />
-              ))}
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg">Agenda</CardTitle>
+              <CardDescription>Próximas atividades e compromissos agendados</CardDescription>
+            </CardHeader>
+            <CardContent className="p-4">
+              <ul className="space-y-3">
+                {upcomingEvents.map((event, index) => (
+                  <li key={index}>
+                    <UpcomingEventCard {...event} />
+                  </li>
+                ))}
+              </ul>
             </CardContent>
             <CardFooter className="pt-0 pb-4 px-4">
               <Button className="w-full" variant="outline">

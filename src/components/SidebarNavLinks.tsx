@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 // Links das rotas do sistema
 export const sidebarLinks = [
   {
-    title: 'Dashboard',
+    title: 'Painel',
     icon: Home,
     href: '/',
     variant: 'default'
