@@ -1,9 +1,9 @@
+
 import React, { useState } from 'react';
-import { AlertTriangle, Plus, Calendar, Search, Filter, CheckCircle2, Clock, ArrowUpRight } from 'lucide-react';
+import { AlertTriangle, Plus, Calendar, Search, CheckCircle2, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -26,11 +26,11 @@ const incidentsData = [
     id: 2,
     title: 'Rachadura estrutural',
     project: 'Centro Comercial Vitória',
-    status: 'Em análise',
+    status: 'Resolvido',
     severity: 'Crítica',
     date: '20/11/2023',
     assignedTo: 'RS',
-    description: 'Rachadura identificada na parede de sustentação da área oeste.'
+    description: 'Rachadura identificada na parede de sustentação da área oeste. Foi reforçada a estrutura e aplicada massa especial para correção.'
   },
   {
     id: 3,
@@ -41,41 +41,14 @@ const incidentsData = [
     date: '15/11/2023',
     assignedTo: 'TC',
     description: 'Curto-circuito no quadro elétrico principal. Resolvido pela equipe técnica.'
-  },
-  {
-    id: 4,
-    title: 'Infiltração',
-    project: 'Hospital São Lucas',
-    status: 'Pendente',
-    severity: 'Alta',
-    date: '10/11/2023',
-    assignedTo: 'EF',
-    description: 'Infiltração identificada no teto da ala leste, próximo ao centro cirúrgico.'
-  },
-  {
-    id: 5,
-    title: 'Material defeituoso',
-    project: 'Condomínio Park Avenue',
-    status: 'Resolvido',
-    severity: 'Baixa',
-    date: '05/11/2023',
-    assignedTo: 'MF',
-    description: 'Lote de revestimentos com defeito de fabricação. Substituído pelo fornecedor.'
   }
 ];
 
 const IncidentCard = ({ incident }: { incident: any }) => {
   const statusColors = {
     'Pendente': 'bg-yellow-100 text-yellow-800',
-    'Em análise': 'bg-blue-100 text-blue-800',
+    'Em aberto': 'bg-blue-100 text-blue-800',
     'Resolvido': 'bg-green-100 text-green-800'
-  };
-
-  const severityColors = {
-    'Baixa': 'bg-green-500',
-    'Média': 'bg-yellow-500',
-    'Alta': 'bg-orange-500',
-    'Crítica': 'bg-red-500'
   };
 
   return (
@@ -93,21 +66,14 @@ const IncidentCard = ({ incident }: { incident: any }) => {
       </CardHeader>
       <CardContent className="pb-3">
         <p className="text-sm text-gray-700 mb-4">{incident.description}</p>
-        <div className="flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2">
-            <div className={`h-2 w-2 rounded-full ${severityColors[incident.severity as keyof typeof severityColors]}`} />
-            <span className="text-muted-foreground">Severidade: {incident.severity}</span>
-          </div>
+        <div className="flex items-center text-sm">
           <div className="flex items-center gap-1 text-muted-foreground">
             <Calendar className="h-3.5 w-3.5" />
             <span>{incident.date}</span>
           </div>
         </div>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-between">
-        <Avatar className="h-8 w-8">
-          <AvatarFallback>{incident.assignedTo}</AvatarFallback>
-        </Avatar>
+      <CardFooter className="pt-0 flex justify-end">
         <Button size="sm" variant="outline">Ver detalhes</Button>
       </CardFooter>
     </Card>
@@ -126,10 +92,10 @@ const IncidentForm = ({ onClose }: { onClose: () => void }) => {
           <Input id="title" placeholder="Digite o título do incidente" />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="project">Projeto</Label>
+          <Label htmlFor="project">Obra</Label>
           <Select>
             <SelectTrigger>
-              <SelectValue placeholder="Selecione o projeto" />
+              <SelectValue placeholder="Selecione a obra" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="aurora">Edifício Residencial Aurora</SelectItem>
@@ -154,11 +120,28 @@ const IncidentForm = ({ onClose }: { onClose: () => void }) => {
           </Select>
         </div>
         <div className="grid gap-2">
+          <Label htmlFor="status">Status</Label>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione o status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="pendente">Pendente</SelectItem>
+              <SelectItem value="em-aberto">Em aberto</SelectItem>
+              <SelectItem value="resolvido">Resolvido</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="date">Data</Label>
+          <Input id="date" type="date" />
+        </div>
+        <div className="grid gap-2">
           <Label htmlFor="description">Descrição</Label>
           <Textarea id="description" placeholder="Descreva o incidente..." />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="image">Imagens (opcional)</Label>
+          <Label htmlFor="image">Imagens</Label>
           <Input id="image" type="file" multiple />
         </div>
       </div>
@@ -171,9 +154,9 @@ const IncidentForm = ({ onClose }: { onClose: () => void }) => {
 };
 
 const statsData = [
-  { title: 'Total Incidentes', value: '27', trend: '+3', icon: AlertTriangle, color: 'bg-orange-100 text-orange-800' },
-  { title: 'Resolvidos', value: '19', trend: '+5', icon: CheckCircle2, color: 'bg-green-100 text-green-800' },
-  { title: 'Em Aberto', value: '8', trend: '-2', icon: Clock, color: 'bg-blue-100 text-blue-800' },
+  { title: 'Total Incidentes', value: '3', icon: AlertTriangle, color: 'bg-orange-100 text-orange-800' },
+  { title: 'Resolvidos', value: '2', icon: CheckCircle2, color: 'bg-green-100 text-green-800' },
+  { title: 'Pendentes', value: '1', icon: Clock, color: 'bg-blue-100 text-blue-800' },
 ];
 
 const Incidents = () => {
@@ -221,12 +204,6 @@ const Incidents = () => {
                   <stat.icon className="h-5 w-5" />
                 </div>
               </div>
-              <div className="mt-2">
-                <span className={`text-xs flex items-center ${stat.trend.includes('+') ? 'text-green-500' : 'text-red-500'}`}>
-                  {stat.trend.includes('+') ? <ArrowUpRight className="h-3 w-3 mr-1" /> : <ArrowUpRight className="h-3 w-3 mr-1 rotate-180" />}
-                  {stat.trend} este mês
-                </span>
-              </div>
             </CardContent>
           </Card>
         ))}
@@ -243,18 +220,14 @@ const Incidents = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button variant="outline" className="gap-2">
-            <Filter className="h-4 w-4" /> Filtrar
-          </Button>
         </div>
       </div>
 
       <Tabs defaultValue="all">
         <TabsList className="mb-4">
           <TabsTrigger value="all">Todos</TabsTrigger>
+          <TabsTrigger value="open">Em aberto</TabsTrigger>
           <TabsTrigger value="pending">Pendentes</TabsTrigger>
-          <TabsTrigger value="inanalysis">Em Análise</TabsTrigger>
-          <TabsTrigger value="resolved">Resolvidos</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all">
@@ -285,20 +258,10 @@ const Incidents = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="inanalysis">
+        <TabsContent value="open">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredIncidents
-              .filter(incident => incident.status === 'Em análise')
-              .map(incident => (
-                <IncidentCard key={incident.id} incident={incident} />
-              ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="resolved">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredIncidents
-              .filter(incident => incident.status === 'Resolvido')
+              .filter(incident => incident.status === 'Em aberto')
               .map(incident => (
                 <IncidentCard key={incident.id} incident={incident} />
               ))}
