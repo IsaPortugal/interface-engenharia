@@ -1,16 +1,15 @@
 
 import React, { useState } from 'react';
-import { AlertTriangle, Plus, Search, CheckCircle2, Clock } from 'lucide-react';
+import { AlertTriangle, Plus, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
-// Import our new components
+// Import our components
 import IncidentCard from '@/components/incidents/IncidentCard';
 import IncidentForm from '@/components/incidents/IncidentForm';
-import StatsCard from '@/components/incidents/StatsCard';
-import { incidentsData, statsData } from '@/components/incidents/IncidentsData';
+import { incidentsData } from '@/components/incidents/IncidentsData';
 
 const Incidents = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,12 +19,6 @@ const Incidents = () => {
     incident.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     incident.project.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const iconComponents = {
-    AlertTriangle,
-    CheckCircle2,
-    Clock
-  };
 
   return (
     <div className="container max-w-6xl mx-auto py-6 animate-fade-in">
@@ -48,21 +41,6 @@ const Incidents = () => {
             <IncidentForm onClose={() => setDialogOpen(false)} />
           </DialogContent>
         </Dialog>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {statsData.map((stat, index) => {
-          const IconComponent = iconComponents[stat.icon as keyof typeof iconComponents];
-          return (
-            <StatsCard
-              key={index}
-              title={stat.title}
-              value={stat.value}
-              icon={IconComponent}
-              color={stat.color}
-            />
-          );
-        })}
       </div>
 
       <div className="mb-6">
