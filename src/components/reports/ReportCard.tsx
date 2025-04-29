@@ -49,30 +49,28 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onViewDetail, onEdit, o
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{report.description}</p>
       </CardContent>
-      <CardFooter className="pt-0 flex flex-col gap-2">
+      <CardFooter className="pt-0 flex justify-center gap-4">
         <Button 
           variant="outline" 
           onClick={() => onViewDetail(report)}
-          className="w-full"
+          className="rounded-full px-6"
         >
           Visualizar
         </Button>
-        <div className="flex w-full gap-2">
-          <Button 
-            variant="outline" 
-            onClick={() => onEdit(report)}
-            className="flex-1"
-          >
-            Editar
-          </Button>
-          <Button 
-            variant="outline" 
-            onClick={() => onDelete(report.id)}
-            className="flex-1 text-red-500 hover:text-red-600 hover:bg-red-50"
-          >
-            Excluir
-          </Button>
-        </div>
+        <Button 
+          variant="outline" 
+          onClick={() => onEdit(report)}
+          className="rounded-full px-6"
+        >
+          Editar
+        </Button>
+        <Button 
+          variant="outline" 
+          onClick={() => onDelete(report.id)}
+          className="rounded-full px-6 text-red-500 hover:text-red-600 hover:bg-red-50"
+        >
+          Excluir
+        </Button>
       </CardFooter>
     </Card>
   );

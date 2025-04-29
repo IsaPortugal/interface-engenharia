@@ -83,9 +83,9 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
   };
 
   return (
-    <div className="space-y-4 mt-8">
+    <div className="flex flex-col gap-3 w-full mt-8 mb-4">
       <Button 
-        className="w-full"
+        className="w-full py-3"
         onClick={() => handlePrint()}
       >
         <Printer className="h-5 w-5 mr-2" />
@@ -94,7 +94,7 @@ const ReportActions: React.FC<ReportActionsProps> = ({ report, printRef }) => {
       
       <Button 
         variant="secondary"
-        className="w-full"
+        className="w-full py-3"
         onClick={handleDownload}
       >
         <Download className="h-5 w-5 mr-2" />
