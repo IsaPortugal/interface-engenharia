@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -15,11 +14,10 @@ import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Obras from "./pages/Obras";
+import Clientes from './pages/Clientes';
 
-// Criar cliente de Query para API
 const queryClient = new QueryClient();
 
-// Componente principal da aplicação
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
@@ -28,10 +26,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            {/* Rota de Login */}
             <Route path="/login" element={<Login />} />
-            
-            {/* Rotas protegidas */}
             <Route element={<Layout />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/reports" element={<Reports />} />
@@ -40,9 +35,8 @@ const App = () => {
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/obras" element={<Obras />} />
               <Route path="/projeto-tcc-obra/*" element={<Index />} />
+              <Route path="/clientes" element={<Clientes />} />
             </Route>
-            
-            {/* Rota para página não encontrada */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

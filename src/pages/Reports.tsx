@@ -1,21 +1,22 @@
 
 import React, { useState } from 'react';
-import { FileText, Plus, Search, ArrowUpRight, PenSquare, Trash2, Image as ImageIcon, Upload } from 'lucide-react';
+import { FileText, Plus, Eye, Pencil, Trash2, Image as ImageIcon, Upload, FileDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { toast } from '@/hooks/use-toast';
 import ReportDetail from '@/components/ReportDetail';
 
+// Reduced to just 3 reports as requested
 const reportsData = [
   {
     id: 1,
@@ -46,35 +47,16 @@ const reportsData = [
     type: 'Semanal',
     description: 'Relatório de acompanhamento semanal das atividades executadas no Hospital São Lucas.',
     attachments: 5
-  },
-  {
-    id: 4,
-    title: 'Relatório Mensal - Novembro/2023',
-    project: 'Condomínio Park Avenue',
-    date: '2023-11-10',
-    author: 'EF',
-    type: 'Mensal',
-    description: 'Relatório de acompanhamento mensal das obras do Condomínio Park Avenue, incluindo análise de cronograma, custos e qualidade.',
-    attachments: 4
-  },
-  {
-    id: 5,
-    title: 'Relatório Semanal - Semana 47',
-    project: 'Edifício Residencial Aurora',
-    date: '2023-11-12',
-    author: 'MF',
-    type: 'Semanal',
-    description: 'Relatório de acompanhamento semanal das atividades executadas no Edifício Residencial Aurora.',
-    attachments: 1
   }
 ];
 
-const ReportCard = ({ report, onViewDetail }: { report: any, onViewDetail: (report: any) => void }) => {
-  const typeColors = {
-    'Mensal': 'text-purple-600',
-    'Semanal': 'text-blue-600'
-  };
-
+const ReportCard = ({ report, onViewDetail, onEdit, onDelete, onGeneratePDF }: { 
+  report: any, 
+  onViewDetail: (report: any) => void,
+  onEdit: (report: any) => void,
+  onDelete: (id: number) => void,
+  onGeneratePDF: (report: any) => void
+}) => {
   const date = new Date(report.date);
   const formattedDate = format(date, 'dd MMM yyyy', { locale: ptBR });
 
@@ -89,51 +71,66 @@ const ReportCard = ({ report, onViewDetail }: { report: any, onViewDetail: (repo
         </div>
       </CardHeader>
       <CardContent className="pb-3">
-        <p className="text-sm text-gray-700 mb-3 line-clamp-2">{report.description}</p>
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center justify-between text-sm mb-3">
           <div className="flex items-center gap-2">
-            <FileText className={`h-4 w-4 ${typeColors[report.type as keyof typeof typeColors]}`} />
+            <FileText className="h-4 w-4" />
             <span className="text-muted-foreground">{report.type}</span>
           </div>
-          <div className="flex items-center gap-1 text-muted-foreground">
-            {report.attachments > 0 && (
-              <div className="flex items-center mr-3">
-                <ImageIcon className="h-3.5 w-3.5 mr-1" />
-                <span>{report.attachments}</span>
-              </div>
-            )}
-            <span>{formattedDate}</span>
+          <div className="text-muted-foreground">
+            {formattedDate}
           </div>
         </div>
+        <p className="text-sm text-gray-700 line-clamp-2">{report.description}</p>
       </CardContent>
       <CardFooter className="pt-0 flex justify-between">
         <Avatar className="h-8 w-8">
           <AvatarFallback>{report.author}</AvatarFallback>
         </Avatar>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button size="sm" variant="outline">Ações</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Opções</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer" onClick={() => onViewDetail(report)}>
-              <FileText className="h-4 w-4 mr-2" /> Visualizar
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <PenSquare className="h-4 w-4 mr-2" /> Editar
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-red-600">
-              <Trash2 className="h-4 w-4 mr-2" /> Excluir
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-1">
+          <Button size="sm" variant="outline" onClick={() => onViewDetail(report)}>
+            <Eye className="h-4 w-4 mr-1" /> Visualizar
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => onEdit(report)}>
+            <Pencil className="h-4 w-4 mr-1" /> Editar
+          </Button>
+          <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => onDelete(report.id)}>
+            <Trash2 className="h-4 w-4 mr-1" /> Excluir
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => onGeneratePDF(report)}>
+            <FileDown className="h-4 w-4 mr-1" /> PDF
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );
 };
 
-const ReportForm = ({ onClose, editMode = false, reportData = null }: { onClose: () => void, editMode?: boolean, reportData?: any }) => {
+const ReportForm = ({ onClose, onSave, editMode = false, reportData = null }: { 
+  onClose: () => void, 
+  onSave: (data: any) => void,
+  editMode?: boolean, 
+  reportData?: any 
+}) => {
+  const [title, setTitle] = useState(editMode && reportData ? reportData.title : '');
+  const [project, setProject] = useState(editMode && reportData ? reportData.project : '');
+  const [type, setType] = useState(editMode && reportData ? reportData.type : '');
+  const [description, setDescription] = useState(editMode && reportData ? reportData.description : '');
+  const [date, setDate] = useState(editMode && reportData ? reportData.date : new Date().toISOString().split('T')[0]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      title,
+      project,
+      type,
+      description,
+      date,
+      author: 'EF', // Default author
+      attachments: editMode && reportData ? reportData.attachments : 0
+    };
+    onSave(data);
+  };
+
   return (
     <>
       <DialogHeader>
@@ -144,96 +141,171 @@ const ReportForm = ({ onClose, editMode = false, reportData = null }: { onClose:
             : 'Preencha os detalhes do novo relatório.'}
         </DialogDescription>
       </DialogHeader>
-      <div className="grid gap-4 py-4">
-        <div className="grid gap-2">
-          <Label htmlFor="title">Título</Label>
-          <Input 
-            id="title" 
-            placeholder="Ex: Relatório Mensal - Novembro/2023" 
-            defaultValue={editMode && reportData ? reportData.title : ''}
-          />
-        </div>
-        
-        <div className="grid gap-2">
-          <Label htmlFor="project">Obra</Label>
-          <Select defaultValue={editMode && reportData ? reportData.project : undefined}>
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione a obra" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Edifício Residencial Aurora">Edifício Residencial Aurora</SelectItem>
-              <SelectItem value="Centro Comercial Vitória">Centro Comercial Vitória</SelectItem>
-              <SelectItem value="Condomínio Park Avenue">Condomínio Park Avenue</SelectItem>
-              <SelectItem value="Hospital São Lucas">Hospital São Lucas</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        
-        <div className="grid gap-2">
-          <Label htmlFor="type">Tipo</Label>
-          <Select defaultValue={editMode && reportData ? reportData.type : undefined}>
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione o tipo" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Mensal">Mensal</SelectItem>
-              <SelectItem value="Semanal">Semanal</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        
-        <div className="grid gap-2">
-          <Label htmlFor="description">Descrição</Label>
-          <Textarea 
-            id="description" 
-            placeholder="Descreva o conteúdo e objetivo deste relatório..." 
-            defaultValue={editMode && reportData ? reportData.description : ''}
-            rows={5}
-          />
-        </div>
-        
-        <div className="grid gap-2">
-          <Label htmlFor="attachments">Anexar Imagens</Label>
-          <div className="border-2 border-dashed rounded-md p-6 text-center hover:bg-slate-50 transition-colors cursor-pointer">
-            <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
-            <p className="text-sm font-medium">Arraste e solte imagens aqui ou clique para selecionar</p>
-            <p className="text-xs text-muted-foreground mt-1">Suporta PNG, JPG ou JPEG (máx. 5MB cada)</p>
-            <Input id="attachments" type="file" multiple className="hidden" />
+      <form onSubmit={handleSubmit}>
+        <div className="grid gap-4 py-4">
+          <div className="grid gap-2">
+            <Label htmlFor="title">Título</Label>
+            <Input 
+              id="title" 
+              placeholder="Ex: Relatório Mensal - Novembro/2023" 
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
           </div>
-          {editMode && reportData && reportData.attachments > 0 && (
-            <div className="mt-2">
-              <p className="text-sm text-muted-foreground">
-                {reportData.attachments} imagens anexadas atualmente
-              </p>
+          
+          <div className="grid gap-2">
+            <Label htmlFor="project">Obra</Label>
+            <Select value={project} onValueChange={setProject} required>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione a obra" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Edifício Residencial Aurora">Edifício Residencial Aurora</SelectItem>
+                <SelectItem value="Centro Comercial Vitória">Centro Comercial Vitória</SelectItem>
+                <SelectItem value="Condomínio Park Avenue">Condomínio Park Avenue</SelectItem>
+                <SelectItem value="Hospital São Lucas">Hospital São Lucas</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="grid gap-2">
+            <Label htmlFor="type">Tipo</Label>
+            <Select value={type} onValueChange={setType} required>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione o tipo" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Mensal">Mensal</SelectItem>
+                <SelectItem value="Semanal">Semanal</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="date">Data</Label>
+            <Input 
+              id="date" 
+              type="date" 
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className="grid gap-2">
+            <Label htmlFor="description">Descrição</Label>
+            <Textarea 
+              id="description" 
+              placeholder="Descreva o conteúdo e objetivo deste relatório..." 
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={5}
+              required
+            />
+          </div>
+          
+          <div className="grid gap-2">
+            <Label htmlFor="attachments">Anexar Imagens</Label>
+            <div className="border-2 border-dashed rounded-md p-6 text-center hover:bg-slate-50 transition-colors cursor-pointer">
+              <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+              <p className="text-sm font-medium">Arraste e solte imagens aqui ou clique para selecionar</p>
+              <p className="text-xs text-muted-foreground mt-1">Suporta PNG, JPG ou JPEG (máx. 5MB cada)</p>
+              <Input id="attachments" type="file" multiple className="hidden" />
             </div>
-          )}
+            {editMode && reportData && reportData.attachments > 0 && (
+              <div className="mt-2">
+                <p className="text-sm text-muted-foreground">
+                  {reportData.attachments} imagens anexadas atualmente
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      <DialogFooter>
-        <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
-        <Button type="submit">{editMode ? 'Atualizar' : 'Criar'} Relatório</Button>
-      </DialogFooter>
+        <DialogFooter>
+          <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
+          <Button type="submit">{editMode ? 'Atualizar' : 'Criar'} Relatório</Button>
+        </DialogFooter>
+      </form>
     </>
   );
 };
 
 const Reports = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [reports, setReports] = useState(reportsData);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState<any>(null);
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
-
-  const filteredReports = reportsData.filter(report => 
-    (report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    report.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    report.type.toLowerCase().includes(searchTerm.toLowerCase())) &&
-    (report.type === 'Mensal' || report.type === 'Semanal')  // Only show Mensal or Semanal reports
-  );
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [reportToDeleteId, setReportToDeleteId] = useState<number | null>(null);
 
   const handleViewReport = (report: any) => {
     setSelectedReport(report);
     setDetailDialogOpen(true);
+  };
+
+  const handleEditReport = (report: any) => {
+    setSelectedReport(report);
+    setEditDialogOpen(true);
+  };
+
+  const handleDeleteReport = (id: number) => {
+    setReportToDeleteId(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDeleteReport = () => {
+    if (reportToDeleteId) {
+      const reportToDelete = reports.find(report => report.id === reportToDeleteId);
+      setReports(reports.filter(report => report.id !== reportToDeleteId));
+      setDeleteDialogOpen(false);
+      toast({
+        title: "Relatório excluído",
+        description: `O relatório "${reportToDelete?.title}" foi excluído com sucesso.`
+      });
+    }
+  };
+
+  const handleGeneratePDF = (report: any) => {
+    toast({
+      title: "PDF Gerado",
+      description: `O PDF do relatório "${report.title}" foi gerado com sucesso.`
+    });
+  };
+
+  const handleSaveReport = (data: any) => {
+    const newReport = {
+      id: reports.length > 0 ? Math.max(...reports.map(r => r.id)) + 1 : 1,
+      ...data
+    };
+    
+    setReports([...reports, newReport]);
+    setDialogOpen(false);
+    
+    toast({
+      title: "Relatório criado",
+      description: `O relatório "${data.title}" foi criado com sucesso.`
+    });
+  };
+
+  const handleUpdateReport = (data: any) => {
+    if (selectedReport) {
+      setReports(prevReports => 
+        prevReports.map(report => 
+          report.id === selectedReport.id 
+            ? { ...report, ...data } 
+            : report
+        )
+      );
+      
+      setEditDialogOpen(false);
+      
+      toast({
+        title: "Relatório atualizado",
+        description: `O relatório "${data.title}" foi atualizado com sucesso.`
+      });
+    }
   };
 
   return (
@@ -254,23 +326,12 @@ const Reports = () => {
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[550px]">
-            <ReportForm onClose={() => setDialogOpen(false)} />
+            <ReportForm 
+              onClose={() => setDialogOpen(false)} 
+              onSave={handleSaveReport}
+            />
           </DialogContent>
         </Dialog>
-      </div>
-
-      <div className="mb-6">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-3 h-4 w-4 text-gray-400" />
-            <Input
-              placeholder="Buscar relatórios por título ou obra..."
-              className="pl-9"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </div>
       </div>
 
       <Tabs defaultValue="all">
@@ -282,12 +343,15 @@ const Reports = () => {
 
         <TabsContent value="all">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredReports.length > 0 ? (
-              filteredReports.map(report => (
+            {reports.length > 0 ? (
+              reports.map(report => (
                 <ReportCard 
                   key={report.id} 
                   report={report} 
                   onViewDetail={handleViewReport}
+                  onEdit={handleEditReport}
+                  onDelete={handleDeleteReport}
+                  onGeneratePDF={handleGeneratePDF}
                 />
               ))
             ) : (
@@ -295,7 +359,7 @@ const Reports = () => {
                 <FileText className="h-12 w-12 text-muted-foreground mb-3 opacity-40" />
                 <h3 className="font-medium text-lg">Nenhum relatório encontrado</h3>
                 <p className="text-muted-foreground">
-                  Tente ajustar sua busca ou crie um novo relatório.
+                  Crie um novo relatório para começar.
                 </p>
               </div>
             )}
@@ -304,13 +368,16 @@ const Reports = () => {
 
         <TabsContent value="monthly">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredReports
+            {reports
               .filter(report => report.type === 'Mensal')
               .map(report => (
                 <ReportCard 
                   key={report.id} 
                   report={report} 
                   onViewDetail={handleViewReport}
+                  onEdit={handleEditReport}
+                  onDelete={handleDeleteReport}
+                  onGeneratePDF={handleGeneratePDF}
                 />
               ))}
           </div>
@@ -318,13 +385,16 @@ const Reports = () => {
 
         <TabsContent value="weekly">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredReports
+            {reports
               .filter(report => report.type === 'Semanal')
               .map(report => (
                 <ReportCard 
                   key={report.id} 
                   report={report} 
                   onViewDetail={handleViewReport}
+                  onEdit={handleEditReport}
+                  onDelete={handleDeleteReport}
+                  onGeneratePDF={handleGeneratePDF}
                 />
               ))}
           </div>
@@ -336,13 +406,32 @@ const Reports = () => {
         <DialogContent className="sm:max-w-[550px]">
           <ReportForm 
             onClose={() => setEditDialogOpen(false)} 
+            onSave={handleUpdateReport}
             editMode={true}
             reportData={selectedReport}
           />
         </DialogContent>
       </Dialog>
 
-      {/* Report Detail with Print/Download */}
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir este relatório? Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteReport} className="bg-red-600 hover:bg-red-700">
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Report Detail with PDF generation */}
       <ReportDetail
         report={selectedReport}
         isOpen={detailDialogOpen}

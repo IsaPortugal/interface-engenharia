@@ -10,7 +10,8 @@ import {
   PanelLeft,
   PanelRight,
   ChevronRight,
-  LayoutDashboard
+  LayoutDashboard,
+  User
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -69,6 +70,7 @@ const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
   const routes = [
     { icon: LayoutDashboard, label: "Painel", href: "/" },
     { icon: Building, label: "Obras", href: "/obras" },
+    { icon: User, label: "Clientes", href: "/clientes" },
     { icon: FileText, label: "Relatórios", href: "/reports" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
     { icon: Calendar, label: "Agendamentos", href: "/schedule" },

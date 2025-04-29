@@ -14,7 +14,7 @@ const ObraFilters = ({ searchTerm, setSearchTerm }: ObraFiltersProps) => {
       <div className="relative flex-1">
         <Search className="absolute left-2.5 top-3 h-4 w-4 text-gray-400" />
         <Input
-          placeholder="Buscar obras por nome, endereço ou tipo..."
+          placeholder="Buscar obras por nome ou endereço..."
           className="pl-9"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
