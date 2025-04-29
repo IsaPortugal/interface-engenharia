@@ -1,19 +1,13 @@
 
 import React from 'react';
-import { Building, FileText, AlertTriangle, Calendar } from 'lucide-react';
-import StatCard from '@/components/dashboard/StatCard';
+import { useNavigate } from 'react-router-dom';
 import ProjectsSection from '@/components/dashboard/ProjectsSection';
 import EventsSection from '@/components/dashboard/EventsSection';
 import ClientPanelCard from '@/components/dashboard/ClientPanelCard';
 
 export default function Dashboard() {
-  const stats = [
-    { icon: Building, title: 'Obras Ativas', value: '3', color: 'bg-blue-500' },
-    { icon: FileText, title: 'Relatórios Gerados', value: '3', color: 'bg-purple-500' },
-    { icon: AlertTriangle, title: 'Incidentes', value: '3', color: 'bg-red-500' },
-    { icon: Calendar, title: 'Agendamentos', value: '3', color: 'bg-gray-500' },
-  ];
-
+  const navigate = useNavigate();
+  
   const projects = [
     {
       title: 'Edifício Residencial Aurora',
@@ -51,7 +45,15 @@ export default function Dashboard() {
       type: 'Visita',
       users: ['JC', 'MF', 'RS']
     }
-  ];
+  ].slice(0, 1); // Ensure only 1 event is shown
+
+  const handleViewAllProjects = () => {
+    navigate('/obras');
+  };
+
+  const handleViewSchedule = () => {
+    navigate('/schedule');
+  };
 
   return (
     <div className="space-y-8 max-w-[1400px] mx-auto">
@@ -60,16 +62,10 @@ export default function Dashboard() {
         <p className="text-muted-foreground">Bem-vindo ao seu painel de controle, aqui você pode monitorar todas as suas obras.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat, index) => (
-          <StatCard key={index} {...stat} />
-        ))}
-      </div>
-
       <div className="space-y-6">
         <ClientPanelCard />
-        <ProjectsSection projects={projects} />
-        <EventsSection events={upcomingEvents} />
+        <ProjectsSection projects={projects} onViewAll={handleViewAllProjects} />
+        <EventsSection events={upcomingEvents} onViewSchedule={handleViewSchedule} />
       </div>
     </div>
   );

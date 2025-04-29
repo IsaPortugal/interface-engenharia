@@ -13,14 +13,15 @@ interface EventsSectionProps {
     type: string;
     users?: string[];
   }>;
+  onViewSchedule?: () => void;
 }
 
-const EventsSection = ({ events }: EventsSectionProps) => {
+const EventsSection = ({ events, onViewSchedule }: EventsSectionProps) => {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">Próximos Eventos</h2>
-        <Button variant="outline" className="text-sm">
+        <Button variant="outline" className="text-sm" onClick={onViewSchedule}>
           Ver agenda
         </Button>
       </div>
@@ -39,7 +40,7 @@ const EventsSection = ({ events }: EventsSectionProps) => {
           </ul>
         </CardContent>
         <CardFooter className="pt-0 pb-4 px-4">
-          <Button className="w-full" variant="outline">
+          <Button className="w-full" variant="outline" onClick={onViewSchedule}>
             <Calendar className="mr-2 h-4 w-4" />
             Criar novo evento
           </Button>

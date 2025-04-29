@@ -14,14 +14,15 @@ interface ProjectsSectionProps {
     address?: string;
     image?: string;
   }>;
+  onViewAll?: () => void;
 }
 
-const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
+const ProjectsSection = ({ projects, onViewAll }: ProjectsSectionProps) => {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">Obras em Andamento</h2>
-        <Button variant="outline" className="text-sm">
+        <Button variant="outline" className="text-sm" onClick={onViewAll}>
           Ver todas
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
