@@ -25,12 +25,6 @@ const NovaObraDialog = ({
 }: NovaObraDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" /> 
-          Nova Obra
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
         <NovaObraForm 
           obra={obra}
