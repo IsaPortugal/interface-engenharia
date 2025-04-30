@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Calendar, Eye, Pencil, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,7 +38,7 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
         <div className="flex items-center text-sm">
           <div className="flex items-center gap-1 text-muted-foreground">
             <Calendar className="h-3.5 w-3.5" />
-            <span>Início: {obra.dataInicio}</span>
+            <span>Início: {obra.inicio}</span>
           </div>
         </div>
       </CardContent>
