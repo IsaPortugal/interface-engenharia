@@ -56,6 +56,7 @@ const NovaObraForm = ({ clientes, onClose, onSave, onNovoCliente }: NovaObraForm
       progresso: 0,
       status: 'Em andamento',
       imagem: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
+      previsaoTermino: data.prazo, // Use prazo as previsaoTermino
     });
   };
 
