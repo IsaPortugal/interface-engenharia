@@ -8,7 +8,8 @@ export interface ReportData {
   type: string;
   description: string;
   attachments: number;
-  progress?: number;
+  activitiesPerformed?: string;
+  weatherConditions?: string;
   nextSteps?: string;
   incidents?: any[];
   imageDetails?: {caption: string, fileName: string}[];
@@ -25,7 +26,8 @@ export const reportsData: ReportData[] = [
     type: 'Mensal',
     description: 'Relatório de acompanhamento mensal das obras do Edifício Residencial Aurora, incluindo análise de cronograma, custos e qualidade.',
     attachments: 3,
-    progress: 75,
+    activitiesPerformed: 'Finalização da estrutura do 4º andar. Execução de alvenaria nos andares inferiores. Início da instalação elétrica no térreo.',
+    weatherConditions: 'Tempo predominantemente ensolarado com chuvas leves nos dias 12 e 13 de outubro.',
     nextSteps: 'Finalização da estrutura do 5º andar e início das instalações hidráulicas nos andares já concluídos.',
     incidents: [
       {
@@ -47,7 +49,8 @@ export const reportsData: ReportData[] = [
     type: 'Semanal',
     description: 'Relatório de acompanhamento semanal das atividades executadas no Centro Comercial Vitória.',
     attachments: 2,
-    progress: 45,
+    activitiesPerformed: 'Escavação para fundação no setor leste. Concretagem da base do setor norte.',
+    weatherConditions: 'Chuvas intensas nos dias 13 e 14, impactando parcialmente o cronograma de escavação.',
     nextSteps: 'Continuação da fundação do setor oeste e preparação para concretagem.'
   },
   {
@@ -59,7 +62,8 @@ export const reportsData: ReportData[] = [
     type: 'Semanal',
     description: 'Relatório de acompanhamento semanal das atividades executadas no Hospital São Lucas.',
     attachments: 5,
-    progress: 30,
+    activitiesPerformed: 'Instalação das paredes de drywall no 2º andar. Pintura concluída no 1º andar. Instalações elétricas em andamento.',
+    weatherConditions: 'Tempo estável, sem intercorrências climáticas.',
     incidents: [
       {
         title: 'Problema elétrico',

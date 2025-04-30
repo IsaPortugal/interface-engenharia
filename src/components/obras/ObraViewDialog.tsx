@@ -31,17 +31,11 @@ const ObraViewDialog = ({ obra, cliente, open, onOpenChange }: ObraViewDialogPro
               <p>{obra.endereco}</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <h4 className="font-medium">Status</h4>
-                <Badge variant={obra.status === 'Em andamento' ? 'default' : 'secondary'}>
-                  {obra.status}
-                </Badge>
-              </div>
-              <div className="grid gap-2">
-                <h4 className="font-medium">Progresso</h4>
-                <p>{obra.progresso}%</p>
-              </div>
+            <div className="grid gap-2">
+              <h4 className="font-medium">Status</h4>
+              <Badge variant={obra.status === 'Em andamento' ? 'default' : 'secondary'}>
+                {obra.status}
+              </Badge>
             </div>
             
             <div className="grid gap-2">

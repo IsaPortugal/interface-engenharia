@@ -2,11 +2,9 @@
 import React, { useRef } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Calendar, User, CheckCircle, Clock, AlertTriangle } from 'lucide-react';
+import { FileText, Calendar, User, AlertTriangle } from 'lucide-react';
 import ReportActions from './ReportActions';
-import { Progress } from '@/components/ui/progress';
 
 interface ReportDetailProps {
   report: any;
@@ -21,13 +19,6 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
   
   const date = new Date(report.date);
   const formattedDate = format(date, 'dd MMMM yyyy', { locale: ptBR });
-  
-  const statusColors = {
-    'Aprovado': 'bg-green-100 text-green-800',
-    'Em revisão': 'bg-yellow-100 text-yellow-800',
-    'Pendente': 'bg-blue-100 text-blue-800',
-    'Rejeitado': 'bg-red-100 text-red-800'
-  };
   
   // Use actual image details if available or fallback to mock images
   const reportImages = report.imageDetails || [
@@ -83,49 +74,32 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
                   <p className="font-medium">{report.project}</p>
                 </div>
                 
-                {report.progress !== undefined && (
-                  <div>
-                    <p className="text-sm text-gray-500 mb-1">Progresso da Obra</p>
-                    <div className="space-y-2">
-                      <Progress value={report.progress} className="h-2" />
-                      <p className="text-sm font-medium text-right">{report.progress}% concluído</p>
-                    </div>
-                  </div>
-                )}
-                
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Descrição</p>
                   <p className="text-gray-700">{report.description}</p>
                 </div>
-                
-                {report.status === 'Aprovado' && (
-                  <div className="flex items-center text-green-600">
-                    <CheckCircle className="h-5 w-5 mr-2" />
-                    <p>Aprovado por: Diretor de Obras</p>
-                  </div>
-                )}
               </div>
             </div>
             
             <div>
               <h3 className="text-lg font-medium mb-2">Conteúdo do Relatório</h3>
               <div className="space-y-4">
-                <section>
-                  <h4 className="text-base font-medium mb-2">Resumo Executivo</h4>
-                  <p>
-                    Este relatório apresenta o progresso da obra no período de referência. 
-                    As atividades planejadas foram executadas conforme o cronograma, com pequenos
-                    ajustes necessários devido a condições climáticas.
-                  </p>
-                </section>
+                {report.activitiesPerformed && (
+                  <section>
+                    <h4 className="text-base font-medium mb-2">Atividades Realizadas</h4>
+                    <p>{report.activitiesPerformed}</p>
+                  </section>
+                )}
+                
+                {report.weatherConditions && (
+                  <section>
+                    <h4 className="text-base font-medium mb-2">Condições Climáticas</h4>
+                    <p>{report.weatherConditions}</p>
+                  </section>
+                )}
                 
                 <section>
-                  <h4 className="text-base font-medium mb-2">Progresso da Obra</h4>
-                  <p>
-                    A obra avançou conforme planejado, com conclusão de {report.progress || 85}% das fundações
-                    e início da montagem das estruturas metálicas.
-                  </p>
-                  
+                  <h4 className="text-base font-medium mb-2">Registro Fotográfico</h4>
                   <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {reportImages.map((img, index) => (
                       <div key={index} className="border rounded-md overflow-hidden">
@@ -138,7 +112,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
                           }}
                         />
                         <div className="p-2 text-sm text-center text-gray-600">
-                          {img.caption || `Foto ${index + 1}: Avanço da estrutura`}
+                          {img.caption || `Foto ${index + 1}`}
                         </div>
                       </div>
                     ))}
@@ -168,31 +142,12 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
                   </section>
                 )}
                 
-                <section>
-                  <h4 className="text-base font-medium mb-2">Questões e Riscos</h4>
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>Atraso na entrega de materiais específicos - Mitigado com fornecedor alternativo</li>
-                    <li>Condições climáticas adversas - Implementado plano de contingência</li>
-                  </ul>
-                </section>
-                
-                <section>
-                  <h4 className="text-base font-medium mb-2">Próximas Etapas</h4>
-                  {report.nextSteps ? (
+                {report.nextSteps && (
+                  <section>
+                    <h4 className="text-base font-medium mb-2">Próximas Etapas</h4>
                     <p>{report.nextSteps}</p>
-                  ) : (
-                    <>
-                      <p>
-                        Para o próximo período, está planejado:
-                      </p>
-                      <ul className="list-disc pl-5 space-y-2 mt-2">
-                        <li>Conclusão da estrutura metálica do bloco A</li>
-                        <li>Início das instalações elétricas</li>
-                        <li>Concretagem da laje do segundo pavimento</li>
-                      </ul>
-                    </>
-                  )}
-                </section>
+                  </section>
+                )}
               </div>
             </div>
           </div>

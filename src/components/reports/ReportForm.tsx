@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Upload } from 'lucide-react';
 import { incidentsData } from '@/components/incidents/IncidentsData';
-import { Slider } from '@/components/ui/slider';
 
 interface ReportFormProps {
   onClose: () => void;
@@ -29,7 +28,8 @@ const ReportForm: React.FC<ReportFormProps> = ({ onClose, onSave, editMode = fal
   const [type, setType] = useState(editMode && reportData ? reportData.type : '');
   const [description, setDescription] = useState(editMode && reportData ? reportData.description : '');
   const [date, setDate] = useState(editMode && reportData ? reportData.date : new Date().toISOString().split('T')[0]);
-  const [progress, setProgress] = useState(editMode && reportData ? reportData.progress || 0 : 0);
+  const [activitiesPerformed, setActivitiesPerformed] = useState(editMode && reportData ? reportData.activitiesPerformed || '' : '');
+  const [weatherConditions, setWeatherConditions] = useState(editMode && reportData ? reportData.weatherConditions || '' : '');
   const [nextSteps, setNextSteps] = useState(editMode && reportData ? reportData.nextSteps || '' : '');
   const [imageUploads, setImageUploads] = useState<ImageUpload[]>([]);
   const [projectIncidents, setProjectIncidents] = useState<any[]>([]);
@@ -88,7 +88,8 @@ const ReportForm: React.FC<ReportFormProps> = ({ onClose, onSave, editMode = fal
       date,
       author: 'EF', // Default author
       attachments: imageUploads.length,
-      progress,
+      activitiesPerformed,
+      weatherConditions,
       nextSteps,
       incidents: projectIncidents,
       imageDetails: imageUploads.map(upload => ({
@@ -181,18 +182,26 @@ const ReportForm: React.FC<ReportFormProps> = ({ onClose, onSave, editMode = fal
           </div>
           
           <div className="grid gap-2">
-            <Label>Progresso da Obra (%)</Label>
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
-                <Slider
-                  value={[progress]}
-                  onValueChange={(values) => setProgress(values[0])}
-                  max={100}
-                  step={1}
-                />
-              </div>
-              <div className="w-12 text-center font-medium">{progress}%</div>
-            </div>
+            <Label htmlFor="activitiesPerformed">Atividades Realizadas</Label>
+            <Textarea 
+              id="activitiesPerformed" 
+              placeholder="Descreva as atividades realizadas neste período..." 
+              value={activitiesPerformed}
+              onChange={(e) => setActivitiesPerformed(e.target.value)}
+              rows={5}
+              required
+            />
+          </div>
+          
+          <div className="grid gap-2">
+            <Label htmlFor="weatherConditions">Condições Climáticas</Label>
+            <Textarea 
+              id="weatherConditions" 
+              placeholder="Descreva as condições climáticas durante o período..." 
+              value={weatherConditions}
+              onChange={(e) => setWeatherConditions(e.target.value)}
+              rows={3}
+            />
           </div>
           
           {projectIncidents.length > 0 && (
