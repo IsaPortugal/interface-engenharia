@@ -1,9 +1,11 @@
+
 import React, { useState } from 'react';
 import { AlertTriangle, Plus, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { toast } from "sonner";
 
 // Import our components
 import IncidentCard from '@/components/incidents/IncidentCard';
@@ -11,13 +13,35 @@ import IncidentForm from '@/components/incidents/IncidentForm';
 import { incidentsData } from '@/components/incidents/IncidentsData';
 
 const Incidents = () => {
+  const [incidents, setIncidents] = useState(incidentsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [selectedIncident, setSelectedIncident] = useState(null);
 
-  const filteredIncidents = incidentsData.filter(incident => 
+  const filteredIncidents = incidents.filter(incident => 
     incident.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     incident.project.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Handle view incident details
+  const handleViewIncident = (incident) => {
+    setSelectedIncident(incident);
+    setViewDialogOpen(true);
+  };
+
+  // Handle edit incident
+  const handleEditIncident = (incident) => {
+    setSelectedIncident(incident);
+    setEditDialogOpen(true);
+  };
+
+  // Handle delete incident
+  const handleDeleteIncident = (incident) => {
+    toast.success(`Incidente "${incident.title}" excluído com sucesso.`);
+    setIncidents(incidents.filter(item => item.id !== incident.id));
+  };
 
   return (
     <div className="container max-w-6xl mx-auto py-6 animate-fade-in">
@@ -67,7 +91,13 @@ const Incidents = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredIncidents.length > 0 ? (
               filteredIncidents.map(incident => (
-                <IncidentCard key={incident.id} incident={incident} />
+                <IncidentCard 
+                  key={incident.id} 
+                  incident={incident}
+                  onView={() => handleViewIncident(incident)}
+                  onEdit={() => handleEditIncident(incident)}
+                  onDelete={() => handleDeleteIncident(incident)}
+                />
               ))
             ) : (
               <div className="col-span-full flex flex-col items-center justify-center py-12">
@@ -86,7 +116,13 @@ const Incidents = () => {
             {filteredIncidents
               .filter(incident => incident.status === 'Em aberto')
               .map(incident => (
-                <IncidentCard key={incident.id} incident={incident} />
+                <IncidentCard 
+                  key={incident.id} 
+                  incident={incident} 
+                  onView={() => handleViewIncident(incident)}
+                  onEdit={() => handleEditIncident(incident)}
+                  onDelete={() => handleDeleteIncident(incident)}
+                />
               ))}
           </div>
         </TabsContent>
@@ -96,11 +132,50 @@ const Incidents = () => {
             {filteredIncidents
               .filter(incident => incident.status === 'Resolvido')
               .map(incident => (
-                <IncidentCard key={incident.id} incident={incident} />
+                <IncidentCard 
+                  key={incident.id} 
+                  incident={incident} 
+                  onView={() => handleViewIncident(incident)}
+                  onEdit={() => handleEditIncident(incident)}
+                  onDelete={() => handleDeleteIncident(incident)}
+                />
               ))}
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* View Incident Dialog */}
+      {selectedIncident && (
+        <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>{selectedIncident.title}</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <h3 className="font-medium">Projeto</h3>
+                <p>{selectedIncident.project}</p>
+              </div>
+              <div className="grid gap-2">
+                <h3 className="font-medium">Status</h3>
+                <p>{selectedIncident.status}</p>
+              </div>
+              <div className="grid gap-2">
+                <h3 className="font-medium">Data</h3>
+                <p>{selectedIncident.date}</p>
+              </div>
+              <div className="grid gap-2">
+                <h3 className="font-medium">Responsável</h3>
+                <p>{selectedIncident.assignedTo}</p>
+              </div>
+              <div className="grid gap-2">
+                <h3 className="font-medium">Descrição</h3>
+                <p>{selectedIncident.description}</p>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };

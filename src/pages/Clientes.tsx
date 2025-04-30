@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { User, Phone, Mail, FileText, Eye, Pencil, Trash2 } from 'lucide-react';
+import { User, Phone, Mail, FileText, Eye, Pencil, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -34,6 +34,7 @@ const Clientes = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedClienteId, setSelectedClienteId] = useState<number | null>(null);
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const form = useForm<ClienteFormValues>({
     resolver: zodResolver(clienteSchema),
@@ -45,6 +46,14 @@ const Clientes = () => {
       telefone: '',
     },
   });
+
+  // Filter clients based on search term
+  const filteredClientes = clientes.filter(cliente =>
+    cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cliente.documento.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cliente.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cliente.telefone.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // Find selected client
   const selectedCliente = clientes.find(cliente => cliente.id === selectedClienteId);
@@ -120,6 +129,19 @@ const Clientes = () => {
         </div>
       </div>
 
+      {/* Add search field */}
+      <div className="mb-6">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Buscar clientes por nome, documento, email ou telefone..."
+            className="pl-10"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
+
       <div className="bg-white rounded-lg shadow">
         <Table>
           <TableHeader>
@@ -133,32 +155,46 @@ const Clientes = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {clientes.map(cliente => (
-              <TableRow key={cliente.id}>
-                <TableCell className="font-medium">{cliente.nome}</TableCell>
-                <TableCell>
-                  <Badge variant="outline">
-                    {cliente.tipo === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
-                  </Badge>
-                </TableCell>
-                <TableCell>{cliente.documento}</TableCell>
-                <TableCell>{cliente.email}</TableCell>
-                <TableCell>{cliente.telefone}</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleViewCliente(cliente.id)}>
-                      <Eye className="h-4 w-4 mr-1" /> Visualizar
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={() => handleEditCliente(cliente.id)}>
-                      <Pencil className="h-4 w-4 mr-1" /> Editar
-                    </Button>
-                    <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => handleDeleteClick(cliente.id)}>
-                      <Trash2 className="h-4 w-4 mr-1" /> Excluir
-                    </Button>
+            {filteredClientes.length > 0 ? (
+              filteredClientes.map(cliente => (
+                <TableRow key={cliente.id}>
+                  <TableCell className="font-medium">{cliente.nome}</TableCell>
+                  <TableCell>
+                    <Badge variant="outline">
+                      {cliente.tipo === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>{cliente.documento}</TableCell>
+                  <TableCell>{cliente.email}</TableCell>
+                  <TableCell>{cliente.telefone}</TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button size="sm" variant="outline" onClick={() => handleViewCliente(cliente.id)}>
+                        <Eye className="h-4 w-4 mr-1" /> Visualizar
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={() => handleEditCliente(cliente.id)}>
+                        <Pencil className="h-4 w-4 mr-1" /> Editar
+                      </Button>
+                      <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => handleDeleteClick(cliente.id)}>
+                        <Trash2 className="h-4 w-4 mr-1" /> Excluir
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-8">
+                  <div className="flex flex-col items-center justify-center">
+                    <User className="h-12 w-12 text-muted-foreground mb-3 opacity-40" />
+                    <h3 className="font-medium text-lg">Nenhum cliente encontrado</h3>
+                    <p className="text-muted-foreground">
+                      Tente ajustar sua busca ou adicione um novo cliente.
+                    </p>
                   </div>
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </div>
