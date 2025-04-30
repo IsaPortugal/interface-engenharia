@@ -11,11 +11,11 @@ interface ObraFormFieldsProps {
 
 const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
   const form = useFormContext();
-  
+
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-medium">Dados da Obra</h3>
-      
+
       <FormField
         control={form.control}
         name="nome"
@@ -23,7 +23,7 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
           <FormItem>
             <FormLabel>Nome da Obra</FormLabel>
             <FormControl>
-              <Input placeholder="Ex: Construção Residencial" {...field} />
+              <Input placeholder="Ex: Construção Sede Empresa XYZ" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -35,9 +35,9 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
         name="endereco"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Endereço completo</FormLabel>
+            <FormLabel>Endereço da Obra</FormLabel>
             <FormControl>
-              <Input placeholder="Ex: Rua Exemplo, 123, Bairro, Cidade - Estado" {...field} />
+              <Input placeholder="Ex: Rua das Flores, 123 - Bairro - Cidade/UF" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -64,7 +64,7 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
           name="prazo"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Previsão de término</FormLabel>
+              <FormLabel>Data estimada de término</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />
               </FormControl>
@@ -76,35 +76,10 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
 
       <FormField
         control={form.control}
-        name="tipo"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Tipo da obra</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o tipo" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="Residencial">Residencial</SelectItem>
-                <SelectItem value="Comercial">Comercial</SelectItem>
-                <SelectItem value="Industrial">Industrial</SelectItem>
-                <SelectItem value="Infraestrutura">Infraestrutura</SelectItem>
-                <SelectItem value="Reforma">Reforma</SelectItem>
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
         name="responsavel"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Responsável técnico</FormLabel>
+            <FormLabel>Responsável</FormLabel>
             <FormControl>
               <Input placeholder="Ex: Eng. João da Silva" {...field} />
             </FormControl>
@@ -113,14 +88,27 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
         )}
       />
 
-      {/* Campo de status para edição */}
+      <FormField
+        control={form.control}
+        name="tipo"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Tipo de Obra</FormLabel>
+            <FormControl>
+              <Input placeholder="Ex: Residencial, Comercial, Industrial..." {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
       {isEdit && (
         <FormField
           control={form.control}
           name="status"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Status da obra</FormLabel>
+              <FormLabel>Status</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>

@@ -5,7 +5,6 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Cliente } from '@/types/obras';
 import { Search } from 'lucide-react';
 
@@ -15,101 +14,106 @@ interface ClienteFormFieldsProps {
 
 const ClienteFormFields = ({ clientes = [] }: ClienteFormFieldsProps) => {
   const form = useFormContext();
-  const [clienteMode, setClienteMode] = useState<'new' | 'existing'>('new');
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredClientes, setFilteredClientes] = useState<Cliente[]>(clientes);
-  
-  // Filtra clientes baseado no termo de busca
-  const handleSearch = () => {
+  const [searchResults, setSearchResults] = useState<Cliente[]>([]);
+
+  // Função para buscar cliente por CPF/CNPJ
+  const handleSearchCliente = () => {
     if (!searchTerm.trim()) {
-      setFilteredClientes(clientes);
+      setSearchResults([]);
       return;
     }
-    const term = searchTerm.toLowerCase().trim();
-    const filtered = clientes.filter(c => 
-      c.nome.toLowerCase().includes(term) || 
-      c.documento.toLowerCase().includes(term) ||
-      c.email.toLowerCase().includes(term)
-    );
-    setFilteredClientes(filtered);
+    
+    // Remove formatação para comparar apenas os números
+    const cleanSearch = searchTerm.replace(/[^\d]/g, '');
+    
+    const found = clientes.filter(cliente => {
+      const cleanDoc = cliente.documento.replace(/[^\d]/g, '');
+      return cleanDoc.includes(cleanSearch);
+    });
+    
+    setSearchResults(found);
   };
 
-  // Quando seleciona um cliente existente
-  const handleClienteSelect = (clienteId: string) => {
-    const selectedCliente = clientes.find(c => c.id === parseInt(clienteId));
-    if (selectedCliente) {
-      form.setValue('clienteId', selectedCliente.id);
-      form.setValue('nomeCliente', selectedCliente.nome);
-      form.setValue('tipoCliente', selectedCliente.tipo);
-      form.setValue('documento', selectedCliente.documento);
-      form.setValue('email', selectedCliente.email);
-      form.setValue('telefone', selectedCliente.telefone);
-    }
+  // Seleciona um cliente existente
+  const handleSelectCliente = (cliente: Cliente) => {
+    form.setValue('clienteId', cliente.id);
+    form.setValue('nomeCliente', cliente.nome);
+    form.setValue('tipoCliente', cliente.tipo);
+    form.setValue('documento', cliente.documento);
+    form.setValue('email', cliente.email);
+    form.setValue('telefone', cliente.telefone);
+    setSearchResults([]);
+    setSearchTerm('');
+  };
+
+  // Limpa os dados do cliente selecionado
+  const handleNewCliente = () => {
+    form.setValue('clienteId', undefined);
+    form.setValue('nomeCliente', '');
+    form.setValue('documento', '');
+    form.setValue('email', '');
+    form.setValue('telefone', '');
+    setSearchResults([]);
+    setSearchTerm('');
   };
 
   return (
     <div className="space-y-4 border-b pb-4">
       <h3 className="text-lg font-medium">Dados do Cliente</h3>
       
-      {/* Opção para escolher entre novo cliente ou existente */}
-      <div className="flex gap-4 mb-4">
-        <Button 
-          type="button"
-          variant={clienteMode === 'new' ? 'default' : 'outline'} 
-          onClick={() => setClienteMode('new')}
-        >
-          Novo Cliente
-        </Button>
-        <Button 
-          type="button"
-          variant={clienteMode === 'existing' ? 'default' : 'outline'} 
-          onClick={() => setClienteMode('existing')}
-        >
-          Cliente Existente
-        </Button>
-      </div>
-
-      {/* Campo para cliente existente */}
-      {clienteMode === 'existing' && clientes.length > 0 ? (
-        <div className="space-y-4">
-          <div className="flex gap-2">
-            <Input 
-              placeholder="Buscar por nome, documento ou email" 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1"
-            />
-            <Button type="button" onClick={handleSearch} variant="secondary">
-              <Search className="h-4 w-4" />
+      {/* Busca de cliente por CPF/CNPJ */}
+      <div className="border p-4 rounded-md bg-muted/30 mb-4">
+        <h4 className="text-sm font-medium mb-2">Buscar cliente existente</h4>
+        <div className="flex gap-2 mb-2">
+          <Input 
+            placeholder="Digite CPF ou CNPJ" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="flex-1"
+          />
+          <Button type="button" onClick={handleSearchCliente} size="sm">
+            <Search className="h-4 w-4 mr-2" /> Buscar
+          </Button>
+        </div>
+        
+        {/* Resultados da busca */}
+        {searchResults.length > 0 && (
+          <div className="border rounded-md mt-2 overflow-hidden max-h-[200px] overflow-y-auto bg-background">
+            <ul>
+              {searchResults.map((cliente) => (
+                <li 
+                  key={cliente.id} 
+                  className="p-2 hover:bg-muted cursor-pointer border-b last:border-b-0"
+                  onClick={() => handleSelectCliente(cliente)}
+                >
+                  <div className="font-medium">{cliente.nome}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {cliente.tipo === 'pj' ? 'CNPJ' : 'CPF'}: {cliente.documento}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {form.watch('clienteId') && (
+          <div className="mt-2 text-sm">
+            <p>Cliente selecionado: <span className="font-medium">{form.watch('nomeCliente')}</span></p>
+            <Button 
+              type="button" 
+              variant="link" 
+              className="p-0 h-auto text-sm" 
+              onClick={handleNewCliente}
+            >
+              Cadastrar novo cliente
             </Button>
           </div>
-          
-          <FormField
-            control={form.control}
-            name="clienteId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Selecionar Cliente</FormLabel>
-                <Select onValueChange={handleClienteSelect} defaultValue={field.value?.toString()}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione um cliente" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {filteredClientes.map((cliente) => (
-                      <SelectItem key={cliente.id} value={cliente.id.toString()}>
-                        {cliente.nome} - {cliente.tipo === 'pj' ? 'CNPJ' : 'CPF'}: {cliente.documento}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-      ) : clienteMode === 'new' ? (
+        )}
+      </div>
+      
+      {/* Formulário de cliente */}
+      {!form.watch('clienteId') && (
         <>
           <FormField
             control={form.control}
@@ -203,8 +207,6 @@ const ClienteFormFields = ({ clientes = [] }: ClienteFormFieldsProps) => {
             )}
           />
         </>
-      ) : (
-        <p className="text-muted-foreground">Nenhum cliente cadastrado. Cadastre um novo cliente.</p>
       )}
     </div>
   );
