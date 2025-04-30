@@ -11,6 +11,8 @@ export interface Obra {
   status: string;
   imagem: string;
   cliente: number;
+  previsaoTermino: string;
+  observacoes?: string;
 }
 
 export interface Cliente {
