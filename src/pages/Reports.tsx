@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
-import { FileText, Plus } from 'lucide-react';
+import { FileText, Plus, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
 import ReportDetail from '@/components/ReportDetail';
 import ReportForm from '@/components/reports/ReportForm';
@@ -12,12 +13,20 @@ import { reportsData, ReportData } from '@/components/reports/ReportsData';
 
 const Reports: React.FC = () => {
   const [reports, setReports] = useState<ReportData[]>(reportsData);
+  const [searchTerm, setSearchTerm] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState<ReportData | null>(null);
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [reportToDeleteId, setReportToDeleteId] = useState<number | null>(null);
+
+  // Filter reports based on search term
+  const filteredReports = reports.filter(report => 
+    report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    report.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    report.type.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleViewReport = (report: ReportData) => {
     setSelectedReport(report);
@@ -113,8 +122,21 @@ const Reports: React.FC = () => {
         </Dialog>
       </div>
 
+      {/* Added search field */}
+      <div className="mb-6">
+        <div className="relative flex-1">
+          <Search className="absolute left-2.5 top-3 h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Buscar relatórios por título, projeto ou tipo..."
+            className="pl-9"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
+
       <ReportTabs 
-        reports={reports}
+        reports={filteredReports}
         onViewDetail={handleViewReport}
         onEdit={handleEditReport}
         onDelete={handleDeleteReport}

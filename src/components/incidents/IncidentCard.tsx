@@ -12,7 +12,7 @@ interface Incident {
   title: string;
   project: string;
   status: 'Em aberto' | 'Resolvido';
-  severity: string;
+  severity: string; // Keep in the type but don't display it
   date: string;
   assignedTo: string;
   description: string;
@@ -104,10 +104,7 @@ const IncidentCard = ({ incident }: IncidentCardProps) => {
               <h3 className="font-medium">Responsável</h3>
               <p>{incident.assignedTo}</p>
             </div>
-            <div className="grid gap-2">
-              <h3 className="font-medium">Severidade</h3>
-              <p>{incident.severity}</p>
-            </div>
+            {/* Severity field removed */}
             <div className="grid gap-2">
               <h3 className="font-medium">Descrição</h3>
               <p>{incident.description}</p>

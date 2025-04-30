@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { CalendarIcon, Clock, Users, MapPin, Search, Plus, Filter } from 'lucide-react';
+import { CalendarIcon, Clock, Users, MapPin, Search, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -259,9 +258,6 @@ const Schedule = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button variant="outline" className="gap-2">
-            <Filter className="h-4 w-4" /> Filtrar
-          </Button>
         </div>
       </div>
 
