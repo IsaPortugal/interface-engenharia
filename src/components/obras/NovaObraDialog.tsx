@@ -9,6 +9,7 @@ import { Cliente, Obra } from '@/types/obras';
 interface NovaObraDialogProps {
   obra?: Obra;
   cliente?: Cliente;
+  clientes?: Cliente[];
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onSave: (obraData: Omit<Obra, 'id'>, clienteData: Omit<Cliente, 'id'>) => void;
@@ -18,6 +19,7 @@ interface NovaObraDialogProps {
 const NovaObraDialog = ({ 
   obra, 
   cliente, 
+  clientes = [],
   isOpen, 
   onOpenChange, 
   onSave,
@@ -29,6 +31,7 @@ const NovaObraDialog = ({
         <NovaObraForm 
           obra={obra}
           cliente={cliente}
+          clientes={clientes}
           onClose={() => onOpenChange(false)} 
           onSave={onSave}
           isEdit={isEdit}

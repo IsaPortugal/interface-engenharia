@@ -36,11 +36,13 @@ const Obras = () => {
   } = useObrasOperations(initialObras, initialClientes);
 
   // Filtrar obras com base no termo de busca
-  const filteredObras = obras.filter(obra => 
-    obra.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    obra.endereco.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    obra.tipo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredObras = obras
+    .filter(obra => 
+      obra.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      obra.endereco.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      obra.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => a.id - b.id); // Ordenar por ID (ordem de cadastro)
 
   return (
     <div className="container mx-auto py-6 animate-fade-in">
@@ -101,12 +103,14 @@ const Obras = () => {
         isOpen={isNovaObraOpen}
         onOpenChange={setIsNovaObraOpen}
         onSave={handleSaveObra}
+        clientes={clientes}
       />
 
       {/* Edit Obra Dialog */}
       <NovaObraDialog 
         obra={selectedObra}
         cliente={selectedCliente}
+        clientes={clientes}
         isOpen={editDialogOpen}
         onOpenChange={setEditDialogOpen}
         onSave={handleSaveObra}

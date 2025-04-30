@@ -3,12 +3,17 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const ObraFormFields = () => {
+interface ObraFormFieldsProps {
+  isEdit?: boolean;
+}
+
+const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
   const form = useFormContext();
-
+  
   return (
-    <div className="space-y-4 pt-2">
+    <div className="space-y-4">
       <h3 className="text-lg font-medium">Dados da Obra</h3>
       
       <FormField
@@ -18,7 +23,7 @@ const ObraFormFields = () => {
           <FormItem>
             <FormLabel>Nome da Obra</FormLabel>
             <FormControl>
-              <Input placeholder="Ex: Edifício Residencial Aurora" {...field} />
+              <Input placeholder="Ex: Construção Residencial" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -30,23 +35,9 @@ const ObraFormFields = () => {
         name="endereco"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Localização</FormLabel>
+            <FormLabel>Endereço completo</FormLabel>
             <FormControl>
-              <Input placeholder="Ex: Av. Paulista, 1000, São Paulo" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="tipo"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Tipo de Obra</FormLabel>
-            <FormControl>
-              <Input placeholder="Ex: Residencial, Comercial, Industrial..." {...field} />
+              <Input placeholder="Ex: Rua Exemplo, 123, Bairro, Cidade - Estado" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -59,7 +50,7 @@ const ObraFormFields = () => {
           name="inicio"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Data de Início</FormLabel>
+              <FormLabel>Data de início</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />
               </FormControl>
@@ -73,7 +64,7 @@ const ObraFormFields = () => {
           name="prazo"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Data Estimada de Término</FormLabel>
+              <FormLabel>Previsão de término</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />
               </FormControl>
@@ -85,17 +76,67 @@ const ObraFormFields = () => {
 
       <FormField
         control={form.control}
+        name="tipo"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Tipo da obra</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o tipo" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Residencial">Residencial</SelectItem>
+                <SelectItem value="Comercial">Comercial</SelectItem>
+                <SelectItem value="Industrial">Industrial</SelectItem>
+                <SelectItem value="Infraestrutura">Infraestrutura</SelectItem>
+                <SelectItem value="Reforma">Reforma</SelectItem>
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
         name="responsavel"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Responsável pela Obra</FormLabel>
+            <FormLabel>Responsável técnico</FormLabel>
             <FormControl>
-              <Input placeholder="Ex: Eng. João Silva" {...field} />
+              <Input placeholder="Ex: Eng. João da Silva" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
+
+      {/* Campo de status para edição */}
+      {isEdit && (
+        <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status da obra</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o status" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Em andamento">Em andamento</SelectItem>
+                  <SelectItem value="Concluído">Concluído</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      )}
     </div>
   );
 };
