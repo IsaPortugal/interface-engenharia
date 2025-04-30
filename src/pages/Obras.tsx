@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { Building } from 'lucide-react';
+import { Building, Plus } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import ObraFilters from '@/components/obras/ObraFilters';
 import NovaObraDialog from '@/components/obras/NovaObraDialog';
-import NovoClienteDialog from '@/components/obras/NovoClienteDialog';
 import ObrasTabContent from '@/components/obras/ObrasTabContent';
 import ObraViewDialog from '@/components/obras/ObraViewDialog';
 import DeleteObraDialog from '@/components/obras/DeleteObraDialog';
@@ -14,21 +14,21 @@ import { useObrasOperations } from '@/hooks/useObrasOperations';
 // Página principal de Obras
 const Obras = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [isNovaObraOpen, setIsNovaObraOpen] = useState(false);
-  const [isNovoClienteOpen, setIsNovoClienteOpen] = useState(false);
   
   const {
     obras,
     clientes,
     selectedObra,
+    selectedCliente,
     viewDialogOpen,
     editDialogOpen,
     isDeleteDialogOpen,
+    isNovaObraOpen,
     setViewDialogOpen,
     setEditDialogOpen,
     setIsDeleteDialogOpen,
+    setIsNovaObraOpen,
     handleSaveObra,
-    handleSaveCliente,
     handleViewDetails,
     handleEditObra,
     handleDeleteObra,
@@ -42,11 +42,6 @@ const Obras = () => {
     obra.tipo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleOpenNovoCliente = () => {
-    setIsNovaObraOpen(false);
-    setIsNovoClienteOpen(true);
-  };
-
   return (
     <div className="container mx-auto py-6 animate-fade-in">
       <div className="flex justify-between items-center mb-6">
@@ -58,20 +53,10 @@ const Obras = () => {
           <p className="text-muted-foreground">Gerencie e monitore todas as obras em andamento</p>
         </div>
         
-        {/* Dialogs para criar nova obra e novo cliente */}
-        <NovaObraDialog 
-          clientes={clientes}
-          isOpen={isNovaObraOpen}
-          onOpenChange={setIsNovaObraOpen}
-          onSave={handleSaveObra}
-          onNovoCliente={handleOpenNovoCliente}
-        />
-
-        <NovoClienteDialog 
-          isOpen={isNovoClienteOpen}
-          onOpenChange={setIsNovoClienteOpen}
-          onSave={handleSaveCliente}
-        />
+        <Button onClick={() => setIsNovaObraOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" /> 
+          Nova Obra
+        </Button>
       </div>
 
       <ObraFilters searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -111,9 +96,27 @@ const Obras = () => {
         </TabsContent>
       </Tabs>
 
+      {/* Nova Obra Dialog */}
+      <NovaObraDialog 
+        isOpen={isNovaObraOpen}
+        onOpenChange={setIsNovaObraOpen}
+        onSave={handleSaveObra}
+      />
+
+      {/* Edit Obra Dialog */}
+      <NovaObraDialog 
+        obra={selectedObra}
+        cliente={selectedCliente}
+        isOpen={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        onSave={handleSaveObra}
+        isEdit={true}
+      />
+
       {/* View Obra Dialog */}
       <ObraViewDialog 
         obra={selectedObra}
+        cliente={selectedCliente}
         open={viewDialogOpen}
         onOpenChange={setViewDialogOpen}
       />

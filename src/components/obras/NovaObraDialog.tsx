@@ -7,19 +7,21 @@ import NovaObraForm from './NovaObraForm';
 import { Cliente, Obra } from '@/types/obras';
 
 interface NovaObraDialogProps {
-  clientes: Cliente[];
+  obra?: Obra;
+  cliente?: Cliente;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (data: Omit<Obra, 'id'>) => void;
-  onNovoCliente: () => void;
+  onSave: (obraData: Omit<Obra, 'id'>, clienteData: Omit<Cliente, 'id'>) => void;
+  isEdit?: boolean;
 }
 
 const NovaObraDialog = ({ 
-  clientes, 
+  obra, 
+  cliente, 
   isOpen, 
   onOpenChange, 
-  onSave, 
-  onNovoCliente 
+  onSave,
+  isEdit = false 
 }: NovaObraDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -29,12 +31,13 @@ const NovaObraDialog = ({
           Nova Obra
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
         <NovaObraForm 
-          clientes={clientes} 
+          obra={obra}
+          cliente={cliente}
           onClose={() => onOpenChange(false)} 
           onSave={onSave}
-          onNovoCliente={onNovoCliente}
+          isEdit={isEdit}
         />
       </DialogContent>
     </Dialog>
