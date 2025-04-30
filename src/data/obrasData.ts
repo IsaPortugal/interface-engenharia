@@ -14,7 +14,8 @@ export const obrasData: Obra[] = [
     progresso: 75,
     status: 'Em andamento',
     imagem: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
-    cliente: 1
+    cliente: 1,
+    previsaoTermino: '15/12/2023'
   },
   {
     id: 2,
@@ -27,7 +28,8 @@ export const obrasData: Obra[] = [
     progresso: 45,
     status: 'Em andamento',
     imagem: 'https://images.unsplash.com/photo-1460574283810-2aab119d8511?q=80&w=2670&auto=format&fit=crop',
-    cliente: 2
+    cliente: 2,
+    previsaoTermino: '25/02/2024'
   },
   {
     id: 3,
@@ -40,7 +42,8 @@ export const obrasData: Obra[] = [
     progresso: 30,
     status: 'Em andamento',
     imagem: 'https://images.unsplash.com/photo-1527576539890-dfa815648363?q=80&w=2671&auto=format&fit=crop',
-    cliente: 3
+    cliente: 3,
+    previsaoTermino: '30/06/2024'
   },
   {
     id: 4,
@@ -53,7 +56,8 @@ export const obrasData: Obra[] = [
     progresso: 100,
     status: 'Concluído',
     imagem: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2670&auto=format&fit=crop',
-    cliente: 1
+    cliente: 1,
+    previsaoTermino: '10/08/2023'
   }
 ];
 
