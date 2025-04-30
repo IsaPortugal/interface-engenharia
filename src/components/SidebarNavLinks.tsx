@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
-  Home, 
+  Home as LayoutDashboard, 
   FileText, 
   AlertTriangle, 
   Calendar, 
@@ -17,15 +17,9 @@ import { cn } from '@/lib/utils';
 export const sidebarLinks = [
   {
     title: 'Painel',
-    icon: Home,
+    icon: LayoutDashboard,
     href: '/',
     variant: 'default'
-  },
-  {
-    title: 'Obras',
-    icon: Building,
-    href: '/obras',
-    variant: 'ghost'
   },
   {
     title: 'Clientes',
@@ -34,9 +28,9 @@ export const sidebarLinks = [
     variant: 'ghost'
   },
   {
-    title: 'Relatórios',
-    icon: FileText,
-    href: '/reports',
+    title: 'Obras',
+    icon: Building,
+    href: '/obras',
     variant: 'ghost'
   },
   {
@@ -49,6 +43,12 @@ export const sidebarLinks = [
     title: 'Agendamentos',
     icon: Calendar,
     href: '/schedule',
+    variant: 'ghost'
+  },
+  {
+    title: 'Relatórios',
+    icon: FileText,
+    href: '/reports',
     variant: 'ghost'
   },
   {

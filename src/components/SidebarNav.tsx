@@ -69,11 +69,11 @@ const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
   
   const routes = [
     { icon: LayoutDashboard, label: "Painel", href: "/" },
-    { icon: Building, label: "Obras", href: "/obras" },
     { icon: User, label: "Clientes", href: "/clientes" },
-    { icon: FileText, label: "Relatórios", href: "/reports" },
+    { icon: Building, label: "Obras", href: "/obras" },
     { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
     { icon: Calendar, label: "Agendamentos", href: "/schedule" },
+    { icon: FileText, label: "Relatórios", href: "/reports" },
   ];
 
   return (
