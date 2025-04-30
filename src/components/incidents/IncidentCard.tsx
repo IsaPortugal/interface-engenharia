@@ -10,7 +10,6 @@ interface Incident {
   title: string;
   project: string;
   status: 'Em aberto' | 'Resolvido';
-  severity: string; // Keep in the type but don't display it
   date: string;
   assignedTo: string;
   description: string;

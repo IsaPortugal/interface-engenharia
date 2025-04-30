@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Building } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -10,7 +9,8 @@ import NovoClienteDialog from '@/components/obras/NovoClienteDialog';
 import { obrasData as initialObras, clientesData as initialClientes } from '@/data/obrasData';
 import { Obra, Cliente } from '@/types/obras';
 import { toast } from "@/hooks/use-toast";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 // Página principal de Obras
 const Obras = () => {
@@ -21,6 +21,11 @@ const Obras = () => {
   const [isNovoClienteOpen, setIsNovoClienteOpen] = useState(false);
   const [deleteObraId, setDeleteObraId] = useState<number | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  
+  // New states for view and edit dialogs
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [selectedObra, setSelectedObra] = useState<Obra | null>(null);
 
   // Filtrar obras com base no termo de busca
   const filteredObras = obras.filter(obra => 
@@ -64,19 +69,23 @@ const Obras = () => {
   };
 
   const handleViewDetails = (id: number) => {
-    console.log("Ver detalhes da obra ID:", id);
-    toast({
-      title: "Visualizando detalhes",
-      description: `Detalhes da obra ID: ${id}`,
-    });
+    const obra = obras.find(obra => obra.id === id);
+    if (obra) {
+      setSelectedObra(obra);
+      setViewDialogOpen(true);
+    }
   };
 
   const handleEditObra = (id: number) => {
-    console.log("Editar obra ID:", id);
-    toast({
-      title: "Editar obra",
-      description: `Editando obra ID: ${id}`,
-    });
+    const obra = obras.find(obra => obra.id === id);
+    if (obra) {
+      setSelectedObra(obra);
+      setEditDialogOpen(true);
+      toast({
+        title: "Editar obra",
+        description: `Editando obra: ${obra.nome}`,
+      });
+    }
   };
 
   const confirmDeleteObra = () => {
@@ -182,6 +191,47 @@ const Obras = () => {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* View Obra Dialog */}
+      <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>{selectedObra?.nome}</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <h3 className="font-medium">Endereço</h3>
+              <p>{selectedObra?.endereco}</p>
+            </div>
+            <div className="grid gap-2">
+              <h3 className="font-medium">Status</h3>
+              <p>{selectedObra?.status}</p>
+            </div>
+            <div className="grid gap-2">
+              <h3 className="font-medium">Tipo</h3>
+              <p>{selectedObra?.tipo}</p>
+            </div>
+            <div className="grid gap-2">
+              <h3 className="font-medium">Cliente</h3>
+              <p>{selectedObra?.cliente}</p>
+            </div>
+            <div className="grid gap-2">
+              <h3 className="font-medium">Início</h3>
+              <p>{selectedObra?.inicio}</p>
+            </div>
+            <div className="grid gap-2">
+              <h3 className="font-medium">Previsão de término</h3>
+              <p>{selectedObra?.previsaoTermino}</p>
+            </div>
+            {selectedObra?.observacoes && (
+              <div className="grid gap-2">
+                <h3 className="font-medium">Observações</h3>
+                <p>{selectedObra.observacoes}</p>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Delete confirmation dialog */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
