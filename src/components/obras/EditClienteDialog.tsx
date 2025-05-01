@@ -1,22 +1,19 @@
 
 import React from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Cliente } from '@/types/obras';
 import NovoClienteForm from './NovoClienteForm';
+import { Cliente } from '@/types/obras';
+import { ClienteFormValues } from '@/components/clientes/form/ClienteSchema';
 
 interface EditClienteDialogProps {
-  cliente?: Cliente | null;
+  cliente: Cliente | undefined;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (data: Omit<Cliente, 'id'>) => void;
+  onSave: (data: ClienteFormValues) => void;
 }
 
 const EditClienteDialog = ({ cliente, isOpen, onOpenChange, onSave }: EditClienteDialogProps) => {
   if (!cliente) return null;
-  
-  const handleSave = (data: Omit<Cliente, 'id'>) => {
-    onSave(data);
-  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -24,7 +21,7 @@ const EditClienteDialog = ({ cliente, isOpen, onOpenChange, onSave }: EditClient
         <NovoClienteForm 
           initialData={cliente}
           onClose={() => onOpenChange(false)} 
-          onSave={handleSave} 
+          onSave={onSave}
           isEdit={true}
         />
       </DialogContent>
