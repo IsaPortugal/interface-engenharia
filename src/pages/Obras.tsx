@@ -72,28 +72,30 @@ const Obras = () => {
 
         <TabsContent value="all">
           <ObrasTabContent 
-            obras={filteredObras}
-            onViewDetails={handleViewDetails}
-            onEdit={handleEditObra}
-            onDelete={handleDeleteObra}
+            filteredObras={filteredObras}
+            handleViewObra={handleViewDetails}
+            handleEditObra={handleEditObra}
+            handleDeleteObra={handleDeleteObra}
           />
         </TabsContent>
 
         <TabsContent value="ongoing">
           <ObrasTabContent 
-            obras={filteredObras.filter(obra => obra.status === 'Em andamento')}
-            onViewDetails={handleViewDetails}
-            onEdit={handleEditObra}
-            onDelete={handleDeleteObra}
+            filteredObras={filteredObras}
+            concluidas={false}
+            handleViewObra={handleViewDetails}
+            handleEditObra={handleEditObra}
+            handleDeleteObra={handleDeleteObra}
           />
         </TabsContent>
 
         <TabsContent value="completed">
           <ObrasTabContent 
-            obras={filteredObras.filter(obra => obra.status === 'Concluído')}
-            onViewDetails={handleViewDetails}
-            onEdit={handleEditObra}
-            onDelete={handleDeleteObra}
+            filteredObras={filteredObras}
+            concluidas={true}
+            handleViewObra={handleViewDetails}
+            handleEditObra={handleEditObra}
+            handleDeleteObra={handleDeleteObra}
           />
         </TabsContent>
       </Tabs>
