@@ -2,7 +2,6 @@
 import React from 'react';
 import { Card, CardHeader, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
 import { MapPin, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 interface ProjectCardProps {
   title: string;
@@ -16,7 +15,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ title, client, dueDate, status, address, image }: ProjectCardProps) => {
   return (
-    <Card className="overflow-hidden border-none shadow-md">
+    <Card className="overflow-hidden border shadow-md">
       {image && (
         <div className="relative h-40 w-full overflow-hidden">
           <img 
@@ -30,25 +29,25 @@ const ProjectCard = ({ title, client, dueDate, status, address, image }: Project
           />
         </div>
       )}
-      <CardHeader className={image ? "pb-2 pt-3" : "pb-2"}>
+      <CardHeader className={image ? "pt-4 pb-2" : "pb-2"}>
         <div className="flex justify-between items-start">
           <div>
             <CardTitle className="text-lg">{title}</CardTitle>
             <CardDescription>{client}</CardDescription>
             {address && (
-              <div className="flex items-center mt-1 text-xs text-muted-foreground">
+              <div className="flex items-center mt-2 text-sm text-muted-foreground">
                 <MapPin className="h-3 w-3 mr-1" />
                 {address}
               </div>
             )}
-            <div className="mt-1 text-xs text-gray-600">
+            <div className="mt-2 text-sm font-medium">
               {status}
             </div>
           </div>
         </div>
       </CardHeader>
       <CardFooter className="flex justify-between pt-2">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock className="h-3 w-3" />
           <span>Prazo: {dueDate}</span>
         </div>

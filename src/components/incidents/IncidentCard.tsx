@@ -15,7 +15,7 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
         </div>
       </CardHeader>
       <CardContent className="pb-3">
-        <div className="text-sm text-muted-foreground mb-2">
+        <div className="text-sm text-muted-foreground mb-3">
           <span>Data: {incident.date}</span>
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{incident.description}</p>
@@ -33,7 +33,7 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
         >
           Detalhes
         </Button>
-        <div className="space-x-1">
+        <div className="space-x-2">
           <Button 
             variant="outline" 
             size="sm"

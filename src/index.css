@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -77,6 +78,29 @@
     @apply bg-background text-foreground font-sans;
     min-height: 100vh;
   }
+  
+  /* Remove focus rings and outlines */
+  *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Standardize text sizes */
+  h1 {
+    @apply text-2xl font-bold;
+  }
+  
+  h2 {
+    @apply text-xl font-semibold;
+  }
+  
+  h3 {
+    @apply text-lg font-medium;
+  }
+  
+  p, span, div, button, input, select, textarea {
+    @apply text-base;
+  }
 }
 
 @layer components {
@@ -93,25 +117,25 @@
     to { opacity: 1; }
   }
 
-  /* Removed hover effect from card-hover class */
+  /* No hover effects for cards */
   .card-hover {
-    @apply transition-all duration-300;
+    @apply transition-none;
   }
 
   .glass-panel {
-    @apply bg-white/80 backdrop-blur-md rounded-xl shadow-md border border-white/40;
+    @apply bg-white/80 rounded-xl shadow-md border border-white/40;
   }
 
   .btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700 transition-colors;
+    @apply bg-blue-600 text-white;
   }
 
   .btn-secondary {
-    @apply bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors;
+    @apply bg-gray-100 text-gray-800;
   }
   
   .btn-accent {
-    @apply bg-indigo-600 text-white hover:bg-indigo-700 transition-colors;
+    @apply bg-indigo-600 text-white;
   }
   
   .gradient-card {
@@ -119,7 +143,7 @@
   }
   
   .glass-card {
-    @apply bg-white/70 backdrop-blur-md border border-white/30 shadow-lg rounded-xl;
+    @apply bg-white/70 border border-white/30 shadow-lg rounded-xl;
   }
   
   /* Blue gradients */
@@ -144,7 +168,7 @@
     background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
   }
 
-  /* Data display tables - removed hover effect */
+  /* Data display tables - no hover effects */
   .data-table {
     @apply w-full border-collapse;
   }
@@ -156,9 +180,6 @@
   .data-table td {
     @apply p-3 border-b border-gray-200;
   }
-  
-  /* Removed hover effect on table rows */
-  
 
   /* Print styles for reports */
   @media print {

@@ -19,9 +19,9 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
         style={{ backgroundImage: `url(${obra.imagem || '/placeholder.svg'})` }}
       />
       
-      <CardContent className="p-4">
-        <h3 className="font-semibold text-lg mb-1 line-clamp-1">{obra.nome}</h3>
-        <p className="text-sm text-gray-500 mb-1 line-clamp-1">{obra.endereco}</p>
+      <CardContent className="p-5">
+        <h3 className="font-semibold text-lg mb-2 line-clamp-1">{obra.nome}</h3>
+        <p className="text-sm text-gray-500 mb-2 line-clamp-1">{obra.endereco}</p>
         <p className="text-sm text-gray-600 mb-3">{obra.status}</p>
         
         <div className="flex justify-between text-sm text-gray-600 mb-3">
@@ -36,7 +36,7 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
         </div>
       </CardContent>
       
-      <CardFooter className="px-4 py-3 bg-gray-50 flex justify-between">
+      <CardFooter className="px-5 py-4 bg-gray-50 flex justify-between">
         <Button variant="outline" size="sm" onClick={() => onViewDetails(obra)}>
           Detalhes
         </Button>
