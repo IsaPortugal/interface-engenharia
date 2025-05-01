@@ -61,17 +61,17 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event, onView, onEdit, onDe
         </Button>
         <div className="space-x-1">
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="sm"
             onClick={() => onEdit(event)}
           >
             Editar
           </Button>
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="sm"
             onClick={() => onDelete(event)}
-            className="text-red-500 hover:text-red-600 hover:bg-red-50"
+            className="text-red-500"
           >
             Excluir
           </Button>

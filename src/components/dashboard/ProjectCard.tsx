@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardHeader, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
-import { MapPin, Clock, ArrowRight } from 'lucide-react';
+import { MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ProjectCardProps {
@@ -52,9 +52,6 @@ const ProjectCard = ({ title, client, dueDate, status, address, image }: Project
           <Clock className="h-3 w-3" />
           <span>Prazo: {dueDate}</span>
         </div>
-        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 rounded-full">
-          <ArrowRight className="h-4 w-4" />
-        </Button>
       </CardFooter>
     </Card>
   );

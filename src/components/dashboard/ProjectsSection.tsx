@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProjectCard from './ProjectCard';
 
@@ -24,7 +23,6 @@ const ProjectsSection = ({ projects, onViewAll }: ProjectsSectionProps) => {
         <h2 className="text-xl font-bold">Obras em Andamento</h2>
         <Button variant="outline" className="text-sm" onClick={onViewAll}>
           Ver todas
-          <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
 

@@ -46,7 +46,8 @@ export default function Dashboard() {
       progress: 65,
       dueDate: '10/11/2023',
       status: 'Atrasado' as const,
-      address: 'Curitiba, PR'
+      address: 'Curitiba, PR',
+      image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2670&auto=format&fit=crop'
     },
   ].slice(0, 3);
 

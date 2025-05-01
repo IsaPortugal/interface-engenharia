@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 
 const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
   return (
-    <Card className="transition-all duration-200 hover:shadow-md">
+    <Card>
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <div className="space-y-1">
@@ -45,7 +45,7 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
             variant="outline" 
             size="sm"
             onClick={() => onDelete(incident)}
-            className="text-red-500 hover:bg-red-50"
+            className="text-red-500"
           >
             Excluir
           </Button>

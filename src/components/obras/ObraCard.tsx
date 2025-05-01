@@ -44,7 +44,7 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
           <Button variant="outline" size="sm" onClick={() => onEdit(obra)}>
             Editar
           </Button>
-          <Button variant="outline" size="sm" onClick={() => onDelete(obra)} className="text-red-500 hover:bg-red-50">
+          <Button variant="outline" size="sm" onClick={() => onDelete(obra)} className="text-red-500">
             Excluir
           </Button>
         </div>
