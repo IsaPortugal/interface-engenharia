@@ -1,33 +1,45 @@
 
 import React from 'react';
+import { Tab } from '@headlessui/react';
 import ObraCard from './ObraCard';
-import EmptyObras from './EmptyObras';
 import { Obra } from '@/types/obras';
+import EmptyObras from './EmptyObras';
 
 interface ObrasTabContentProps {
-  obras: Obra[];
-  onViewDetails: (id: number) => void;
-  onEdit: (id: number) => void;
-  onDelete: (id: number) => void;
+  filteredObras: Obra[];
+  concluidas: boolean;
+  handleViewObra: (obra: Obra) => void; 
+  handleEditObra: (obra: Obra) => void;
+  handleDeleteObra: (obra: Obra) => void;
 }
 
-const ObrasTabContent = ({ obras, onViewDetails, onEdit, onDelete }: ObrasTabContentProps) => {
+const ObrasTabContent: React.FC<ObrasTabContentProps> = ({
+  filteredObras,
+  concluidas,
+  handleViewObra,
+  handleEditObra,
+  handleDeleteObra
+}) => {
+  const obras = filteredObras.filter(obra => obra.concluida === concluidas);
+  
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <Tab.Panel>
       {obras.length > 0 ? (
-        obras.map(obra => (
-          <ObraCard 
-            key={obra.id} 
-            obra={obra} 
-            onViewDetails={onViewDetails} 
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-        ))
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {obras.map(obra => (
+            <ObraCard
+              key={obra.id}
+              obra={obra}
+              onView={() => handleViewObra(obra)}
+              onEdit={() => handleEditObra(obra)}
+              onDelete={() => handleDeleteObra(obra)}
+            />
+          ))}
+        </div>
       ) : (
-        <EmptyObras />
+        <EmptyObras status={concluidas ? 'concluídas' : 'em andamento'} />
       )}
-    </div>
+    </Tab.Panel>
   );
 };
 

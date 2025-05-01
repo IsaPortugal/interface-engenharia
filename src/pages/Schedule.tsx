@@ -9,7 +9,7 @@ const Schedule = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  // Filtragem de agendamentos
+  // Filtering schedule events
   const filteredEvents = scheduleData.filter(event => 
     event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     event.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
