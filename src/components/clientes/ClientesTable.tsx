@@ -1,0 +1,83 @@
+
+import React from 'react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { User } from 'lucide-react';
+import { Cliente } from '@/types/obras';
+
+interface ClientesTableProps {
+  clientes: Cliente[];
+  onViewCliente: (id: number) => void;
+  onEditCliente: (id: number) => void;
+  onDeleteCliente: (id: number) => void;
+}
+
+const ClientesTable = ({ 
+  clientes, 
+  onViewCliente, 
+  onEditCliente, 
+  onDeleteCliente 
+}: ClientesTableProps) => {
+  return (
+    <div className="bg-white rounded-lg shadow">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Nome</TableHead>
+            <TableHead>Tipo</TableHead>
+            <TableHead>Documento</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Telefone</TableHead>
+            <TableHead className="text-right">Ações</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {clientes.length > 0 ? (
+            clientes.map(cliente => (
+              <TableRow key={cliente.id}>
+                <TableCell className="font-medium">{cliente.nome}</TableCell>
+                <TableCell>
+                  <Badge variant="outline">
+                    {cliente.tipo === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
+                  </Badge>
+                </TableCell>
+                <TableCell>{cliente.documento}</TableCell>
+                <TableCell>{cliente.email}</TableCell>
+                <TableCell>{cliente.telefone}</TableCell>
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <Button size="sm" variant="outline" onClick={() => onViewCliente(cliente.id)}>
+                      <Eye className="h-4 w-4 mr-1" /> Visualizar
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => onEditCliente(cliente.id)}>
+                      <Pencil className="h-4 w-4 mr-1" /> Editar
+                    </Button>
+                    <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => onDeleteCliente(cliente.id)}>
+                      <Trash2 className="h-4 w-4 mr-1" /> Excluir
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={6} className="text-center py-8">
+                <div className="flex flex-col items-center justify-center">
+                  <User className="h-12 w-12 text-muted-foreground mb-3 opacity-40" />
+                  <h3 className="font-medium text-lg">Nenhum cliente encontrado</h3>
+                  <p className="text-muted-foreground">
+                    Tente ajustar sua busca ou adicione um novo cliente.
+                  </p>
+                </div>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
+
+export default ClientesTable;
