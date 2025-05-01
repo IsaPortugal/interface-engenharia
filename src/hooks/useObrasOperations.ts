@@ -77,33 +77,30 @@ export function useObrasOperations(initialObras: Obra[], initialClientes: Client
     }
   };
 
-  const handleViewDetails = (id: number) => {
-    const obra = obras.find(obra => obra.id === id);
-    if (obra) {
-      const cliente = clientes.find(cliente => cliente.id === obra.cliente);
-      setSelectedObra(obra);
-      setSelectedCliente(cliente || null);
-      setViewDialogOpen(true);
-    }
+  // Updated to accept an Obra object instead of just an ID
+  const handleViewDetails = (obra: Obra) => {
+    const cliente = clientes.find(cliente => cliente.id === obra.cliente);
+    setSelectedObra(obra);
+    setSelectedCliente(cliente || null);
+    setViewDialogOpen(true);
   };
 
-  const handleEditObra = (id: number) => {
-    const obra = obras.find(obra => obra.id === id);
-    if (obra) {
-      const cliente = clientes.find(cliente => cliente.id === obra.cliente);
-      setSelectedObra(obra);
-      setSelectedCliente(cliente || null);
-      setEditDialogOpen(true);
-      
-      toast({
-        title: "Editar obra",
-        description: `Editando obra: ${obra.nome}`,
-      });
-    }
+  // Updated to accept an Obra object instead of just an ID
+  const handleEditObra = (obra: Obra) => {
+    const cliente = clientes.find(cliente => cliente.id === obra.cliente);
+    setSelectedObra(obra);
+    setSelectedCliente(cliente || null);
+    setEditDialogOpen(true);
+    
+    toast({
+      title: "Editar obra",
+      description: `Editando obra: ${obra.nome}`,
+    });
   };
 
-  const handleDeleteObra = (id: number) => {
-    setDeleteObraId(id);
+  // Updated to accept an Obra object instead of just an ID
+  const handleDeleteObra = (obra: Obra) => {
+    setDeleteObraId(obra.id);
     setIsDeleteDialogOpen(true);
   };
 

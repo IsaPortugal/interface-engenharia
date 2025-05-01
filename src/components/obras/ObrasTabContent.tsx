@@ -40,7 +40,7 @@ const ObrasTabContent: React.FC<ObrasTabContentProps> = ({
           />
         ))
       ) : (
-        <EmptyObras />
+        <EmptyObras status={concluidas ? 'concluídas' : 'em andamento'} />
       )}
     </div>
   );
