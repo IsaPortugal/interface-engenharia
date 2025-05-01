@@ -18,7 +18,7 @@ import SystemArchitecture from '@/components/tcc-obra/architecture';
 
 const Index = () => {
   const [selectedTab, setSelectedTab] = useState("dashboard");
-  const [activeProject, setActiveProject] = useState("TCC - Obra");
+  const [activeProject, setActiveProject] = useState("VPro Engenharia");
 
   return (
     <div className="container mx-auto animate-fade-in py-6 max-w-7xl">
@@ -26,7 +26,7 @@ const Index = () => {
         <div>
           <h1 className="text-2xl font-bold text-gray-800 flex items-center">
             <Building className="mr-2 h-6 w-6 text-vpro-orange" />
-            Solução TCC - Obra
+            Solução VPro Engenharia
           </h1>
           <p className="text-muted-foreground">
             Sistema integrado para gestão de obras e construções
@@ -38,7 +38,7 @@ const Index = () => {
               <SelectValue placeholder="Selecionar projeto" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="TCC - Obra">TCC - Obra (1 de 1 projeto)</SelectItem>
+              <SelectItem value="VPro Engenharia">VPro Engenharia (1 de 1 projeto)</SelectItem>
             </SelectContent>
           </Select>
         </div>

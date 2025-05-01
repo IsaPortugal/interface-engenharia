@@ -3,7 +3,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProjectsSection from '@/components/dashboard/ProjectsSection';
 import EventsSection from '@/components/dashboard/EventsSection';
-import ClientPanelCard from '@/components/dashboard/ClientPanelCard';
 import { 
   Card, 
   CardHeader, 
@@ -16,8 +15,7 @@ import {
   Users, 
   AlertTriangle, 
   FileText,
-  Calendar,
-  ArrowRight
+  Calendar
 } from 'lucide-react';
 
 export default function Dashboard() {
@@ -80,12 +78,12 @@ export default function Dashboard() {
 
       <Card className="border-none shadow-md overflow-hidden">
         <CardHeader className="bg-gradient-to-r from-vpro-blue to-vpro-orange text-white">
-          <CardTitle className="text-2xl">Bem-vindo ao Sistema TCC_Obra</CardTitle>
+          <CardTitle className="text-2xl">Bem-vindo ao Sistema VPro Engenharia</CardTitle>
           <CardDescription className="text-white/90">Sistema integrado de gerenciamento de construções</CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           <p className="mb-4">
-            O TCC_Obra é uma solução completa para o gerenciamento de suas obras e projetos de construção civil.
+            O VPro Engenharia é uma solução completa para o gerenciamento de suas obras e projetos de construção civil.
             Com ele você pode realizar:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
@@ -124,21 +122,11 @@ export default function Dashboard() {
                 <p className="text-sm text-muted-foreground">Crie documentações completas de seus projetos</p>
               </div>
             </div>
-            <div className="flex items-center">
-              <button 
-                onClick={() => navigate('/obras')} 
-                className="group flex items-center text-vpro-blue hover:underline"
-              >
-                Explorar funcionalidades
-                <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
           </div>
         </CardContent>
       </Card>
 
       <div className="space-y-6">
-        <ClientPanelCard />
         <ProjectsSection projects={projects} onViewAll={handleViewAllProjects} />
         <EventsSection events={upcomingEvents} onViewSchedule={handleViewSchedule} />
       </div>

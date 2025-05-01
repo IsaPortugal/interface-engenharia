@@ -86,14 +86,14 @@ const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
         {!collapsed && (
           <div className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-md bg-white/20 flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-lg">TC</span>
+              <span className="text-white font-bold text-lg">VP</span>
             </div>
-            <span className="font-bold text-white text-lg tracking-tight">TCC_Obra</span>
+            <span className="font-bold text-white text-lg tracking-tight">VPro Engenharia</span>
           </div>
         )}
         {collapsed && (
           <div className="h-10 w-10 rounded-md bg-white/20 mx-auto flex items-center justify-center shadow-md">
-            <span className="text-white font-bold text-lg">TC</span>
+            <span className="text-white font-bold text-lg">VP</span>
           </div>
         )}
         <Button 

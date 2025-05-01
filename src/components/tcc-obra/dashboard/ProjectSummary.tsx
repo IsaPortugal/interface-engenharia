@@ -7,11 +7,11 @@ export const ProjectSummary = () => {
     <Card>
       <CardHeader>
         <CardTitle>Resumo do Projeto</CardTitle>
-        <CardDescription>Informações sobre o TCC - Obra</CardDescription>
+        <CardDescription>Informações sobre o VPro Engenharia</CardDescription>
       </CardHeader>
       <CardContent>
         <p className="text-gray-700">
-          O projeto TCC - Obra é um sistema integrado para gestão de obras e construções,
+          O projeto VPro Engenharia é um sistema integrado para gestão de obras e construções,
           desenvolvido como trabalho de conclusão de curso. Utilizando o padrão MVC com C#
           e ASP.NET Core, esta solução está estruturada para oferecer gerenciamento
           completo do ciclo de vida de projetos de construção.

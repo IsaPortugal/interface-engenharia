@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 
 const routes = [
   { icon: LayoutDashboard, label: "Painel", href: "/" },
-  { icon: Building, label: "Obras", href: "/obras" },
   { icon: Users, label: "Clientes", href: "/clientes" },
+  { icon: Building, label: "Obras", href: "/obras" },
   { icon: FileText, label: "Relatórios", href: "/reports" },
   { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
   { icon: Calendar, label: "Compromissos", href: "/schedule" },
@@ -28,7 +28,7 @@ export function TopNavBar() {
               <rect x="16" y="2" width="6" height="16" rx="2" fill="#fff" fillOpacity="0.85"/>
             </svg>
           </div>
-          <span className="text-lg font-bold text-white tracking-tight hidden sm:block">TCC_Obra</span>
+          <span className="text-lg font-bold text-white tracking-tight hidden sm:block">VPro Engenharia</span>
         </div>
         {/* Menu de Navegação no Topo Horizontal */}
         <ul className="flex gap-4 md:gap-8 justify-center text-white font-semibold">
