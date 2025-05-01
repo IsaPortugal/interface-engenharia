@@ -44,19 +44,19 @@ const Incidents = () => {
   };
 
   return (
-    <div className="container max-w-6xl mx-auto py-6 animate-fade-in">
-      <div className="flex justify-between items-center mb-6">
+    <div className="container max-w-6xl mx-auto py-4 animate-fade-in">
+      <div className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-2xl font-bold flex items-center">
-            <AlertTriangle className="mr-2 h-6 w-6 text-orange-500" />
+          <h1 className="text-xl font-bold flex items-center">
+            <AlertTriangle className="mr-2 h-5 w-5 text-orange-500" />
             Incidentes
           </h1>
-          <p className="text-muted-foreground">Gerencie os incidentes reportados nas obras</p>
+          <p className="text-sm text-muted-foreground">Gerencie os incidentes reportados nas obras</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-primary hover:bg-primary/90 text-white">
-              <Plus className="mr-2 h-4 w-4" /> 
+            <Button className="bg-primary hover:bg-primary/90 text-white text-sm px-3 py-1 h-auto">
+              <Plus className="mr-1 h-3.5 w-3.5" /> 
               Registrar Incidente
             </Button>
           </DialogTrigger>
@@ -66,13 +66,13 @@ const Incidents = () => {
         </Dialog>
       </div>
 
-      <div className="mb-6">
-        <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4">
+        <div className="flex items-center gap-3 mb-3">
           <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-3 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-gray-400" />
             <Input
               placeholder="Buscar incidentes por título ou projeto..."
-              className="pl-9"
+              className="pl-8 h-9 text-sm"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -80,15 +80,15 @@ const Incidents = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="all">
-        <TabsList className="mb-4">
-          <TabsTrigger value="all">Todos</TabsTrigger>
-          <TabsTrigger value="open">Em aberto</TabsTrigger>
-          <TabsTrigger value="resolved">Resolvidos</TabsTrigger>
+      <Tabs defaultValue="all" className="w-full">
+        <TabsList className="mb-3 h-8">
+          <TabsTrigger value="all" className="text-xs h-7">Todos</TabsTrigger>
+          <TabsTrigger value="open" className="text-xs h-7">Em aberto</TabsTrigger>
+          <TabsTrigger value="resolved" className="text-xs h-7">Resolvidos</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredIncidents.length > 0 ? (
               filteredIncidents.map(incident => (
                 <IncidentCard 
@@ -100,10 +100,10 @@ const Incidents = () => {
                 />
               ))
             ) : (
-              <div className="col-span-full flex flex-col items-center justify-center py-12">
-                <AlertTriangle className="h-12 w-12 text-muted-foreground mb-3 opacity-40" />
-                <h3 className="font-medium text-lg">Nenhum incidente encontrado</h3>
-                <p className="text-muted-foreground">
+              <div className="col-span-full flex flex-col items-center justify-center py-8">
+                <AlertTriangle className="h-10 w-10 text-muted-foreground mb-2 opacity-40" />
+                <h3 className="font-medium text-base">Nenhum incidente encontrado</h3>
+                <p className="text-sm text-muted-foreground">
                   Tente ajustar sua busca ou registre um novo incidente.
                 </p>
               </div>
@@ -112,7 +112,7 @@ const Incidents = () => {
         </TabsContent>
 
         <TabsContent value="open">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredIncidents
               .filter(incident => incident.status === 'Em aberto')
               .map(incident => (
@@ -128,7 +128,7 @@ const Incidents = () => {
         </TabsContent>
 
         <TabsContent value="resolved">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredIncidents
               .filter(incident => incident.status === 'Resolvido')
               .map(incident => (
@@ -147,32 +147,45 @@ const Incidents = () => {
       {/* View Incident Dialog */}
       {selectedIncident && (
         <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[550px]">
             <DialogHeader>
-              <DialogTitle>{selectedIncident.title}</DialogTitle>
+              <DialogTitle className="text-lg">{selectedIncident.title}</DialogTitle>
             </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <h3 className="font-medium">Projeto</h3>
-                <p>{selectedIncident.project}</p>
+            <div className="grid gap-3 py-3">
+              <div className="grid gap-1">
+                <h3 className="font-medium text-sm">Projeto</h3>
+                <p className="text-sm">{selectedIncident.project}</p>
               </div>
-              <div className="grid gap-2">
-                <h3 className="font-medium">Status</h3>
-                <p>{selectedIncident.status}</p>
+              <div className="grid gap-1">
+                <h3 className="font-medium text-sm">Status</h3>
+                <p className="text-sm">{selectedIncident.status}</p>
               </div>
-              <div className="grid gap-2">
-                <h3 className="font-medium">Data</h3>
-                <p>{selectedIncident.date}</p>
+              <div className="grid gap-1">
+                <h3 className="font-medium text-sm">Data</h3>
+                <p className="text-sm">{selectedIncident.date}</p>
               </div>
-              <div className="grid gap-2">
-                <h3 className="font-medium">Responsável</h3>
-                <p>{selectedIncident.assignedTo}</p>
+              <div className="grid gap-1">
+                <h3 className="font-medium text-sm">Responsável</h3>
+                <p className="text-sm">{selectedIncident.assignedTo}</p>
               </div>
-              <div className="grid gap-2">
-                <h3 className="font-medium">Descrição</h3>
-                <p>{selectedIncident.description}</p>
+              <div className="grid gap-1">
+                <h3 className="font-medium text-sm">Descrição</h3>
+                <p className="text-sm">{selectedIncident.description}</p>
               </div>
             </div>
+          </DialogContent>
+        </Dialog>
+      )}
+      
+      {/* Edit Incident Dialog */}
+      {selectedIncident && (
+        <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+          <DialogContent className="sm:max-w-[525px]">
+            <IncidentForm 
+              incident={selectedIncident}
+              onClose={() => setEditDialogOpen(false)}
+              isEdit={true}
+            />
           </DialogContent>
         </Dialog>
       )}

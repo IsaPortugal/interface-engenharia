@@ -20,11 +20,6 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
             <CardTitle className="text-base font-semibold">{incident.title}</CardTitle>
             <div className="text-sm text-muted-foreground">{incident.project}</div>
           </div>
-          <div className={
-            incident.status === 'Em aberto' ? "text-sm font-medium text-orange-500" : "text-sm font-medium text-green-500"
-          }>
-            {incident.status}
-          </div>
         </div>
       </CardHeader>
       <CardContent className="pb-3">
@@ -33,6 +28,15 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
           <span>{formattedDate}</span>
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{incident.description}</p>
+        <div className="mt-3">
+          <span className={
+            incident.status === 'Em aberto' 
+              ? "text-sm font-medium px-2 py-1 bg-orange-100 text-orange-600 rounded-full" 
+              : "text-sm font-medium px-2 py-1 bg-green-100 text-green-600 rounded-full"
+          }>
+            {incident.status}
+          </span>
+        </div>
       </CardContent>
       <CardFooter className="pt-0 flex justify-between gap-2">
         <Button 
