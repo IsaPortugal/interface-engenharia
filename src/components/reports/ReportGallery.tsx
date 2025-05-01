@@ -11,9 +11,11 @@ interface ReportGalleryProps {
 }
 
 const ReportGallery: React.FC<ReportGalleryProps> = ({ images }) => {
+  if (!images || images.length === 0) return null;
+  
   return (
-    <section>
-      <h4 className="text-base font-medium mb-2">Registro Fotográfico</h4>
+    <section className="border-l-4 border-[#1976D2] p-4 mb-4">
+      <h4 className="text-[#f97316] font-medium mb-4 pb-2 border-b">Registro Fotográfico</h4>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
         {images.map((img, index) => (
           <div key={index} className="border rounded-md overflow-hidden">

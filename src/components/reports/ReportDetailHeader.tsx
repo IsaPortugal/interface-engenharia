@@ -23,40 +23,30 @@ const ReportDetailHeader: React.FC<ReportDetailHeaderProps> = ({ report }) => {
   };
 
   return (
-    <div>
-      <h3 className="text-lg font-medium mb-2">Informações do Relatório</h3>
-      <div className="space-y-3">
-        <div className="flex items-center">
-          <FileText className="h-5 w-5 mr-2 text-gray-500" />
+    <div className="rounded-md overflow-hidden">
+      <div className="bg-[#1976D2] text-white p-6 mb-4">
+        <h2 className="text-2xl font-bold">Relatório - {report.title}</h2>
+        <p className="mt-1">Projeto: {report.project}</p>
+        <p className="mt-1">Data: {formattedDate}</p>
+        <p className="mt-1">VPro engenharia</p>
+      </div>
+      
+      <div className="border-l-4 border-[#1976D2] p-4 mb-4">
+        <h3 className="text-[#f97316] text-lg font-medium mb-4 border-b pb-2">Informações do Relatório</h3>
+        <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">Tipo</p>
+            <p className="text-sm text-[#f97316] font-medium">Tipo</p>
             <p className="font-medium">{report.type}</p>
           </div>
-        </div>
-        
-        <div className="flex items-center">
-          <Calendar className="h-5 w-5 mr-2 text-gray-500" />
+          
           <div>
-            <p className="text-sm text-gray-500">Data</p>
-            <p className="font-medium">{formattedDate}</p>
-          </div>
-        </div>
-        
-        <div className="flex items-center">
-          <User className="h-5 w-5 mr-2 text-gray-500" />
-          <div>
-            <p className="text-sm text-gray-500">Autor</p>
+            <p className="text-sm text-[#f97316] font-medium">Autor</p>
             <p className="font-medium">Eng. {getAuthorFullName(report.author)}</p>
           </div>
         </div>
         
-        <div>
-          <p className="text-sm text-gray-500 mb-1">Projeto</p>
-          <p className="font-medium">{report.project}</p>
-        </div>
-        
-        <div>
-          <p className="text-sm text-gray-500 mb-1">Descrição</p>
+        <div className="mt-4">
+          <p className="text-sm text-[#f97316] font-medium mb-1">Descrição</p>
           <p className="text-gray-700">{report.description}</p>
         </div>
       </div>
