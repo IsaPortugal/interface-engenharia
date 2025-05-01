@@ -1,17 +1,9 @@
 
 import React from 'react';
-import { format, parse } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import { Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
-  // Parse the date string using date-fns parse function
-  // Format is "DD/MM/YYYY"
-  const parsedDate = parse(incident.date, 'dd/MM/yyyy', new Date());
-  const formattedDate = format(parsedDate, 'dd MMM yyyy', { locale: ptBR });
-
   return (
     <Card className="transition-all duration-200 hover:shadow-md">
       <CardHeader className="pb-2">
@@ -23,9 +15,8 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
         </div>
       </CardHeader>
       <CardContent className="pb-3">
-        <div className="flex items-center text-sm text-muted-foreground mb-2">
-          <Calendar className="h-4 w-4 mr-2" />
-          <span>{formattedDate}</span>
+        <div className="text-sm text-muted-foreground mb-2">
+          <span>Data: {incident.date}</span>
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{incident.description}</p>
         <div className="mt-3">

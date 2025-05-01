@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Building, Calendar, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Obra } from '@/types/obras';
 
@@ -24,14 +23,15 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
         <h3 className="font-semibold text-lg mb-1 line-clamp-1">{obra.nome}</h3>
         <p className="text-sm text-gray-500 mb-3 line-clamp-1">{obra.endereco}</p>
         
-        <div className="flex items-center text-sm text-gray-600 mb-1">
-          <User className="h-4 w-4 mr-2" />
-          <span>{obra.responsavel}</span>
-        </div>
-        
-        <div className="flex items-center text-sm text-gray-600 mb-3">
-          <Calendar className="h-4 w-4 mr-2" />
-          <span>Início: {obra.inicio}</span>
+        <div className="flex justify-between text-sm text-gray-600 mb-3">
+          <div>
+            <p className="font-medium">Início:</p>
+            <p>{obra.inicio}</p>
+          </div>
+          <div>
+            <p className="font-medium">Prazo:</p>
+            <p>{obra.prazo}</p>
+          </div>
         </div>
         
         <div className="text-sm text-gray-600 mt-3">

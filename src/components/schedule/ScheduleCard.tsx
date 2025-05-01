@@ -2,7 +2,6 @@
 import React from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon, Clock, MapPin } from 'lucide-react';
 
 interface ScheduleEvent {
   id: number;
@@ -37,21 +36,18 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event, onView, onEdit, onDe
       </CardHeader>
       <CardContent className="pb-3">
         <div className="space-y-3">
-          <div className="flex items-center text-sm text-muted-foreground">
-            <CalendarIcon className="h-4 w-4 mr-2" />
-            <span>{event.date}</span>
+          <div className="text-sm text-muted-foreground">
+            <span>Data: {event.date}</span>
             <span className="mx-2">|</span>
-            <Clock className="h-4 w-4 mr-2" />
-            <span>{event.time}</span>
-          </div>
-          
-          <div className="flex items-center text-sm text-muted-foreground">
-            <MapPin className="h-4 w-4 mr-2" />
-            <span>{event.location}</span>
+            <span>Hora: {event.time}</span>
           </div>
           
           <div className="text-sm text-muted-foreground">
-            Tipo: {event.type}
+            <span>Local: {event.location}</span>
+          </div>
+          
+          <div className="text-sm text-muted-foreground">
+            <span>Tipo: {event.type}</span>
           </div>
         </div>
       </CardContent>
