@@ -3,6 +3,11 @@ export interface Obra {
   id: number;
   nome: string;
   endereco: string;
+  numero?: string;
+  complemento?: string;
+  cidade?: string;
+  estado?: string;
+  cep?: string;
   responsavel: string;
   inicio: string;
   prazo: string;
