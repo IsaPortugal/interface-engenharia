@@ -2,7 +2,7 @@
 import React from 'react';
 import { format, parse } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { AlertTriangle, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -20,9 +20,11 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
             <CardTitle className="text-base font-semibold">{incident.title}</CardTitle>
             <div className="text-sm text-muted-foreground">{incident.project}</div>
           </div>
-          <AlertTriangle className={
-            incident.status === 'Em aberto' ? "h-5 w-5 text-orange-500" : "h-5 w-5 text-green-500"
-          } />
+          <div className={
+            incident.status === 'Em aberto' ? "text-sm font-medium text-orange-500" : "text-sm font-medium text-green-500"
+          }>
+            {incident.status}
+          </div>
         </div>
       </CardHeader>
       <CardContent className="pb-3">
@@ -31,9 +33,6 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
           <span>{formattedDate}</span>
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{incident.description}</p>
-        <div className="text-sm text-muted-foreground mt-3">
-          {incident.status}
-        </div>
       </CardContent>
       <CardFooter className="pt-0 flex justify-between gap-2">
         <Button 

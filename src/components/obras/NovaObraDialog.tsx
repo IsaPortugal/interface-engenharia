@@ -1,8 +1,6 @@
 
 import React from 'react';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import NovaObraForm from './NovaObraForm';
 import { Cliente, Obra } from '@/types/obras';
 

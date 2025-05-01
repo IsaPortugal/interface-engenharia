@@ -2,7 +2,6 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -54,7 +53,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onViewDetail, onEdit, o
           onClick={() => onViewDetail(report)}
           className="rounded-full px-6"
         >
-          Visualizar
+          Detalhes
         </Button>
         <Button 
           variant="outline" 
