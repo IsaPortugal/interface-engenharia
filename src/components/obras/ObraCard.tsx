@@ -36,7 +36,7 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
         </div>
       </CardContent>
       
-      <CardFooter className="px-5 py-4 bg-gray-50 flex justify-between">
+      <CardFooter className="px-5 py-4 bg-gray-50 border-t">
         <div className="card-footer-buttons">
           <Button variant="outline" size="sm" onClick={() => onViewDetails(obra)}>
             Detalhes
