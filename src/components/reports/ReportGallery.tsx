@@ -33,17 +33,6 @@ const ReportGallery: React.FC<ReportGalleryProps> = ({ images }) => {
           </div>
         ))}
       </div>
-      
-      {/* Apply styles for hiding calendar icon using a standard style tag */}
-      <style>
-        {`
-          /* Hide calendar icon in date inputs */
-          input[type="date"].date-input-no-icon::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-          }
-        `}
-      </style>
     </section>
   );
 };
