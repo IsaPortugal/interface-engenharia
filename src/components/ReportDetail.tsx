@@ -29,6 +29,10 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
     });
   };
   
+  // Add console logging to debug
+  console.log("Report in ReportDetail:", report);
+  console.log("isOpen:", isOpen);
+  
   return (
     <div 
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
