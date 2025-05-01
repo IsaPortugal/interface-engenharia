@@ -8,9 +8,9 @@ const routes = [
   { icon: LayoutDashboard, label: "Painel", href: "/" },
   { icon: Users, label: "Clientes", href: "/clientes" },
   { icon: Building, label: "Obras", href: "/obras" },
-  { icon: FileText, label: "Relatórios", href: "/reports" },
   { icon: AlertTriangle, label: "Incidentes", href: "/incidents" },
-  { icon: Calendar, label: "Compromissos", href: "/schedule" },
+  { icon: Calendar, label: "Agendamentos", href: "/schedule" },
+  { icon: FileText, label: "Relatórios", href: "/reports" },
 ];
 
 export function TopNavBar() {

@@ -30,14 +30,90 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
         )}
       />
 
+      <h3 className="text-md font-medium mt-4 mb-2">Localização da Obra</h3>
+
       <FormField
         control={form.control}
         name="endereco"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Endereço da Obra</FormLabel>
+            <FormLabel>Logradouro</FormLabel>
             <FormControl>
-              <Input placeholder="Ex: Rua das Flores, 123 - Bairro - Cidade/UF" {...field} />
+              <Input placeholder="Ex: Rua das Flores" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <div className="grid grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
+          name="numero"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Número</FormLabel>
+              <FormControl>
+                <Input placeholder="Ex: 123" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="complemento"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Complemento</FormLabel>
+              <FormControl>
+                <Input placeholder="Ex: Bloco A" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
+          name="cidade"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cidade</FormLabel>
+              <FormControl>
+                <Input placeholder="Ex: São Paulo" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="estado"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Estado</FormLabel>
+              <FormControl>
+                <Input placeholder="Ex: SP" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      <FormField
+        control={form.control}
+        name="cep"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>CEP</FormLabel>
+            <FormControl>
+              <Input placeholder="Ex: 00000-000" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
