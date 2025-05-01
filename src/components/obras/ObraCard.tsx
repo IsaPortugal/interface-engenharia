@@ -1,60 +1,65 @@
 
 import React from 'react';
-import { Calendar, Eye, Pencil, Trash2 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Building, Calendar, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Obra } from '@/types/obras';
 
 interface ObraCardProps {
   obra: Obra;
-  onViewDetails: (id: number) => void;
-  onEdit: (id: number) => void;
-  onDelete: (id: number) => void;
+  onViewDetails: (obra: Obra) => void;
+  onEdit: (obra: Obra) => void;
+  onDelete: (obra: Obra) => void;
 }
 
 const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDelete }) => {
-  const statusColors = {
-    'Em andamento': 'bg-blue-100 text-blue-800',
-    'Concluído': 'bg-green-100 text-green-800',
-    'Em planejamento': 'bg-gray-100 text-gray-800',
-    'Paralisada': 'bg-red-100 text-red-800',
-  };
-
   return (
-    <Card className="transition-all duration-200 hover:shadow-md">
-      <CardHeader className="pb-2">
-        <div className="flex justify-between items-start">
-          <div className="space-y-1">
-            <CardTitle className="text-base font-semibold">{obra.nome}</CardTitle>
-            <CardDescription className="text-sm">{obra.endereco}</CardDescription>
-          </div>
-          <Badge className={statusColors[obra.status]}>
-            {obra.status}
-          </Badge>
+    <Card className="overflow-hidden transition-all duration-200 hover:shadow-md">
+      <div 
+        className="h-32 bg-gray-100 relative bg-cover bg-center"
+        style={{ backgroundImage: `url(${obra.imagem || '/placeholder.svg'})` }}
+      />
+      
+      <CardContent className="p-4">
+        <h3 className="font-semibold text-lg mb-1 line-clamp-1">{obra.nome}</h3>
+        <p className="text-sm text-gray-500 mb-3 line-clamp-1">{obra.endereco}</p>
+        
+        <div className="flex items-center text-sm text-gray-600 mb-1">
+          <User className="h-4 w-4 mr-2" />
+          <span>{obra.responsavel}</span>
         </div>
-      </CardHeader>
-      <CardContent className="pb-3">
-        <div className="flex items-center text-sm">
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <Calendar className="h-3.5 w-3.5" />
-            <span>Início: {obra.inicio}</span>
+        
+        <div className="flex items-center text-sm text-gray-600 mb-3">
+          <Calendar className="h-4 w-4 mr-2" />
+          <span>Início: {obra.inicio}</span>
+        </div>
+        
+        <div className="mb-2">
+          <div className="flex justify-between text-sm mb-1">
+            <span>Progresso</span>
+            <span>{obra.progresso}%</span>
           </div>
+          <Progress value={obra.progresso} className="h-2" />
+        </div>
+        
+        <div className="text-sm text-gray-600 mt-3">
+          {obra.status}
         </div>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-between">
-        <Button size="sm" variant="outline" onClick={() => onViewDetails(obra.id)}>
-          <Eye className="mr-1 h-4 w-4" />
-          Visualizar
+      
+      <CardFooter className="px-4 py-3 bg-gray-50 flex justify-between">
+        <Button variant="outline" size="sm" onClick={() => onViewDetails(obra)}>
+          Detalhes
         </Button>
-        <Button size="sm" variant="outline" onClick={() => onEdit(obra.id)}>
-          <Pencil className="mr-1 h-4 w-4" />
-          Editar
-        </Button>
-        <Button size="sm" variant="outline" className="text-red-500 hover:text-red-700" onClick={() => onDelete(obra.id)}>
-          <Trash2 className="mr-1 h-4 w-4" />
-          Excluir
-        </Button>
+        <div className="space-x-2">
+          <Button variant="ghost" size="sm" onClick={() => onEdit(obra)}>
+            Editar
+          </Button>
+          <Button variant="ghost" size="sm" onClick={() => onDelete(obra)} className="text-red-500 hover:text-red-600">
+            Excluir
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );

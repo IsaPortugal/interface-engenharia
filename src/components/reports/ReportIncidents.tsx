@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 
 interface Incident {
   title: string;
@@ -26,13 +25,11 @@ const ReportIncidents: React.FC<ReportIncidentsProps> = ({ incidents }) => {
       <div className="space-y-3">
         {incidents.map((incident, idx) => (
           <div key={idx} className="border rounded-md p-3 bg-amber-50">
-            <div className="flex justify-between">
-              <h5 className="font-medium">{incident.title}</h5>
-              <Badge variant={incident.status === 'Resolvido' ? 'outline' : 'destructive'}>
-                {incident.status}
-              </Badge>
+            <div className="font-medium">
+              {incident.title}
             </div>
             <p className="text-sm mt-1 text-gray-600">Data: {incident.date}</p>
+            <p className="text-sm mt-1 text-gray-600">Status: {incident.status}</p>
             <p className="text-sm mt-2">{incident.description}</p>
           </div>
         ))}

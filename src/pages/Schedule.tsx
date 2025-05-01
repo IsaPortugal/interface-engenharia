@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -14,6 +13,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { Badge } from '@/components/ui/badge';
 
 // Dados de exemplo para agendamentos
 const scheduleData = [
@@ -54,13 +54,6 @@ const scheduleData = [
 
 // Componente para exibir um agendamento
 const ScheduleCard = ({ event }) => {
-  const typeColors = {
-    'Visita': 'bg-green-100 text-green-800',
-    'Reunião': 'bg-blue-100 text-blue-800',
-    'Inspeção': 'bg-orange-100 text-orange-800',
-    'Entrega': 'bg-purple-100 text-purple-800'
-  };
-
   const date = new Date(event.date);
   const formattedDate = format(date, 'dd MMM', { locale: ptBR });
 
@@ -72,9 +65,6 @@ const ScheduleCard = ({ event }) => {
             <CardTitle className="text-base font-semibold">{event.title}</CardTitle>
             <CardDescription>{event.project}</CardDescription>
           </div>
-          <Badge className={typeColors[event.type]}>
-            {event.type}
-          </Badge>
         </div>
       </CardHeader>
       <CardContent className="pb-3">
@@ -101,6 +91,10 @@ const ScheduleCard = ({ event }) => {
                 </Avatar>
               ))}
             </div>
+          </div>
+          
+          <div className="text-sm text-muted-foreground">
+            {event.type}
           </div>
         </div>
       </CardContent>

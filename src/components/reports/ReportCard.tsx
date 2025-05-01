@@ -39,15 +39,14 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onViewDetail, onEdit, o
       </CardHeader>
       <CardContent className="pb-3">
         <div className="flex items-center justify-between text-sm mb-3">
-          <div className="flex items-center gap-2">
-            <FileText className="h-4 w-4" />
-            <span className="text-muted-foreground">{report.type}</span>
-          </div>
           <div className="text-muted-foreground">
             {formattedDate}
           </div>
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{report.description}</p>
+        <div className="text-sm text-muted-foreground mt-3">
+          {report.type}
+        </div>
       </CardContent>
       <CardFooter className="pt-0 flex justify-center gap-4">
         <Button 

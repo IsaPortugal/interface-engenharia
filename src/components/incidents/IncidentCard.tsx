@@ -1,32 +1,14 @@
 
 import React from 'react';
-import { Calendar, Eye, Pencil, Trash2 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { AlertTriangle, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-interface Incident {
-  id: number;
-  title: string;
-  project: string;
-  status: 'Em aberto' | 'Resolvido';
-  date: string;
-  assignedTo: string;
-  description: string;
-}
-
-interface IncidentCardProps {
-  incident: Incident;
-  onView: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
-}
-
-const IncidentCard = ({ incident, onView, onEdit, onDelete }: IncidentCardProps) => {
-  const statusColors = {
-    'Em aberto': 'bg-blue-100 text-blue-800',
-    'Resolvido': 'bg-green-100 text-green-800'
-  };
+const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
+  const date = new Date(incident.date);
+  const formattedDate = format(date, 'dd MMM yyyy', { locale: ptBR });
 
   return (
     <Card className="transition-all duration-200 hover:shadow-md">
@@ -34,34 +16,48 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }: IncidentCardProps)
         <div className="flex justify-between items-start">
           <div className="space-y-1">
             <CardTitle className="text-base font-semibold">{incident.title}</CardTitle>
-            <CardDescription className="text-sm">{incident.project}</CardDescription>
+            <div className="text-sm text-muted-foreground">{incident.project}</div>
           </div>
-          <Badge className={statusColors[incident.status]}>
-            {incident.status}
-          </Badge>
+          <AlertTriangle className={
+            incident.status === 'Em aberto' ? "h-5 w-5 text-orange-500" : "h-5 w-5 text-green-500"
+          } />
         </div>
       </CardHeader>
       <CardContent className="pb-3">
-        <div className="flex items-center text-sm">
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <Calendar className="h-3.5 w-3.5" />
-            <span>{incident.date}</span>
-          </div>
+        <div className="flex items-center text-sm text-muted-foreground mb-2">
+          <Calendar className="h-4 w-4 mr-2" />
+          <span>{formattedDate}</span>
+        </div>
+        <p className="text-sm text-gray-700 line-clamp-2">{incident.description}</p>
+        <div className="text-sm text-muted-foreground mt-3">
+          {incident.status}
         </div>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-between">
-        <Button size="sm" variant="outline" onClick={onView}>
-          <Eye className="mr-1 h-4 w-4" />
-          Visualizar
+      <CardFooter className="pt-0 flex justify-between gap-2">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={() => onView(incident)}
+        >
+          Detalhes
         </Button>
-        <Button size="sm" variant="outline" onClick={onEdit}>
-          <Pencil className="mr-1 h-4 w-4" />
-          Editar
-        </Button>
-        <Button size="sm" variant="outline" className="text-red-500 hover:text-red-700" onClick={onDelete}>
-          <Trash2 className="mr-1 h-4 w-4" />
-          Excluir
-        </Button>
+        <div className="space-x-1">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => onEdit(incident)}
+          >
+            Editar
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => onDelete(incident)}
+            className="text-red-500 hover:text-red-600 hover:bg-red-50"
+          >
+            Excluir
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );
