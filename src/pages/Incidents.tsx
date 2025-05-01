@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import IncidentCard from '@/components/incidents/IncidentCard';
 import IncidentForm from '@/components/incidents/IncidentForm';
 import { incidentsData } from '@/components/incidents/IncidentsData';
+import DeleteConfirmationDialog from '@/components/common/DeleteConfirmationDialog';
 
 const Incidents = () => {
   const [incidents, setIncidents] = useState(incidentsData);
@@ -18,6 +19,7 @@ const Incidents = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedIncident, setSelectedIncident] = useState(null);
 
   const filteredIncidents = incidents.filter(incident => 
@@ -38,9 +40,17 @@ const Incidents = () => {
   };
 
   // Handle delete incident
-  const handleDeleteIncident = (incident) => {
-    toast.success(`Incidente "${incident.title}" excluído com sucesso.`);
-    setIncidents(incidents.filter(item => item.id !== incident.id));
+  const handleDeleteClick = (incident) => {
+    setSelectedIncident(incident);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDeleteIncident = () => {
+    if (selectedIncident) {
+      toast.success(`Incidente "${selectedIncident.title}" excluído com sucesso.`);
+      setIncidents(incidents.filter(item => item.id !== selectedIncident.id));
+      setDeleteDialogOpen(false);
+    }
   };
 
   return (
@@ -96,7 +106,7 @@ const Incidents = () => {
                   incident={incident}
                   onView={() => handleViewIncident(incident)}
                   onEdit={() => handleEditIncident(incident)}
-                  onDelete={() => handleDeleteIncident(incident)}
+                  onDelete={() => handleDeleteClick(incident)}
                 />
               ))
             ) : (
@@ -121,7 +131,7 @@ const Incidents = () => {
                   incident={incident} 
                   onView={() => handleViewIncident(incident)}
                   onEdit={() => handleEditIncident(incident)}
-                  onDelete={() => handleDeleteIncident(incident)}
+                  onDelete={() => handleDeleteClick(incident)}
                 />
               ))}
           </div>
@@ -137,7 +147,7 @@ const Incidents = () => {
                   incident={incident} 
                   onView={() => handleViewIncident(incident)}
                   onEdit={() => handleEditIncident(incident)}
-                  onDelete={() => handleDeleteIncident(incident)}
+                  onDelete={() => handleDeleteClick(incident)}
                 />
               ))}
           </div>
@@ -189,6 +199,13 @@ const Incidents = () => {
           </DialogContent>
         </Dialog>
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmationDialog
+        isOpen={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={confirmDeleteIncident}
+      />
     </div>
   );
 };

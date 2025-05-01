@@ -29,12 +29,8 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{incident.description}</p>
         <div className="mt-3">
-          <span className={
-            incident.status === 'Em aberto' 
-              ? "text-sm font-medium px-2 py-1 bg-orange-100 text-orange-600 rounded-full" 
-              : "text-sm font-medium px-2 py-1 bg-green-100 text-green-600 rounded-full"
-          }>
-            {incident.status}
+          <span className="text-sm font-medium">
+            Status: {incident.status}
           </span>
         </div>
       </CardContent>

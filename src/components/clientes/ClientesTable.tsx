@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { User } from 'lucide-react';
 import { Cliente } from '@/types/obras';
+import DeleteConfirmationDialog from '@/components/common/DeleteConfirmationDialog';
 
 interface ClientesTableProps {
   clientes: Cliente[];
@@ -20,6 +21,22 @@ const ClientesTable = ({
   onEditCliente, 
   onDeleteCliente 
 }: ClientesTableProps) => {
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [clienteToDelete, setClienteToDelete] = useState<number | null>(null);
+
+  const handleDeleteClick = (id: number) => {
+    setClienteToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (clienteToDelete !== null) {
+      onDeleteCliente(clienteToDelete);
+      setDeleteDialogOpen(false);
+      setClienteToDelete(null);
+    }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow">
       <Table>
@@ -49,12 +66,12 @@ const ClientesTable = ({
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button size="sm" variant="outline" onClick={() => onViewCliente(cliente.id)}>
-                      <Eye className="h-4 w-4 mr-1" /> Visualizar
+                      <Eye className="h-4 w-4 mr-1" /> Detalhes
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => onEditCliente(cliente.id)}>
                       <Pencil className="h-4 w-4 mr-1" /> Editar
                     </Button>
-                    <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => onDeleteCliente(cliente.id)}>
+                    <Button size="sm" variant="outline" className="text-red-500 hover:text-red-600" onClick={() => handleDeleteClick(cliente.id)}>
                       <Trash2 className="h-4 w-4 mr-1" /> Excluir
                     </Button>
                   </div>
@@ -76,6 +93,12 @@ const ClientesTable = ({
           )}
         </TableBody>
       </Table>
+      
+      <DeleteConfirmationDialog 
+        isOpen={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 };
