@@ -63,4 +63,13 @@
   .data-table td {
     @apply p-3 border-b border-gray-200;
   }
+
+  /* Standard card footers with full-width buttons */
+  .card-footer-buttons {
+    @apply grid grid-cols-3 gap-1 w-full;
+  }
+  
+  .card-footer-buttons button {
+    @apply w-full justify-center text-center h-9;
+  }
 }

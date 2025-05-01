@@ -79,10 +79,22 @@
     min-height: 100vh;
   }
   
-  /* Remove focus rings and outlines */
-  *:focus {
+  /* Remove ALL focus rings and outlines - stricter rule */
+  *:focus,
+  *:focus-visible,
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  a:focus,
+  [data-focus],
+  [data-state="open"],
+  [data-state="checked"],
+  [data-state="selected"] {
     outline: none !important;
     box-shadow: none !important;
+    ring: 0 !important;
+    ring-offset: 0 !important;
   }
   
   /* Standardize text sizes */

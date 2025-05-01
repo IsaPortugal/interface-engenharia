@@ -32,43 +32,43 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onViewDetail, onEdit, o
         <div className="flex justify-between items-start">
           <div className="space-y-1">
             <CardTitle className="text-base font-semibold">{report.title}</CardTitle>
-            <CardDescription className="text-xs">{report.project}</CardDescription>
+            <CardDescription className="text-sm">{report.project}</CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent className="pb-3">
         <div className="flex items-center justify-between text-sm mb-3">
-          <div className="text-xs text-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             {formattedDate}
           </div>
         </div>
         <p className="text-sm text-gray-700 line-clamp-2">{report.description}</p>
-        <div className="text-xs text-muted-foreground mt-3 px-2 py-1 bg-gray-100 rounded-full inline-block">
+        <div className="text-sm text-muted-foreground mt-3 px-2 py-1 bg-gray-100 rounded-full inline-block">
           {report.type}
         </div>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-between gap-2">
-        <Button 
-          variant="outline" 
-          onClick={() => onViewDetail(report)}
-          className="text-xs px-3 py-1 h-7"
-          size="sm"
-        >
-          Detalhes
-        </Button>
-        <div className="space-x-1">
+      <CardFooter className="pt-0 justify-between">
+        <div className="card-footer-buttons">
           <Button 
-            variant="ghost" 
+            variant="outline" 
+            onClick={() => onViewDetail(report)}
+            className="text-sm"
+            size="sm"
+          >
+            Detalhes
+          </Button>
+          <Button 
+            variant="outline" 
             onClick={() => onEdit(report)}
-            className="text-xs px-3 py-1 h-7"
+            className="text-sm"
             size="sm"
           >
             Editar
           </Button>
           <Button 
-            variant="ghost" 
+            variant="outline" 
             onClick={() => onDelete(report.id)}
-            className="text-xs px-3 py-1 h-7 text-red-500 hover:text-red-600 hover:bg-red-50"
+            className="text-sm text-red-500 hover:text-red-600"
             size="sm"
           >
             Excluir

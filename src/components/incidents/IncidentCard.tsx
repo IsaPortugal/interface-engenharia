@@ -25,15 +25,15 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
           </span>
         </div>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-between gap-2">
-        <Button 
-          variant="outline" 
-          size="sm"
-          onClick={() => onView(incident)}
-        >
-          Detalhes
-        </Button>
-        <div className="space-x-2">
+      <CardFooter className="pt-0 justify-between">
+        <div className="card-footer-buttons">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => onView(incident)}
+          >
+            Detalhes
+          </Button>
           <Button 
             variant="outline" 
             size="sm"
