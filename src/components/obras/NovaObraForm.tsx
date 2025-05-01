@@ -29,9 +29,14 @@ const NovaObraForm = ({ obra, cliente, clientes = [], onClose, onSave, isEdit = 
   useEffect(() => {
     if (isEdit && obra && cliente) {
       form.reset({
-        clienteId: cliente.id,
+        clienteId: String(cliente.id),
         nome: obra.nome,
         endereco: obra.endereco,
+        numero: obra?.numero || '',
+        complemento: obra?.complemento || '',
+        cidade: obra?.cidade || '',
+        estado: obra?.estado || '',
+        cep: obra?.cep || '',
         inicio: obra.inicio,
         prazo: obra.prazo,
         responsavel: obra.responsavel,
@@ -50,6 +55,11 @@ const NovaObraForm = ({ obra, cliente, clientes = [], onClose, onSave, isEdit = 
     const obraData: Omit<Obra, 'id'> = {
       nome: data.nome,
       endereco: data.endereco,
+      numero: data.numero,
+      complemento: data.complemento,
+      cidade: data.cidade,
+      estado: data.estado,
+      cep: data.cep,
       inicio: data.inicio,
       prazo: data.prazo,
       responsavel: data.responsavel,
@@ -57,13 +67,13 @@ const NovaObraForm = ({ obra, cliente, clientes = [], onClose, onSave, isEdit = 
       progresso: obra ? obra.progresso : 0,
       status: isEdit && data.status ? data.status : (obra ? obra.status : 'Em andamento'),
       imagem: obra ? obra.imagem : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
-      cliente: data.clienteId,
+      cliente: parseInt(data.clienteId),
       previsaoTermino: data.prazo,
       observacoes: obra?.observacoes,
     };
 
     // Usar o cliente existente
-    const selectedCliente = clientes.find(c => c.id === data.clienteId);
+    const selectedCliente = clientes.find(c => c.id === parseInt(data.clienteId));
     if (!selectedCliente) return;
 
     // Cliente já existe, apenas passa os dados dele

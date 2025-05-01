@@ -24,8 +24,8 @@ const ClienteSelector = ({ clientes }: ClienteSelectorProps) => {
             <FormLabel>Cliente</FormLabel>
             <FormControl>
               <Select 
-                onValueChange={(value) => field.onChange(parseInt(value))} 
-                value={field.value ? String(field.value) : undefined}
+                onValueChange={field.onChange} 
+                value={field.value}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione um cliente" />
