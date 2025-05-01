@@ -9,22 +9,24 @@ import { DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
 interface IncidentFormProps {
   onClose: () => void;
+  incident?: any;
+  isEdit?: boolean;
 }
 
-const IncidentForm = ({ onClose }: IncidentFormProps) => {
+const IncidentForm = ({ onClose, incident, isEdit = false }: IncidentFormProps) => {
   return (
     <>
       <DialogHeader className="text-center">
-        <DialogTitle>Registrar Novo Incidente</DialogTitle>
+        <DialogTitle>{isEdit ? "Editar Incidente" : "Registrar Novo Incidente"}</DialogTitle>
       </DialogHeader>
       <div className="grid gap-4 py-4">
         <div className="grid gap-2">
           <Label htmlFor="title">Título</Label>
-          <Input id="title" placeholder="Digite o título do incidente" />
+          <Input id="title" placeholder="Digite o título do incidente" defaultValue={incident?.title || ""} />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="project">Obra</Label>
-          <Select>
+          <Select defaultValue={incident?.project || ""}>
             <SelectTrigger>
               <SelectValue placeholder="Selecione a obra" />
             </SelectTrigger>
@@ -38,7 +40,7 @@ const IncidentForm = ({ onClose }: IncidentFormProps) => {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="assigned">Responsável</Label>
-          <Select>
+          <Select defaultValue={incident?.assignedTo || ""}>
             <SelectTrigger>
               <SelectValue placeholder="Selecione o responsável" />
             </SelectTrigger>
@@ -52,7 +54,7 @@ const IncidentForm = ({ onClose }: IncidentFormProps) => {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="status">Status</Label>
-          <Select>
+          <Select defaultValue={incident?.status === "Resolvido" ? "resolvido" : "em-aberto"}>
             <SelectTrigger>
               <SelectValue placeholder="Selecione o status" />
             </SelectTrigger>
@@ -64,11 +66,11 @@ const IncidentForm = ({ onClose }: IncidentFormProps) => {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="date">Data</Label>
-          <Input id="date" type="date" />
+          <Input id="date" type="date" defaultValue={incident?.date ? incident.date.split('/').reverse().join('-') : ""} />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="description">Descrição</Label>
-          <Textarea id="description" placeholder="Descreva o incidente..." />
+          <Textarea id="description" placeholder="Descreva o incidente..." defaultValue={incident?.description || ""} />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="image">Imagens</Label>
@@ -77,7 +79,7 @@ const IncidentForm = ({ onClose }: IncidentFormProps) => {
       </div>
       <DialogFooter>
         <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
-        <Button type="submit">Registrar Incidente</Button>
+        <Button type="submit">{isEdit ? "Salvar Alterações" : "Registrar Incidente"}</Button>
       </DialogFooter>
     </>
   );
