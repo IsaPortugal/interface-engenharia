@@ -46,7 +46,8 @@ export const generateHtmlContent = (report: any): string => {
       .report-section {
         margin-bottom: 30px;
         padding: 20px;
-        border-left: 4px solid #1976D2;
+        background-color: #1976D2;
+        color: black;
       }
       
       .report-section h2 {
@@ -79,6 +80,7 @@ export const generateHtmlContent = (report: any): string => {
         border: 1px solid #eaeaea;
         border-radius: 6px;
         overflow: hidden;
+        background-color: white;
       }
       
       .image-container img {
@@ -95,7 +97,7 @@ export const generateHtmlContent = (report: any): string => {
       }
       
       .incidents-section {
-        border-left: 4px solid #f97316;
+        background-color: #1976D2;
       }
       
       .incident-item {
@@ -103,6 +105,7 @@ export const generateHtmlContent = (report: any): string => {
         border-radius: 6px;
         padding: 15px;
         margin-bottom: 15px;
+        background-color: white;
       }
       
       .incident-title {

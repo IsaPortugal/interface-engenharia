@@ -20,13 +20,13 @@ const ReportIncidents: React.FC<ReportIncidentsProps> = ({ incidents, onRemoveIn
   if (!incidents || incidents.length === 0) return null;
   
   return (
-    <section className="border-l-4 border-[#f97316] p-4 mb-4">
+    <section className="bg-[#1976D2] p-4 mb-4 text-black">
       <h4 className="text-[#f97316] font-medium mb-4 pb-2 border-b">
         Incidentes Registrados
       </h4>
       <div className="space-y-3">
         {incidents.map((incident, idx) => (
-          <div key={idx} className="border rounded-md p-3 relative">
+          <div key={idx} className="border rounded-md p-3 relative bg-white">
             <div className="font-medium text-[#f97316]">
               {incident.title}
             </div>

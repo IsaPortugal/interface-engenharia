@@ -31,7 +31,7 @@ const ReportDetailHeader: React.FC<ReportDetailHeaderProps> = ({ report }) => {
         <p className="mt-1">VPro engenharia</p>
       </div>
       
-      <div className="border-l-4 border-[#1976D2] p-4 mb-4">
+      <div className="bg-[#1976D2] p-4 mb-4 text-black">
         <h3 className="text-[#f97316] text-lg font-medium mb-4 border-b pb-2">Informações do Relatório</h3>
         <div className="grid md:grid-cols-2 gap-4">
           <div>
@@ -47,7 +47,7 @@ const ReportDetailHeader: React.FC<ReportDetailHeaderProps> = ({ report }) => {
         
         <div className="mt-4">
           <p className="text-sm text-[#f97316] font-medium mb-1">Descrição</p>
-          <p className="text-gray-700">{report.description}</p>
+          <p className="text-black">{report.description}</p>
         </div>
       </div>
     </div>
