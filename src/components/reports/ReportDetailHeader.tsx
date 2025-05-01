@@ -10,7 +10,7 @@ interface ReportDetailHeaderProps {
 
 const ReportDetailHeader: React.FC<ReportDetailHeaderProps> = ({ report }) => {
   const date = new Date(report.date);
-  const formattedDate = format(date, 'dd MMMM yyyy', { locale: ptBR });
+  const formattedDate = format(date, 'dd/MM/yyyy', { locale: ptBR });
   
   const getAuthorFullName = (author: string): string => {
     switch (author) {

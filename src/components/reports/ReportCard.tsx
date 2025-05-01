@@ -24,7 +24,7 @@ interface ReportCardProps {
 
 const ReportCard: React.FC<ReportCardProps> = ({ report, onViewDetail, onEdit, onDelete, onGeneratePDF }) => {
   const date = new Date(report.date);
-  const formattedDate = format(date, 'dd MMM yyyy', { locale: ptBR });
+  const formattedDate = format(date, 'dd/MM/yyyy', { locale: ptBR });
 
   return (
     <Card className="transition-all duration-200 hover:shadow-md">

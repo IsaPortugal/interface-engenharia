@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ReportActions from './ReportActions';
 import ReportDetailHeader from './reports/ReportDetailHeader';
 import ReportContent from './reports/ReportContent';
@@ -12,6 +12,7 @@ interface ReportDetailProps {
 
 const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) => {
   const printRef = useRef<HTMLDivElement>(null);
+  const [reportData, setReportData] = useState<any>(report);
   
   if (!isOpen || !report) return null;
 
@@ -19,6 +20,13 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
     if (e.target === e.currentTarget) {
       onClose();
     }
+  };
+
+  const handleRemoveIncident = (incidentId: number) => {
+    setReportData({
+      ...reportData,
+      incidents: reportData.incidents?.filter((incident: any) => incident.id !== incidentId)
+    });
   };
   
   return (
@@ -29,7 +37,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
       <div className="bg-white rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-start mb-6">
-            <h2 className="text-2xl font-bold">{report.title}</h2>
+            <h2 className="text-2xl font-bold">{reportData.title}</h2>
             <button 
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700"
@@ -39,11 +47,11 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
           </div>
           
           <div ref={printRef} className="space-y-6">
-            <ReportDetailHeader report={report} />
-            <ReportContent report={report} />
+            <ReportDetailHeader report={reportData} />
+            <ReportContent report={reportData} onRemoveIncident={handleRemoveIncident} />
           </div>
           
-          <ReportActions report={report} printRef={printRef} />
+          <ReportActions report={reportData} printRef={printRef} />
         </div>
       </div>
     </div>
