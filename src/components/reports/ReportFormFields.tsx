@@ -87,6 +87,7 @@ const ReportFormFields: React.FC<ReportFormFieldsProps> = ({
         <Input 
           id="date" 
           type="date" 
+          className="date-input-no-icon"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required

@@ -35,17 +35,17 @@ const IncidentCard = ({ incident, onView, onEdit, onDelete }) => {
         </Button>
         <div className="space-x-1">
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="sm"
             onClick={() => onEdit(incident)}
           >
             Editar
           </Button>
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="sm"
             onClick={() => onDelete(incident)}
-            className="text-red-500 hover:text-red-600 hover:bg-red-50"
+            className="text-red-500 hover:bg-red-50"
           >
             Excluir
           </Button>
