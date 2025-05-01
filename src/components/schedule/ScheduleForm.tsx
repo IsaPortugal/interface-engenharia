@@ -5,24 +5,35 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { DialogFooter, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 
 interface ScheduleFormProps {
   onClose: () => void;
+  event?: any;
+  isEdit?: boolean;
 }
 
-const ScheduleForm: React.FC<ScheduleFormProps> = ({ onClose }) => {
-  const [date, setDate] = useState<Date>(new Date());
+const ScheduleForm: React.FC<ScheduleFormProps> = ({ onClose, event, isEdit = false }) => {
+  const [title, setTitle] = useState(event?.title || '');
+  const [date, setDate] = useState(event?.date || '');
+  const [time, setTime] = useState(event?.time || '');
+  const [project, setProject] = useState(event?.project || '');
+  const [type, setType] = useState(event?.type || '');
+  const [location, setLocation] = useState(event?.location || '');
+  const [description, setDescription] = useState(event?.description || '');
+  const [responsible, setResponsible] = useState(event?.responsible || '');
+  const [status, setStatus] = useState(event?.status || 'pendente');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Logic for saving the form data would go here
+    onClose();
+  };
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <DialogHeader>
-        <DialogTitle>Agendar Novo Compromisso</DialogTitle>
+        <DialogTitle>{isEdit ? 'Editar Agendamento' : 'Agendar Novo Compromisso'}</DialogTitle>
         <DialogDescription>
           Preencha os detalhes do agendamento.
         </DialogDescription>
@@ -30,51 +41,46 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ onClose }) => {
       <div className="grid gap-4 py-4">
         <div className="grid gap-2">
           <Label htmlFor="title">Título</Label>
-          <Input id="title" placeholder="Ex: Visita técnica" />
+          <Input 
+            id="title" 
+            placeholder="Ex: Visita técnica" 
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
         
         <div className="grid grid-cols-2 gap-4">
           <div className="grid gap-2">
             <Label htmlFor="date">Data</Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="justify-start text-left font-normal">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, 'PPP', { locale: ptBR }) : <span>Selecione uma data</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
+            <Input
+              id="date"
+              type="text"
+              placeholder="DD/MM/AAAA"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
           </div>
           
           <div className="grid gap-2">
             <Label htmlFor="time">Horário</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0900">09:00 - 10:00</SelectItem>
-                <SelectItem value="1000">10:00 - 11:00</SelectItem>
-                <SelectItem value="1100">11:00 - 12:00</SelectItem>
-                <SelectItem value="1300">13:00 - 14:00</SelectItem>
-              </SelectContent>
-            </Select>
+            <Input
+              id="time"
+              type="text"
+              placeholder="HH:MM"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required
+            />
           </div>
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="project">Projeto</Label>
-          <Select>
+          <Label htmlFor="project">Obra</Label>
+          <Select value={project} onValueChange={setProject}>
             <SelectTrigger>
-              <SelectValue placeholder="Selecione o projeto" />
+              <SelectValue placeholder="Selecione a obra" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="aurora">Edifício Residencial Aurora</SelectItem>
@@ -86,33 +92,68 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ onClose }) => {
         
         <div className="grid gap-2">
           <Label htmlFor="type">Tipo</Label>
-          <Select>
+          <Select value={type} onValueChange={setType}>
             <SelectTrigger>
               <SelectValue placeholder="Selecione o tipo" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="visita">Visita</SelectItem>
-              <SelectItem value="reuniao">Reunião</SelectItem>
-              <SelectItem value="inspecao">Inspeção</SelectItem>
+              <SelectItem value="Visita">Visita</SelectItem>
+              <SelectItem value="Reunião">Reunião</SelectItem>
+              <SelectItem value="Outro">Outro</SelectItem>
             </SelectContent>
           </Select>
         </div>
         
         <div className="grid gap-2">
           <Label htmlFor="location">Local</Label>
-          <Input id="location" placeholder="Endereço ou nome do local" />
+          <Input 
+            id="location" 
+            placeholder="Endereço ou nome do local" 
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+        </div>
+        
+        <div className="grid gap-2">
+          <Label htmlFor="responsible">Responsável</Label>
+          <Input 
+            id="responsible" 
+            placeholder="Nome do responsável" 
+            value={responsible}
+            onChange={(e) => setResponsible(e.target.value)}
+            required
+          />
+        </div>
+        
+        <div className="grid gap-2">
+          <Label htmlFor="status">Status</Label>
+          <Select value={status} onValueChange={setStatus}>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione o status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="pendente">Pendente</SelectItem>
+              <SelectItem value="concluido">Concluído</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         
         <div className="grid gap-2">
           <Label htmlFor="description">Descrição</Label>
-          <Textarea id="description" placeholder="Descreva o objetivo deste agendamento..." />
+          <Textarea 
+            id="description" 
+            placeholder="Descreva o objetivo deste agendamento..." 
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
       </div>
       <DialogFooter>
         <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
-        <Button type="submit">Agendar</Button>
+        <Button type="submit">{isEdit ? 'Salvar' : 'Agendar'}</Button>
       </DialogFooter>
-    </>
+    </form>
   );
 };
 

@@ -7,7 +7,8 @@ export interface ScheduleEvent {
   time: string;
   location: string;
   type: string;
-  participants: string[];
+  responsible: string;
+  status: string;
   description: string;
 }
 
@@ -17,33 +18,36 @@ export const scheduleData: ScheduleEvent[] = [
     id: 1,
     title: 'Visita técnica com engenheiro',
     project: 'Edifício Residencial Aurora',
-    date: '2023-11-25',
+    date: '25/11/2023',
     time: '09:00 - 11:00',
     location: 'Av. Paulista, 1000, São Paulo',
     type: 'Visita',
-    participants: ['EF', 'RS', 'JC'],
+    responsible: 'Eduardo Ferreira',
+    status: 'pendente',
     description: 'Visita técnica para acompanhamento do cronograma.'
   },
   {
     id: 2,
     title: 'Reunião com cliente',
     project: 'Centro Comercial Vitória',
-    date: '2023-11-27',
+    date: '27/11/2023',
     time: '14:30 - 15:30',
     location: 'Escritório VPRO',
     type: 'Reunião',
-    participants: ['EF', 'PL'],
+    responsible: 'Paulo Lima',
+    status: 'pendente',
     description: 'Apresentação do andamento das obras.'
   },
   {
     id: 3,
     title: 'Vistoria final',
     project: 'Hospital São Lucas',
-    date: '2023-11-30',
+    date: '30/11/2023',
     time: '10:00 - 12:00',
     location: 'Rua das Flores, 500, Florianópolis',
-    type: 'Inspeção',
-    participants: ['EF', 'TC', 'MR'],
+    type: 'Visita',
+    responsible: 'Marcela Ribeiro',
+    status: 'concluido',
     description: 'Vistoria final para liberação da fase 1.'
   }
 ];
