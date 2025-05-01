@@ -13,7 +13,7 @@ interface ObraCardProps {
 
 const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDelete }) => {
   return (
-    <Card className="overflow-hidden transition-all duration-200 hover:shadow-md">
+    <Card className="overflow-hidden">
       <div 
         className="h-32 bg-gray-100 relative bg-cover bg-center"
         style={{ backgroundImage: `url(${obra.imagem || '/placeholder.svg'})` }}
@@ -21,7 +21,8 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
       
       <CardContent className="p-4">
         <h3 className="font-semibold text-lg mb-1 line-clamp-1">{obra.nome}</h3>
-        <p className="text-sm text-gray-500 mb-3 line-clamp-1">{obra.endereco}</p>
+        <p className="text-sm text-gray-500 mb-1 line-clamp-1">{obra.endereco}</p>
+        <p className="text-sm text-gray-600 mb-3">{obra.status}</p>
         
         <div className="flex justify-between text-sm text-gray-600 mb-3">
           <div>
@@ -32,10 +33,6 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
             <p className="font-medium">Prazo:</p>
             <p>{obra.prazo}</p>
           </div>
-        </div>
-        
-        <div className="text-sm text-gray-600 mt-3">
-          {obra.status}
         </div>
       </CardContent>
       

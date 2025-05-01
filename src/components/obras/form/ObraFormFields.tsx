@@ -193,6 +193,7 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="Em andamento">Em andamento</SelectItem>
+                  <SelectItem value="Atrasado">Atrasado</SelectItem>
                   <SelectItem value="Concluído">Concluído</SelectItem>
                 </SelectContent>
               </Select>

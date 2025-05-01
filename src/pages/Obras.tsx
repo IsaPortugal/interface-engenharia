@@ -14,6 +14,7 @@ import { useObrasOperations } from '@/hooks/useObrasOperations';
 // Página principal de Obras
 const Obras = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('todos');
   
   const {
     obras,
@@ -35,12 +36,13 @@ const Obras = () => {
     confirmDeleteObra,
   } = useObrasOperations(initialObras, initialClientes);
 
-  // Filtrar obras com base no termo de busca
+  // Filtrar obras com base no termo de busca e status
   const filteredObras = obras
     .filter(obra => 
-      obra.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      obra.endereco.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      obra.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+      (obra.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       obra.endereco.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       obra.tipo.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (statusFilter === 'todos' || obra.status === statusFilter)
     )
     .sort((a, b) => a.id - b.id); // Ordenar por ID (ordem de cadastro)
 
@@ -61,12 +63,13 @@ const Obras = () => {
         </Button>
       </div>
 
-      <ObraFilters searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <ObraFilters searchTerm={searchTerm} setSearchTerm={setSearchTerm} statusFilter={statusFilter} setStatusFilter={setStatusFilter} />
 
       <Tabs defaultValue="all">
         <TabsList className="mb-4">
           <TabsTrigger value="all">Todas</TabsTrigger>
           <TabsTrigger value="ongoing">Em andamento</TabsTrigger>
+          <TabsTrigger value="delayed">Atrasado</TabsTrigger>
           <TabsTrigger value="completed">Concluídas</TabsTrigger>
         </TabsList>
 
@@ -82,7 +85,17 @@ const Obras = () => {
         <TabsContent value="ongoing">
           <ObrasTabContent 
             filteredObras={filteredObras}
-            concluidas={false}
+            statusFilter="Em andamento"
+            handleViewObra={handleViewDetails}
+            handleEditObra={handleEditObra}
+            handleDeleteObra={handleDeleteObra}
+          />
+        </TabsContent>
+
+        <TabsContent value="delayed">
+          <ObrasTabContent 
+            filteredObras={filteredObras}
+            statusFilter="Atrasado"
             handleViewObra={handleViewDetails}
             handleEditObra={handleEditObra}
             handleDeleteObra={handleDeleteObra}
@@ -92,7 +105,7 @@ const Obras = () => {
         <TabsContent value="completed">
           <ObrasTabContent 
             filteredObras={filteredObras}
-            concluidas={true}
+            statusFilter="Concluído"
             handleViewObra={handleViewDetails}
             handleEditObra={handleEditObra}
             handleDeleteObra={handleDeleteObra}

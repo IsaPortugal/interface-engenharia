@@ -15,12 +15,8 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ title, client, dueDate, status, address, image }: ProjectCardProps) => {
-  const statusColor = 
-    status === 'Em andamento' ? 'bg-blue-500' : 
-    status === 'Atrasado' ? 'bg-red-500' : 'bg-green-500';
-  
   return (
-    <Card className="card-hover overflow-hidden border-none shadow-md">
+    <Card className="overflow-hidden border-none shadow-md">
       {image && (
         <div className="relative h-40 w-full overflow-hidden">
           <img 
@@ -32,9 +28,6 @@ const ProjectCard = ({ title, client, dueDate, status, address, image }: Project
               imgElement.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop";
             }}
           />
-          <div className={`${statusColor} text-white text-xs font-medium py-1 px-2 rounded-full absolute top-3 right-3`}>
-            {status}
-          </div>
         </div>
       )}
       <CardHeader className={image ? "pb-2 pt-3" : "pb-2"}>
@@ -48,12 +41,10 @@ const ProjectCard = ({ title, client, dueDate, status, address, image }: Project
                 {address}
               </div>
             )}
-          </div>
-          {!image && (
-            <div className={`${statusColor} text-white text-xs font-medium py-1 px-2 rounded-full`}>
+            <div className="mt-1 text-xs text-gray-600">
               {status}
             </div>
-          )}
+          </div>
         </div>
       </CardHeader>
       <CardFooter className="flex justify-between pt-2">
