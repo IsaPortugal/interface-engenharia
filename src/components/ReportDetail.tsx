@@ -44,7 +44,10 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
       >
         <div className="p-6">
           <div className="flex justify-between items-start mb-6">
-            <h2 className="text-2xl font-bold">{reportData.title}</h2>
+            <div>
+              <h1 className="text-xl font-bold text-blue-600">VPro Engenharia</h1>
+              <h2 className="text-2xl font-bold mt-2">{reportData.title}</h2>
+            </div>
             <button 
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700"

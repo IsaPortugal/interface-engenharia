@@ -15,23 +15,23 @@ const ReportActivities: React.FC<ReportActivitiesProps> = ({
   return (
     <>
       {activitiesPerformed && (
-        <section className="bg-[#1976D2] p-4 mb-4 text-black">
-          <h4 className="text-[#f97316] font-medium mb-2 pb-2 border-b">Atividades Realizadas</h4>
-          <p>{activitiesPerformed}</p>
+        <section className="bg-white p-4 mb-4 border rounded-md shadow-sm">
+          <h4 className="text-blue-600 font-medium text-lg mb-2 pb-2 border-b">Atividades Realizadas</h4>
+          <p className="text-black">{activitiesPerformed}</p>
         </section>
       )}
       
       {weatherConditions && (
-        <section className="bg-[#1976D2] p-4 mb-4 text-black">
-          <h4 className="text-[#f97316] font-medium mb-2 pb-2 border-b">Condições Climáticas</h4>
-          <p>{weatherConditions}</p>
+        <section className="bg-white p-4 mb-4 border rounded-md shadow-sm">
+          <h4 className="text-blue-600 font-medium text-lg mb-2 pb-2 border-b">Condições Climáticas</h4>
+          <p className="text-black">{weatherConditions}</p>
         </section>
       )}
       
       {nextSteps && (
-        <section className="bg-[#1976D2] p-4 mb-4 text-black">
-          <h4 className="text-[#f97316] font-medium mb-2 pb-2 border-b">Próximas Etapas</h4>
-          <p>{nextSteps}</p>
+        <section className="bg-white p-4 mb-4 border rounded-md shadow-sm">
+          <h4 className="text-blue-600 font-medium text-lg mb-2 pb-2 border-b">Próximas Etapas</h4>
+          <p className="text-black">{nextSteps}</p>
         </section>
       )}
     </>

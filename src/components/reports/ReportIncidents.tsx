@@ -20,19 +20,19 @@ const ReportIncidents: React.FC<ReportIncidentsProps> = ({ incidents, onRemoveIn
   if (!incidents || incidents.length === 0) return null;
   
   return (
-    <section className="bg-[#1976D2] p-4 mb-4 text-black">
-      <h4 className="text-[#f97316] font-medium mb-4 pb-2 border-b">
+    <section className="bg-white p-4 mb-4 border rounded-md shadow-sm">
+      <h4 className="text-blue-600 font-medium text-lg mb-4 pb-2 border-b">
         Incidentes Registrados
       </h4>
       <div className="space-y-3">
         {incidents.map((incident, idx) => (
           <div key={idx} className="border rounded-md p-3 relative bg-white">
-            <div className="font-medium text-[#f97316]">
+            <div className="font-medium text-blue-600">
               {incident.title}
             </div>
-            <p className="text-sm mt-1">Data: {incident.date}</p>
-            <p className="text-sm mt-1">Status: {incident.status}</p>
-            <p className="text-sm mt-2">{incident.description}</p>
+            <p className="text-sm mt-1 text-black">Data: {incident.date}</p>
+            <p className="text-sm mt-1 text-black">Status: {incident.status}</p>
+            <p className="text-sm mt-2 text-black">{incident.description}</p>
             
             {onRemoveIncident && incident.id && (
               <Button

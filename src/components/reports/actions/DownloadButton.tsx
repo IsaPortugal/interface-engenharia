@@ -40,8 +40,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ report, printRef }) => 
 
   return (
     <Button 
-      variant="secondary"
-      className="w-full py-3"
+      className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white"
       onClick={handleDownload}
     >
       <Download className="h-5 w-5 mr-2" />
