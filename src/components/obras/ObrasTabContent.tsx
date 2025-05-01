@@ -34,9 +34,9 @@ const ObrasTabContent: React.FC<ObrasTabContentProps> = ({
           <ObraCard
             key={obra.id}
             obra={obra}
-            onViewDetails={() => handleViewObra(obra)}
-            onEdit={() => handleEditObra(obra)}
-            onDelete={() => handleDeleteObra(obra)}
+            onViewDetails={handleViewObra}
+            onEdit={handleEditObra}
+            onDelete={handleDeleteObra}
           />
         ))
       ) : (

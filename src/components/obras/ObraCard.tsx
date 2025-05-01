@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Building, Calendar, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Obra } from '@/types/obras';
@@ -33,14 +32,6 @@ const ObraCard: React.FC<ObraCardProps> = ({ obra, onViewDetails, onEdit, onDele
         <div className="flex items-center text-sm text-gray-600 mb-3">
           <Calendar className="h-4 w-4 mr-2" />
           <span>Início: {obra.inicio}</span>
-        </div>
-        
-        <div className="mb-2">
-          <div className="flex justify-between text-sm mb-1">
-            <span>Progresso</span>
-            <span>{obra.progresso}%</span>
-          </div>
-          <Progress value={obra.progresso} className="h-2" />
         </div>
         
         <div className="text-sm text-gray-600 mt-3">
