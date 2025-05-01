@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { FileText, Plus, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
 import ReportDetail from '@/components/ReportDetail';
 import ReportForm from '@/components/reports/ReportForm';
 import ReportTabs from '@/components/reports/ReportTabs';
 import { reportsData, ReportData } from '@/components/reports/ReportsData';
+import DeleteConfirmationDialog from '@/components/common/DeleteConfirmationDialog';
 
 const Reports: React.FC = () => {
   const [reports, setReports] = useState<ReportData[]>(reportsData);
@@ -156,22 +156,13 @@ const Reports: React.FC = () => {
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
-            <AlertDialogDescription>
-              Tem certeza que deseja excluir este relatório? Esta ação não pode ser desfeita.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDeleteReport} className="bg-red-600 hover:bg-red-700">
-              Excluir
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteConfirmationDialog
+        isOpen={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={confirmDeleteReport}
+        title="Confirmar exclusão"
+        description="Tem certeza que deseja excluir este relatório? Esta ação não pode ser desfeita."
+      />
 
       {/* Report Detail with PDF generation */}
       <ReportDetail

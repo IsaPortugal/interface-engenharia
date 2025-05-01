@@ -19,17 +19,22 @@ const DeleteConfirmationDialog = ({
 }: DeleteConfirmationDialogProps) => {
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent>
+      <AlertDialogContent className="border-0 shadow-lg">
         <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-left">{title}</AlertDialogTitle>
+          <AlertDialogDescription className="text-left text-gray-600">
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>
-            Confirmar
+        <AlertDialogFooter className="gap-2">
+          <AlertDialogCancel className="border-gray-200 shadow-sm font-normal">
+            Cancelar
+          </AlertDialogCancel>
+          <AlertDialogAction 
+            onClick={onConfirm}
+            className="bg-[#ea384c] hover:bg-[#d63344] text-white border-0"
+          >
+            Excluir
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
