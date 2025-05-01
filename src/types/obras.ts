@@ -22,6 +22,8 @@ export interface Cliente {
   documento: string;
   email: string;
   telefone: string;
+  endereco?: string;
+  telefone2?: string;
 }
 
 export interface ImagemProgress {

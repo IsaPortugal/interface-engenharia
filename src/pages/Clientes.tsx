@@ -1,32 +1,19 @@
 
 import React, { useState } from 'react';
-import { User, Phone, Mail, FileText, Eye, Pencil, Trash2, Search } from 'lucide-react';
+import { User, Phone, Mail, FileText, Eye, Pencil, Trash2, Search, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Badge } from '@/components/ui/badge';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from '@/hooks/use-toast';
 import { clientesData as initialClientes } from '@/data/obrasData';
 import { Cliente } from '@/types/obras';
-
-// Schema for client form validation
-const clienteSchema = z.object({
-  nome: z.string().min(3, { message: 'Nome deve ter pelo menos 3 caracteres' }),
-  tipo: z.enum(['pf', 'pj'], { required_error: 'Tipo de cliente é obrigatório' }),
-  documento: z.string().min(1, { message: 'Documento é obrigatório' }),
-  email: z.string().email({ message: 'E-mail inválido' }),
-  telefone: z.string().min(10, { message: 'Telefone deve ter pelo menos 10 dígitos' }),
-});
-
-type ClienteFormValues = z.infer<typeof clienteSchema>;
+import NovoClienteForm from '@/components/obras/NovoClienteForm';
+import NovoClienteDialog from '@/components/obras/NovoClienteDialog';
+import EditClienteDialog from '@/components/obras/EditClienteDialog';
+import ClienteViewDialog from '@/components/obras/ClienteViewDialog';
 
 const Clientes = () => {
   const [clientes, setClientes] = useState<Cliente[]>(initialClientes);
@@ -35,17 +22,7 @@ const Clientes = () => {
   const [selectedClienteId, setSelectedClienteId] = useState<number | null>(null);
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const form = useForm<ClienteFormValues>({
-    resolver: zodResolver(clienteSchema),
-    defaultValues: {
-      nome: '',
-      tipo: 'pj',
-      documento: '',
-      email: '',
-      telefone: '',
-    },
-  });
+  const [isNovoClienteOpen, setIsNovoClienteOpen] = useState(false);
 
   // Filter clients based on search term
   const filteredClientes = clientes.filter(cliente =>
@@ -66,22 +43,27 @@ const Clientes = () => {
 
   // Open edit dialog
   const handleEditCliente = (id: number) => {
-    const cliente = clientes.find(c => c.id === id);
-    if (cliente) {
-      form.reset({
-        nome: cliente.nome,
-        tipo: cliente.tipo,
-        documento: cliente.documento,
-        email: cliente.email,
-        telefone: cliente.telefone,
-      });
-      setSelectedClienteId(id);
-      setIsEditDialogOpen(true);
-    }
+    setSelectedClienteId(id);
+    setIsEditDialogOpen(true);
   };
 
-  // Submit edited client
-  const handleSubmit = (data: ClienteFormValues) => {
+  // Save new client
+  const handleSaveCliente = (data: Omit<Cliente, 'id'>) => {
+    const novoCliente: Cliente = {
+      id: clientes.length > 0 ? Math.max(...clientes.map(c => c.id)) + 1 : 1,
+      ...data,
+    };
+    
+    setClientes([...clientes, novoCliente]);
+    setIsNovoClienteOpen(false);
+    toast({
+      title: "Cliente cadastrado com sucesso!",
+      description: `O cliente ${data.nome} foi adicionado.`,
+    });
+  };
+
+  // Update client
+  const handleUpdateCliente = (data: Omit<Cliente, 'id'>) => {
     if (selectedClienteId) {
       setClientes(prevClientes => 
         prevClientes.map(cliente => 
@@ -127,6 +109,11 @@ const Clientes = () => {
           </h1>
           <p className="text-muted-foreground">Gerencie os clientes cadastrados no sistema</p>
         </div>
+        
+        <Button onClick={() => setIsNovoClienteOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" /> 
+          Novo Cliente
+        </Button>
       </div>
 
       {/* Add search field */}
@@ -199,167 +186,27 @@ const Clientes = () => {
         </Table>
       </div>
 
+      {/* Novo Cliente Dialog */}
+      <NovoClienteDialog 
+        isOpen={isNovoClienteOpen}
+        onOpenChange={setIsNovoClienteOpen}
+        onSave={handleSaveCliente}
+      />
+
       {/* View Client Dialog */}
-      <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Detalhes do Cliente</DialogTitle>
-            <DialogDescription>
-              Informações detalhadas do cliente selecionado.
-            </DialogDescription>
-          </DialogHeader>
-          {selectedCliente && (
-            <div className="space-y-4 py-4">
-              <div className="grid grid-cols-1 gap-4">
-                <div className="flex flex-col space-y-1">
-                  <span className="text-sm font-medium text-muted-foreground">Nome</span>
-                  <span className="font-medium">{selectedCliente.nome}</span>
-                </div>
-                
-                <div className="flex flex-col space-y-1">
-                  <span className="text-sm font-medium text-muted-foreground">Tipo</span>
-                  <Badge variant="outline">
-                    {selectedCliente.tipo === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
-                  </Badge>
-                </div>
-                
-                <div className="flex flex-col space-y-1">
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {selectedCliente.tipo === 'pf' ? 'CPF' : 'CNPJ'}
-                  </span>
-                  <span>{selectedCliente.documento}</span>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Mail className="h-4 w-4 text-muted-foreground" />
-                  <span>{selectedCliente.email}</span>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span>{selectedCliente.telefone}</span>
-                </div>
-              </div>
-              
-              <div className="flex justify-end">
-                <Button onClick={() => setIsViewDialogOpen(false)}>Fechar</Button>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      <ClienteViewDialog
+        cliente={selectedCliente}
+        open={isViewDialogOpen}
+        onOpenChange={setIsViewDialogOpen}
+      />
 
       {/* Edit Client Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Editar Cliente</DialogTitle>
-            <DialogDescription>
-              Atualize as informações do cliente selecionado.
-            </DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 py-4">
-              <FormField
-                control={form.control}
-                name="nome"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nome do Cliente</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Ex: Empresa ABC Ltda" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="tipo"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tipo de Cliente</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        className="flex space-x-4"
-                      >
-                        <FormItem className="flex items-center space-x-2">
-                          <FormControl>
-                            <RadioGroupItem value="pj" />
-                          </FormControl>
-                          <FormLabel className="cursor-pointer">Pessoa Jurídica</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-2">
-                          <FormControl>
-                            <RadioGroupItem value="pf" />
-                          </FormControl>
-                          <FormLabel className="cursor-pointer">Pessoa Física</FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="documento"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{form.watch('tipo') === 'pj' ? 'CNPJ' : 'CPF'}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={form.watch('tipo') === 'pj' ? 'Ex: 00.000.000/0001-00' : 'Ex: 000.000.000-00'}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>E-mail de Contato</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Ex: contato@empresa.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="telefone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Telefone de Contato</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Ex: (11) 99999-9999" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex justify-end gap-3">
-                <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-                  Cancelar
-                </Button>
-                <Button type="submit">Salvar Alterações</Button>
-              </div>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
+      <EditClienteDialog
+        cliente={selectedCliente}
+        isOpen={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        onSave={handleUpdateCliente}
+      />
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
