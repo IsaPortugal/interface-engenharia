@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ProjectsSection from '@/components/dashboard/ProjectsSection';
+import EventsSection from '@/components/dashboard/EventsSection';
 import { 
   Card, 
   CardHeader, 
@@ -15,9 +17,6 @@ import {
   FileText,
   Calendar
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import ProjectsSection from '@/components/dashboard/ProjectsSection';
-import EventsSection from '@/components/dashboard/EventsSection';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ export default function Dashboard() {
       address: 'Curitiba, PR',
       image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2670&auto=format&fit=crop'
     },
-  ];
+  ].slice(0, 3);
 
   const upcomingEvents = [
     {
@@ -61,7 +60,7 @@ export default function Dashboard() {
       users: ['JC', 'MF', 'RS'],
       location: 'Porto Alegre, RS'
     }
-  ];
+  ].slice(0, 1); // Ensure only 1 event is shown
 
   const handleViewAllProjects = () => {
     navigate('/obras');
