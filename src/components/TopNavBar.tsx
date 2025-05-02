@@ -32,25 +32,27 @@ export function TopNavBar() {
         </div>
         {/* Menu de Navegação no Topo Horizontal */}
         <ul className="flex gap-4 md:gap-8 justify-center text-white font-semibold">
-          {routes.map((route) => (
-            <li key={route.href}>
-              <Link
-                to={route.href}
-                className={cn(
-                  "flex items-center px-2 md:px-3 py-2 rounded no-hover",
-                  location.pathname === route.href ||
-                  (location.pathname !== "/" &&
-                    route.href !== "/" &&
-                    location.pathname.startsWith(route.href))
-                    ? "bg-white/30 shadow text-white"
-                    : "text-white/90"
-                )}
-              >
-                <route.icon className="w-5 h-5 mr-1 md:mr-2" />
-                <span>{route.label}</span>
-              </Link>
-            </li>
-          ))}
+          {routes.map((route) => {
+            const isActive = location.pathname === route.href ||
+              (location.pathname !== "/" && route.href !== "/" && location.pathname.startsWith(route.href));
+            
+            return (
+              <li key={route.href}>
+                <Link
+                  to={route.href}
+                  className={cn(
+                    "flex items-center px-2 md:px-3 py-2 rounded no-hover",
+                    isActive
+                      ? "bg-white/30 shadow text-white"
+                      : "text-white/90"
+                  )}
+                >
+                  <route.icon className="w-5 h-5 mr-1 md:mr-2" />
+                  <span>{route.label}</span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
         {/* Empty space to balance the layout */}
         <div className="w-16 flex-shrink-0" />
