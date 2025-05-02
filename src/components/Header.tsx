@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
-import { User, LogOut } from 'lucide-react';
+import { Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -16,7 +15,6 @@ import {
 
 export function Header() {
   const { toast } = useToast();
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e: React.FormEvent) => {
@@ -28,17 +26,6 @@ export function Header() {
       });
       setSearchQuery('');
     }
-  };
-  
-  const handleLogout = () => {
-    // Simulate logout process
-    toast({
-      title: "Logout realizado",
-      description: "Você foi desconectado com sucesso.",
-    });
-    
-    // Redirect to login page
-    navigate('/login');
   };
 
   return (
@@ -68,12 +55,8 @@ export function Header() {
             <span>Perfil</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem 
-            className="cursor-pointer text-red-500 focus:text-red-500"
-            onClick={handleLogout}
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>Sair</span>
+          <DropdownMenuItem className="cursor-pointer text-red-500 focus:text-red-500">
+            Sair
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

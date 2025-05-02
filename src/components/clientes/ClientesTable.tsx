@@ -61,13 +61,13 @@ const ClientesTable = ({
                 <TableCell>{cliente.telefone}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button size="sm" variant="outline" className="no-hover" onClick={() => onViewCliente(cliente.id)}>
+                    <Button size="sm" variant="outline" onClick={() => onViewCliente(cliente.id)}>
                       Detalhes
                     </Button>
-                    <Button size="sm" variant="outline" className="no-hover" onClick={() => onEditCliente(cliente.id)}>
+                    <Button size="sm" variant="outline" onClick={() => onEditCliente(cliente.id)}>
                       Editar
                     </Button>
-                    <Button size="sm" variant="outline" className="text-red-500 no-hover" onClick={() => handleDeleteClick(cliente.id)}>
+                    <Button size="sm" variant="outline" className="text-red-500 hover:bg-red-50" onClick={() => handleDeleteClick(cliente.id)}>
                       Excluir
                     </Button>
                   </div>
