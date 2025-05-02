@@ -3,6 +3,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProjectsSection from '@/components/dashboard/ProjectsSection';
 import EventsSection from '@/components/dashboard/EventsSection';
+import StatCard from '@/components/dashboard/StatCard';
+import ClientPanelCard from '@/components/dashboard/ClientPanelCard';
 import { 
   Card, 
   CardHeader, 
@@ -77,6 +79,33 @@ export default function Dashboard() {
         <p className="text-muted-foreground">Bem-vindo ao seu painel de controle, aqui você pode monitorar todas as suas obras.</p>
       </div>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <StatCard 
+          icon={Building} 
+          title="Obras Ativas" 
+          value="3" 
+          color="bg-vpro-blue" 
+        />
+        <StatCard 
+          icon={Users} 
+          title="Clientes" 
+          value="12" 
+          color="bg-vpro-orange" 
+        />
+        <StatCard 
+          icon={AlertTriangle} 
+          title="Incidentes Abertos" 
+          value="5" 
+          color="bg-amber-500" 
+        />
+        <StatCard 
+          icon={FileText} 
+          title="Relatórios" 
+          value="8" 
+          color="bg-green-500" 
+        />
+      </div>
+
       <Card className="border-none shadow-md overflow-hidden">
         <CardHeader className="bg-gradient-to-r from-vpro-blue to-vpro-orange text-white">
           <CardTitle className="text-2xl">Bem-vindo ao Sistema VPro Engenharia</CardTitle>
@@ -126,6 +155,8 @@ export default function Dashboard() {
           </div>
         </CardContent>
       </Card>
+
+      <ClientPanelCard />
 
       <div className="space-y-6">
         <ProjectsSection projects={projects} onViewAll={handleViewAllProjects} />
