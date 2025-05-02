@@ -1,10 +1,9 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Gallery from "./pages/Gallery";
@@ -35,11 +34,10 @@ const App = () => {
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/obras" element={<Obras />} />
+              <Route path="/projeto-tcc-obra/*" element={<Index />} />
               <Route path="/clientes" element={<Clientes />} />
             </Route>
             <Route path="*" element={<NotFound />} />
-            {/* Redirecionar para a página principal após login */}
-            <Route index element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

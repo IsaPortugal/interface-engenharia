@@ -40,6 +40,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ report, printRef }) => 
 
   return (
     <Button 
+      variant="secondary"
       className="w-full py-3"
       onClick={handleDownload}
     >

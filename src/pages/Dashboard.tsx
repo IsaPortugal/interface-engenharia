@@ -3,8 +3,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProjectsSection from '@/components/dashboard/ProjectsSection';
 import EventsSection from '@/components/dashboard/EventsSection';
-import StatCard from '@/components/dashboard/StatCard';
-import ClientPanelCard from '@/components/dashboard/ClientPanelCard';
 import { 
   Card, 
   CardHeader, 
@@ -48,8 +46,7 @@ export default function Dashboard() {
       progress: 65,
       dueDate: '10/11/2023',
       status: 'Atrasado' as const,
-      address: 'Curitiba, PR',
-      image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2670&auto=format&fit=crop'
+      address: 'Curitiba, PR'
     },
   ].slice(0, 3);
 
@@ -77,33 +74,6 @@ export default function Dashboard() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Painel</h1>
         <p className="text-muted-foreground">Bem-vindo ao seu painel de controle, aqui você pode monitorar todas as suas obras.</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        <StatCard 
-          icon={Building} 
-          title="Obras Ativas" 
-          value="3" 
-          color="bg-vpro-blue" 
-        />
-        <StatCard 
-          icon={Users} 
-          title="Clientes" 
-          value="12" 
-          color="bg-vpro-orange" 
-        />
-        <StatCard 
-          icon={AlertTriangle} 
-          title="Incidentes Abertos" 
-          value="5" 
-          color="bg-amber-500" 
-        />
-        <StatCard 
-          icon={FileText} 
-          title="Relatórios" 
-          value="8" 
-          color="bg-green-500" 
-        />
       </div>
 
       <Card className="border-none shadow-md overflow-hidden">
@@ -155,8 +125,6 @@ export default function Dashboard() {
           </div>
         </CardContent>
       </Card>
-
-      <ClientPanelCard />
 
       <div className="space-y-6">
         <ProjectsSection projects={projects} onViewAll={handleViewAllProjects} />

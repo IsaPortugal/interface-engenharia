@@ -33,10 +33,10 @@ const NavItem = ({ icon: Icon, label, href, active, collapsed, onClick }: NavIte
           <Link
             to={href}
             className={cn(
-              "flex items-center gap-3 px-4 py-3 my-1 rounded-lg text-sm font-medium",
+              "flex items-center gap-3 px-4 py-3 my-1 rounded-lg text-sm font-medium transition-all duration-200",
               active 
                 ? "bg-white/20 text-white shadow-sm" 
-                : "text-white/80"
+                : "text-white/80 hover:text-white hover:bg-white/10"
             )}
             onClick={onClick}
           >
@@ -78,7 +78,7 @@ const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
 
   return (
     <div className={cn(
-      "fixed inset-y-0 right-0 z-40 flex flex-col shadow-xl",
+      "fixed inset-y-0 right-0 z-40 flex flex-col shadow-xl transition-all duration-300 ease-in-out",
       "bg-gradient-to-br from-[#4b6cb7] to-[#182848]",
       collapsed ? "w-16" : "w-64"
     )}>
@@ -100,7 +100,7 @@ const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
           variant="ghost" 
           size="icon" 
           onClick={onToggle}
-          className="text-white ml-auto"
+          className="text-white hover:bg-white/10 ml-auto"
         >
           {collapsed ? <PanelLeft className="h-5 w-5" /> : <PanelRight className="h-5 w-5" />}
         </Button>

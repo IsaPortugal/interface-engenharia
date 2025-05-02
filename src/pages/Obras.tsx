@@ -35,7 +35,7 @@ const Obras = () => {
     confirmDeleteObra,
   } = useObrasOperations(initialObras, initialClientes);
 
-  // Filtrar obras com base no termo de busca apenas
+  // Filtrar obras com base no termo de busca
   const filteredObras = obras
     .filter(obra => 
       obra.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -67,7 +67,6 @@ const Obras = () => {
         <TabsList className="mb-4">
           <TabsTrigger value="all">Todas</TabsTrigger>
           <TabsTrigger value="ongoing">Em andamento</TabsTrigger>
-          <TabsTrigger value="delayed">Atrasado</TabsTrigger>
           <TabsTrigger value="completed">Concluídas</TabsTrigger>
         </TabsList>
 
@@ -82,16 +81,8 @@ const Obras = () => {
 
         <TabsContent value="ongoing">
           <ObrasTabContent 
-            filteredObras={filteredObras.filter(obra => obra.status === "Em andamento")}
-            handleViewObra={handleViewDetails}
-            handleEditObra={handleEditObra}
-            handleDeleteObra={handleDeleteObra}
-          />
-        </TabsContent>
-
-        <TabsContent value="delayed">
-          <ObrasTabContent 
-            filteredObras={filteredObras.filter(obra => obra.status === "Atrasado")}
+            filteredObras={filteredObras}
+            concluidas={false}
             handleViewObra={handleViewDetails}
             handleEditObra={handleEditObra}
             handleDeleteObra={handleDeleteObra}
@@ -100,7 +91,8 @@ const Obras = () => {
 
         <TabsContent value="completed">
           <ObrasTabContent 
-            filteredObras={filteredObras.filter(obra => obra.status === "Concluído")}
+            filteredObras={filteredObras}
+            concluidas={true}
             handleViewObra={handleViewDetails}
             handleEditObra={handleEditObra}
             handleDeleteObra={handleDeleteObra}

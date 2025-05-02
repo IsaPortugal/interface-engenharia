@@ -128,7 +128,7 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
             <FormItem>
               <FormLabel>Data de início</FormLabel>
               <FormControl>
-                <Input type="date" className="date-input-no-icon" {...field} />
+                <Input type="date" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -142,7 +142,7 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
             <FormItem>
               <FormLabel>Data estimada de término</FormLabel>
               <FormControl>
-                <Input type="date" className="date-input-no-icon" {...field} />
+                <Input type="date" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -193,7 +193,6 @@ const ObraFormFields = ({ isEdit = false }: ObraFormFieldsProps) => {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="Em andamento">Em andamento</SelectItem>
-                  <SelectItem value="Atrasado">Atrasado</SelectItem>
                   <SelectItem value="Concluído">Concluído</SelectItem>
                 </SelectContent>
               </Select>

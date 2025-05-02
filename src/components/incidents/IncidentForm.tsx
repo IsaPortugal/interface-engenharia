@@ -66,12 +66,7 @@ const IncidentForm = ({ onClose, incident, isEdit = false }: IncidentFormProps) 
         </div>
         <div className="grid gap-2">
           <Label htmlFor="date">Data</Label>
-          <Input 
-            id="date" 
-            type="date" 
-            className="date-input-no-icon" 
-            defaultValue={incident?.date ? incident.date.split('/').reverse().join('-') : ""} 
-          />
+          <Input id="date" type="date" defaultValue={incident?.date ? incident.date.split('/').reverse().join('-') : ""} />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="description">Descrição</Label>

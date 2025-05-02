@@ -7,8 +7,7 @@ import EmptyObras from './EmptyObras';
 
 interface ObrasTabContentProps {
   filteredObras: Obra[];
-  statusFilter?: string;
-  concluidas?: boolean; // Keeping for backward compatibility
+  concluidas?: boolean;
   handleViewObra: (obra: Obra) => void; 
   handleEditObra: (obra: Obra) => void;
   handleDeleteObra: (obra: Obra) => void;
@@ -16,21 +15,17 @@ interface ObrasTabContentProps {
 
 const ObrasTabContent: React.FC<ObrasTabContentProps> = ({
   filteredObras,
-  statusFilter,
   concluidas,
   handleViewObra,
   handleEditObra,
   handleDeleteObra
 }) => {
-  // Filter obras based on status
-  const obras = filteredObras.filter(obra => {
-    if (statusFilter) {
-      return obra.status === statusFilter;
-    } else if (concluidas !== undefined) {
-      return obra.status === (concluidas ? 'Concluído' : 'Em andamento');
-    }
-    return true;
-  });
+  // Filter obras based on status instead of 'concluida' which doesn't exist on the Obra type
+  const obras = filteredObras.filter(obra => 
+    concluidas !== undefined 
+      ? obra.status === (concluidas ? 'Concluído' : 'Em andamento') 
+      : true
+  );
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -45,7 +40,7 @@ const ObrasTabContent: React.FC<ObrasTabContentProps> = ({
           />
         ))
       ) : (
-        <EmptyObras status={statusFilter || (concluidas ? 'concluídas' : 'em andamento')} />
+        <EmptyObras status={concluidas ? 'concluídas' : 'em andamento'} />
       )}
     </div>
   );

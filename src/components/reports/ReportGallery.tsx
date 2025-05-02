@@ -14,11 +14,11 @@ const ReportGallery: React.FC<ReportGalleryProps> = ({ images }) => {
   if (!images || images.length === 0) return null;
   
   return (
-    <section className="bg-white p-4 mb-4 border rounded-md shadow-sm">
-      <h4 className="text-blue-600 font-medium text-lg mb-4 pb-2 border-b">Registro Fotográfico</h4>
+    <section className="border-l-4 border-[#1976D2] p-4 mb-4">
+      <h4 className="text-[#f97316] font-medium mb-4 pb-2 border-b">Registro Fotográfico</h4>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
         {images.map((img, index) => (
-          <div key={index} className="border rounded-md overflow-hidden bg-white shadow-sm">
+          <div key={index} className="border rounded-md overflow-hidden">
             <img 
               src={img.fileName.startsWith('/') ? img.fileName : '/placeholder.svg'} 
               alt={`Imagem da obra ${index + 1}`} 

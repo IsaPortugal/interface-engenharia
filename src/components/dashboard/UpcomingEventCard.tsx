@@ -12,7 +12,7 @@ interface UpcomingEventCardProps {
 
 const UpcomingEventCard = ({ title, date, time, location, type }: UpcomingEventCardProps) => {
   return (
-    <div className="flex items-center gap-3 p-3 rounded-lg border bg-card">
+    <div className="flex items-center gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
       <div className="flex flex-col items-center justify-center text-center min-w-[48px] h-[48px] bg-gray-100 rounded-md">
         <span className="text-xl font-bold">{date.split(' ')[0]}</span>
         <span className="text-xs text-muted-foreground">{date.split(' ')[1]}</span>

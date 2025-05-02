@@ -29,13 +29,9 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
     });
   };
   
-  // Add console logging to debug
-  console.log("Report in ReportDetail:", report);
-  console.log("isOpen:", isOpen);
-  
   return (
     <div 
-      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={handleBackdropClick}
     >
       <div 
@@ -44,10 +40,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, isOpen, onClose }) 
       >
         <div className="p-6">
           <div className="flex justify-between items-start mb-6">
-            <div>
-              <h1 className="text-xl font-bold text-blue-600">VPro Engenharia</h1>
-              <h2 className="text-2xl font-bold mt-2">{reportData.title}</h2>
-            </div>
+            <h2 className="text-2xl font-bold">{reportData.title}</h2>
             <button 
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700"

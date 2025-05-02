@@ -2,18 +2,19 @@
 /* Estilos para página de login ASP.NET */
 
 /* Fontes */
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* Variáveis de cores */
 :root {
-  --primary-color: #0078d4;
-  --primary-hover: #106ebe;
-  --neutral-gray: #767676;
-  --light-gray: #f3f2f1;
-  --dark-gray: #201f1e;
+  --primary-color: #9b87f5;
+  --secondary-color: #7E69AB;
+  --dark-purple: #1A1F2C;
+  --light-purple: #D6BCFA;
+  --neutral-gray: #8E9196;
+  --dark-gray: #222;
   --white: #fff;
-  --error: #a80000;
-  --border-color: #8a8886;
+  --gradient-blue: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+  --gradient-purple: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
 }
 
 /* Reset básico */
@@ -21,20 +22,119 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Estrutura básica */
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   min-height: 100vh;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #f0f4ff, #e9effd, #dde6fa);
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 1rem;
+}
+
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  text-align: center;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  color: var(--neutral-gray);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Cartão de login */
+.login-card {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1.5rem 1.5rem 0.75rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-gray);
+  text-align: center;
+}
+
+.card-description {
+  font-size: 0.875rem;
+  color: var(--neutral-gray);
+  text-align: center;
+  margin-top: 0.375rem;
+}
+
+.card-content {
+  padding: 0.75rem 1.5rem 1.5rem;
+}
+
+.card-footer {
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tabs */
+.tabs {
+  width: 100%;
+}
+
+.tabs-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab-trigger {
+  padding: 0.5rem;
+  background-color: transparent;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-trigger.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
 }
 
 /* Formulário */
@@ -46,110 +146,162 @@ body {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.375rem;
   color: var(--dark-gray);
+}
+
+.form-input-wrapper {
+  position: relative;
 }
 
 .form-input {
   width: 100%;
   height: 2.5rem;
-  padding: 0 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: 3px;
+  padding: 0 0.75rem 0 2.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
   font-size: 0.875rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
+  box-shadow: 0 0 0 2px rgba(155, 135, 245, 0.25);
 }
 
-/* Botões */
-.btn {
-  display: inline-block;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  background-color: var(--primary-color);
+.form-input-password {
+  padding-right: 2.25rem;
+}
+
+.form-input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: #a0aec0;
+}
+
+.form-input-button {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  border-radius: 3px;
-  color: var(--white);
-  font-size: 0.95rem;
-  font-weight: 600;
   cursor: pointer;
-  text-align: center;
-  transition: background-color 0.2s ease;
-}
-
-.btn:hover {
-  background-color: var(--primary-hover);
-}
-
-/* Checkbox */
-.checkbox {
+  color: #a0aec0;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.form-input-button:hover {
+  color: #718096;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 }
 
-.checkbox input {
-  margin-right: 0.5rem;
-}
-
-.checkbox label {
-  font-size: 0.875rem;
-  color: var(--dark-gray);
-}
-
-/* Link esqueceu a senha */
 .forgot-password {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--primary-color);
   text-decoration: none;
-  margin-left: auto;
 }
 
 .forgot-password:hover {
   text-decoration: underline;
 }
 
-/* Validação */
-.text-danger {
-  color: var(--error);
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
-}
-
-/* Links de navegação */
-.d-flex {
-  display: flex;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-/* Estilos para títulos e subtítulos */
-.login-header {
-  margin-bottom: 1.5rem;
-}
-
-.login-title {
-  font-size: 1.75rem;
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.375rem;
   font-weight: 500;
-  color: var(--dark-gray);
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
 }
 
-.login-subtitle {
-  font-size: 0.875rem;
+.btn-primary {
+  background: var(--gradient-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: var(--gradient-purple);
+  color: white;
+}
+
+.btn-secondary:hover {
+  opacity: 0.9;
+}
+
+.btn-icon {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Termos */
+.terms-text {
+  font-size: 0.75rem;
   color: var(--neutral-gray);
-  margin-top: 0.25rem;
+  text-align: center;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* Estados de carregamento */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Responsividade */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .login-container {
-    padding: 1rem 1rem;
+    padding: 1rem 0.5rem;
+  }
+  
+  .card-header,
+  .card-content,
+  .card-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
