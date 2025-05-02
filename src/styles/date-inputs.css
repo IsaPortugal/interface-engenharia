@@ -1,0 +1,12 @@
+
+@layer components {
+  /* Custom styling for date inputs to remove browser default calendar icon */
+  .date-input-no-icon::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  /* Additional date input styling if needed */
+  input[type="date"] {
+    position: relative;
+  }
+}

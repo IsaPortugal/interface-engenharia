@@ -92,10 +92,7 @@ export function useObrasOperations(initialObras: Obra[], initialClientes: Client
     setSelectedCliente(cliente || null);
     setEditDialogOpen(true);
     
-    toast({
-      title: "Editar obra",
-      description: `Editando obra: ${obra.nome}`,
-    });
+    // Removing the toast notification when editing an obra
   };
 
   // Updated to accept an Obra object instead of just an ID

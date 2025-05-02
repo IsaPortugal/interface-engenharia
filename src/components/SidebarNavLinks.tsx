@@ -85,7 +85,6 @@ export const NavItem = ({
       className={({ isActive }) =>
         cn(
           "flex items-center gap-x-2 px-3 py-2 rounded-md text-sm",
-          "transition-all duration-200 hover:bg-accent hover:text-accent-foreground",
           isActive 
             ? "bg-primary/10 text-primary font-medium" 
             : "text-muted-foreground font-normal",

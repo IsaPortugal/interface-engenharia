@@ -25,47 +25,59 @@ export const generateHtmlContent = (report: any): string => {
         box-sizing: border-box;
       }
       
+      .company-name {
+        color: #1E88E5;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
       .report-header {
-        background: #1976D2;
-        color: white;
+        background: #fff;
+        color: #333;
         padding: 30px;
         margin-bottom: 30px;
+        border-bottom: 1px solid #eee;
       }
       
       .report-header h1 {
         margin: 0;
         font-size: 24px;
         font-weight: bold;
+        color: #1E88E5;
       }
       
       .report-header p {
         margin: 5px 0 0 0;
-        opacity: 0.95;
       }
       
       .report-section {
         margin-bottom: 30px;
         padding: 20px;
-        border-left: 4px solid #1976D2;
+        background-color: #fff;
+        color: black;
+        border: 1px solid #eee;
+        border-radius: 4px;
       }
       
       .report-section h2 {
-        color: #f97316;
+        color: #1E88E5;
         margin-top: 0;
-        font-size: 18px;
+        font-size: 20px;
         padding-bottom: 10px;
         border-bottom: 1px solid #eaeaea;
       }
       
       .info-label {
         font-weight: bold;
-        color: #f97316;
+        color: #1E88E5;
         margin-bottom: 5px;
         font-size: 14px;
       }
       
       .info-value {
         margin: 0;
+        color: #333;
       }
       
       .image-grid {
@@ -79,6 +91,7 @@ export const generateHtmlContent = (report: any): string => {
         border: 1px solid #eaeaea;
         border-radius: 6px;
         overflow: hidden;
+        background-color: white;
       }
       
       .image-container img {
@@ -95,7 +108,7 @@ export const generateHtmlContent = (report: any): string => {
       }
       
       .incidents-section {
-        border-left: 4px solid #f97316;
+        background-color: #fff;
       }
       
       .incident-item {
@@ -103,12 +116,13 @@ export const generateHtmlContent = (report: any): string => {
         border-radius: 6px;
         padding: 15px;
         margin-bottom: 15px;
+        background-color: white;
       }
       
       .incident-title {
         font-weight: bold;
         margin: 0;
-        color: #f97316;
+        color: #1E88E5;
       }
       
       .report-footer {
@@ -123,11 +137,12 @@ export const generateHtmlContent = (report: any): string => {
   </head>
   <body>
     <div class="container">
+      <div class="company-name">VPro Engenharia</div>
+      
       <div class="report-header">
         <h1>Relatório - ${report.title}</h1>
         <p>Projeto: ${report.project}</p>
         <p>Data: ${new Date(report.date).toLocaleDateString('pt-BR')}</p>
-        <p>VPro engenharia</p>
       </div>
       
       <div class="report-section">
@@ -200,7 +215,7 @@ export const generateHtmlContent = (report: any): string => {
       ` : ''}
       
       <div class="report-footer">
-        <p>Relatório gerado em ${new Date().toLocaleDateString('pt-BR')} pela VPro engenharia</p>
+        <p>Relatório gerado em ${new Date().toLocaleDateString('pt-BR')} pela VPro Engenharia</p>
       </div>
     </div>
   </body>

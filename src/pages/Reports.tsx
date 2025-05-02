@@ -29,6 +29,7 @@ const Reports: React.FC = () => {
   );
 
   const handleViewReport = (report: ReportData) => {
+    console.log("View report clicked:", report);
     setSelectedReport(report);
     setDetailDialogOpen(true);
   };
@@ -165,11 +166,13 @@ const Reports: React.FC = () => {
       />
 
       {/* Report Detail with PDF generation */}
-      <ReportDetail
-        report={selectedReport}
-        isOpen={detailDialogOpen}
-        onClose={() => setDetailDialogOpen(false)}
-      />
+      {selectedReport && (
+        <ReportDetail
+          report={selectedReport}
+          isOpen={detailDialogOpen}
+          onClose={() => setDetailDialogOpen(false)}
+        />
+      )}
     </div>
   );
 };

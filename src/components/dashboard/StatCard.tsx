@@ -10,8 +10,8 @@ interface StatCardProps {
 }
 
 const StatCard = ({ icon: Icon, title, value, color }: StatCardProps) => (
-  <Card className="card-hover overflow-hidden border-none shadow-md">
-    <CardContent className="p-6 flex items-center gap-4">
+  <Card className="overflow-hidden border shadow-md">
+    <CardContent className="p-5 flex items-center gap-4">
       <div className={`h-12 w-12 rounded-full flex items-center justify-center ${color}`}>
         <Icon className="h-6 w-6 text-white" />
       </div>

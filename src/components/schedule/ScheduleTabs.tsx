@@ -31,11 +31,11 @@ const ScheduleTabs: React.FC<ScheduleTabsProps> = ({
   onDeleteEvent 
 }) => {
   return (
-    <Tabs defaultValue="all">
+    <Tabs defaultValue="all" className="w-full">
       <TabsList className="mb-4">
-        <TabsTrigger value="all">Todos</TabsTrigger>
-        <TabsTrigger value="pending">Pendentes</TabsTrigger>
-        <TabsTrigger value="completed">Realizados</TabsTrigger>
+        <TabsTrigger value="all" className="no-hover">Todos</TabsTrigger>
+        <TabsTrigger value="pending" className="no-hover">Pendentes</TabsTrigger>
+        <TabsTrigger value="completed" className="no-hover">Realizados</TabsTrigger>
       </TabsList>
 
       <TabsContent value="all">
