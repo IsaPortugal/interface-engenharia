@@ -19,7 +19,7 @@ const IncidentForm = ({ onClose, incident, isEdit = false }: IncidentFormProps) 
       <DialogHeader className="text-center">
         <DialogTitle>{isEdit ? "Editar Incidente" : "Registrar Novo Incidente"}</DialogTitle>
       </DialogHeader>
-      <div className="grid gap-4 py-4">
+      <div className="grid gap-4 py-4 overflow-y-auto pr-1 max-h-[60vh]">
         <div className="grid gap-2">
           <Label htmlFor="title">Título</Label>
           <Input id="title" placeholder="Digite o título do incidente" defaultValue={incident?.title || ""} />

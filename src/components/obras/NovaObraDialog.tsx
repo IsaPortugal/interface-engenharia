@@ -25,7 +25,7 @@ const NovaObraDialog = ({
 }: NovaObraDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[700px] max-h-[85vh] overflow-y-auto">
         <NovaObraForm 
           obra={obra}
           cliente={cliente}

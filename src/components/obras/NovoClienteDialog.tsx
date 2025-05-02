@@ -13,7 +13,7 @@ interface NovoClienteDialogProps {
 const NovoClienteDialog = ({ isOpen, onOpenChange, onSave }: NovoClienteDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <NovoClienteForm 
           onClose={() => onOpenChange(false)} 
           onSave={onSave} 

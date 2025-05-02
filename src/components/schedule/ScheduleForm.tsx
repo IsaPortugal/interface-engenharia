@@ -31,14 +31,14 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ onClose, event, isEdit = fa
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="max-h-full">
       <DialogHeader>
         <DialogTitle>{isEdit ? 'Editar Agendamento' : 'Agendar Novo Compromisso'}</DialogTitle>
         <DialogDescription>
           Preencha os detalhes do agendamento.
         </DialogDescription>
       </DialogHeader>
-      <div className="grid gap-4 py-4">
+      <div className="grid gap-4 py-4 overflow-y-auto pr-1">
         <div className="grid gap-2">
           <Label htmlFor="title">Título</Label>
           <Input 
@@ -149,7 +149,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ onClose, event, isEdit = fa
           />
         </div>
       </div>
-      <DialogFooter>
+      <DialogFooter className="mt-2">
         <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
         <Button type="submit">{isEdit ? 'Salvar' : 'Agendar'}</Button>
       </DialogFooter>

@@ -68,9 +68,9 @@ const Schedule = () => {
       />
       
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-[525px]">
+        <DialogContent className="sm:max-w-[525px] max-h-[85vh]">
           {isViewMode ? (
-            <div>
+            <div className="overflow-y-auto pr-1">
               <h2 className="text-xl font-semibold mb-4">{currentEvent?.title}</h2>
               <div className="space-y-4">
                 <div>

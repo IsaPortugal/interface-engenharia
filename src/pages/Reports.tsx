@@ -114,7 +114,7 @@ const Reports: React.FC = () => {
               Novo Relatório
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[550px]">
+          <DialogContent className="sm:max-w-[550px] max-h-[85vh] overflow-y-auto">
             <ReportForm 
               onClose={() => setDialogOpen(false)} 
               onSave={handleSaveReport}
@@ -146,7 +146,7 @@ const Reports: React.FC = () => {
 
       {/* Edit Report Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent className="sm:max-w-[550px]">
+        <DialogContent className="sm:max-w-[550px] max-h-[85vh] overflow-y-auto">
           <ReportForm 
             onClose={() => setEditDialogOpen(false)} 
             onSave={handleUpdateReport}
