@@ -73,13 +73,22 @@
     @apply w-full justify-center text-center h-9;
   }
   
-  /* Remove ALL hover effects for buttons and links */
-  button, a, [role="button"] {
-    @apply transition-none hover:bg-transparent hover:text-current hover:border-current;
+  /* Remove ALL hover, focus, and active effects for all interactive elements */
+  button, 
+  a, 
+  [role="button"],
+  [type="button"],
+  [type="submit"],
+  [type="reset"] {
+    @apply transition-none hover:bg-transparent hover:text-current hover:border-current hover:shadow-none;
+    @apply focus:outline-none focus:ring-0 focus:bg-transparent focus:text-current focus:border-current focus:shadow-none;
+    @apply active:bg-transparent active:text-current active:border-current active:shadow-none;
   }
   
-  /* Override any hover effects */
+  /* Override any hover, focus, and active effects */
   .no-hover {
-    @apply hover:bg-transparent hover:text-current;
+    @apply hover:bg-transparent hover:text-current hover:border-transparent hover:shadow-none;
+    @apply focus:outline-none focus:ring-0 focus:bg-transparent focus:text-current focus:border-transparent focus:shadow-none;
+    @apply active:bg-transparent active:text-current active:border-transparent active:shadow-none;
   }
 }

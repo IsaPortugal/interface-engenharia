@@ -37,7 +37,7 @@ export function TopNavBar() {
               <Link
                 to={route.href}
                 className={cn(
-                  "flex items-center px-2 md:px-3 py-2 rounded hover:bg-white/20 transition",
+                  "flex items-center px-2 md:px-3 py-2 rounded no-hover",
                   location.pathname === route.href ||
                   (location.pathname !== "/" &&
                     route.href !== "/" &&
