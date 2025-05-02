@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -16,32 +17,42 @@ import Login from "./pages/Login";
 import Obras from "./pages/Obras";
 import Clientes from './pages/Clientes';
 
-const queryClient = new QueryClient();
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route element={<Layout />}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/incidents" element={<Incidents />} />
-              <Route path="/schedule" element={<Schedule />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/obras" element={<Obras />} />
-              <Route path="/projeto-tcc-obra/*" element={<Index />} />
-              <Route path="/clientes" element={<Clientes />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route element={<Layout />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/incidents" element={<Incidents />} />
+                <Route path="/schedule" element={<Schedule />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/obras" element={<Obras />} />
+                <Route path="/projeto-tcc-obra/*" element={<Index />} />
+                <Route path="/clientes" element={<Clientes />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
   );
 };
 
