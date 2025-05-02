@@ -12,6 +12,7 @@ import Reports from "./pages/Reports";
 import Incidents from "./pages/Incidents";
 import Schedule from "./pages/Schedule";
 import NotFound from "./pages/NotFound";
+import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Obras from "./pages/Obras";
 import Clientes from './pages/Clientes';
@@ -28,16 +29,18 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route element={<Layout />}>
+              <Route path="/" element={<Dashboard />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/incidents" element={<Incidents />} />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/obras" element={<Obras />} />
+              <Route path="/projeto-tcc-obra/*" element={<Index />} />
               <Route path="/clientes" element={<Clientes />} />
-              {/* Redirecionamento padrão para relatórios */}
-              <Route path="/" element={<Navigate to="/reports" replace />} />
             </Route>
             <Route path="*" element={<NotFound />} />
+            {/* Redirecionar para a página de login por padrão */}
+            <Route index element={<Navigate to="/login" replace />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
