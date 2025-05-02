@@ -39,6 +39,8 @@ const RegisterForm = ({ onViewChange }: RegisterFormProps) => {
       title: "Cadastro realizado",
       description: "Sua conta foi criada com sucesso.",
     });
+    
+    // Redirect to dashboard after successful registration
     navigate('/');
   };
 

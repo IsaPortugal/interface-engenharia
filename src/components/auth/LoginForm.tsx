@@ -32,6 +32,8 @@ const LoginForm = ({ onViewChange }: LoginFormProps) => {
       title: "Login bem-sucedido",
       description: "Bem-vindo de volta ao sistema.",
     });
+    
+    // Redirect to dashboard after successful login
     navigate('/');
   };
 
