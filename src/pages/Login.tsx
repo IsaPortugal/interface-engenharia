@@ -12,7 +12,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#4b6cb7] to-[#182848] flex items-center justify-center py-10 px-4">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center py-10 px-4 bg-white">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
           <div className="h-12 w-12 rounded-full bg-gradient-to-br from-vpro-blue to-vpro-orange flex items-center justify-center shadow-md">
@@ -22,16 +22,14 @@ const Login = () => {
               <rect x="16" y="2" width="6" height="16" rx="2" fill="#fff" fillOpacity="0.85"/>
             </svg>
           </div>
-          <h2 className="text-xl font-bold mt-2 text-white">VPro Engenharia</h2>
+          <h2 className="text-xl font-bold mt-2 text-gray-800">VPro Engenharia</h2>
         </div>
         
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          {currentView === 'Login' ? (
-            <LoginForm onViewChange={toggleView} />
-          ) : (
-            <RegisterForm onViewChange={toggleView} />
-          )}
-        </div>
+        {currentView === 'Login' ? (
+          <LoginForm onViewChange={toggleView} />
+        ) : (
+          <RegisterForm onViewChange={toggleView} />
+        )}
       </div>
     </div>
   );
