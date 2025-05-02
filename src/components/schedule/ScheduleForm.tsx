@@ -31,14 +31,14 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ onClose, event, isEdit = fa
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-h-full">
+    <form onSubmit={handleSubmit} className="flex flex-col h-full">
       <DialogHeader>
         <DialogTitle>{isEdit ? 'Editar Agendamento' : 'Agendar Novo Compromisso'}</DialogTitle>
         <DialogDescription>
           Preencha os detalhes do agendamento.
         </DialogDescription>
       </DialogHeader>
-      <div className="grid gap-4 py-4 overflow-y-auto pr-1">
+      <div className="grid gap-4 py-4 overflow-y-auto pr-1 flex-grow max-h-[60vh]">
         <div className="grid gap-2">
           <Label htmlFor="title">Título</Label>
           <Input 

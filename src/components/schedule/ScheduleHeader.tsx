@@ -27,7 +27,7 @@ const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({ dialogOpen, setDialogOp
             Novo Agendamento
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[525px]">
+        <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-hidden">
           <ScheduleForm onClose={() => setDialogOpen(false)} />
         </DialogContent>
       </Dialog>
