@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import { Header } from './Header';
 import { TopNavBar } from './TopNavBar';
 
 export function Layout() {
