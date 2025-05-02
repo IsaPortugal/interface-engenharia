@@ -17,10 +17,10 @@ export function Layout() {
   }
 
   return (
-    <div className="min-h-screen h-screen flex flex-col bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen h-screen flex flex-col overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <TopNavBar />
-      <main className="flex-1 p-5 flex flex-col overflow-y-auto">
-        <div className="w-full max-w-7xl bg-white border border-white/30 shadow-md rounded-xl p-5 mx-auto">
+      <main className="flex-1 overflow-auto">
+        <div className="h-full w-full">
           <Outlet />
         </div>
       </main>
