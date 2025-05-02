@@ -17,7 +17,14 @@ import Login from "./pages/Login";
 import Obras from "./pages/Obras";
 import Clientes from './pages/Clientes';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 const App = () => {
   return (
@@ -39,8 +46,8 @@ const App = () => {
               <Route path="/clientes" element={<Clientes />} />
             </Route>
             <Route path="*" element={<NotFound />} />
-            {/* Redirecionar para a página de login por padrão */}
-            <Route index element={<Navigate to="/login" replace />} />
+            {/* Changing default route to go to Dashboard instead of Login */}
+            <Route index element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
