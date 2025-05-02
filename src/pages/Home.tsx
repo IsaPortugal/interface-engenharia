@@ -10,8 +10,8 @@ import ActivitiesTab from "./Home/ActivitiesTab";
 
 const Home = () => {
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="bg-gradient-to-r from-vpro-blue to-vpro-orange rounded-xl p-8 text-white mb-8">
+    <div className="h-full flex flex-col space-y-6 animate-fade-in overflow-auto">
+      <div className="bg-gradient-to-r from-vpro-blue to-vpro-orange rounded-xl p-8 text-white">
         <div className="max-w-3xl">
           <h1 className="text-4xl font-bold mb-2">Bem-vindo ao Dashboard VPRO</h1>
           <p className="text-xl opacity-90 mb-6">
@@ -29,7 +29,7 @@ const Home = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="dashboard" className="w-full">
+      <Tabs defaultValue="dashboard" className="flex-1 flex flex-col">
         <TabsList className="grid w-full md:w-auto grid-cols-2 md:grid-cols-4">
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="projetos">Projetos</TabsTrigger>
@@ -37,21 +37,23 @@ const Home = () => {
           <TabsTrigger value="atividades">Atividades</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="dashboard">
-          <DashboardTab />
-        </TabsContent>
-        
-        <TabsContent value="projetos">
-          <ProjectsTab />
-        </TabsContent>
-        
-        <TabsContent value="estrutura">
-          <StructureTab />
-        </TabsContent>
-        
-        <TabsContent value="atividades">
-          <ActivitiesTab />
-        </TabsContent>
+        <div className="flex-1 overflow-auto">
+          <TabsContent value="dashboard" className="h-full">
+            <DashboardTab />
+          </TabsContent>
+          
+          <TabsContent value="projetos" className="h-full">
+            <ProjectsTab />
+          </TabsContent>
+          
+          <TabsContent value="estrutura" className="h-full">
+            <StructureTab />
+          </TabsContent>
+          
+          <TabsContent value="atividades" className="h-full">
+            <ActivitiesTab />
+          </TabsContent>
+        </div>
       </Tabs>
     </div>
   );
