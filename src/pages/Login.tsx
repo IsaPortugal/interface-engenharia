@@ -12,8 +12,8 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#4b6cb7] to-[#182848]">
-      <div className="login-container bg-white p-8 rounded-lg shadow-lg">
+    <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#4b6cb7] to-[#182848] overflow-hidden">
+      <div className="login-container bg-white p-8 rounded-lg shadow-lg max-h-[95vh] overflow-y-auto">
         <div className="flex flex-col items-center mb-6">
           <div className="h-12 w-12 rounded-full bg-gradient-to-br from-vpro-blue to-vpro-orange flex items-center justify-center shadow-md">
             <svg width="24" height="24" viewBox="0 0 24 24" className="text-white" fill="none">
