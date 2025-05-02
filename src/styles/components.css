@@ -1,7 +1,6 @@
 
-
 @layer components {
-  /* No hover effects for cards */
+  /* No hover or focus effects for any elements */
   .card-hover {
     @apply transition-none;
   }
@@ -72,5 +71,15 @@
   
   .card-footer-buttons button {
     @apply w-full justify-center text-center h-9;
+  }
+  
+  /* Remove ALL hover effects for buttons and links */
+  button, a, [role="button"] {
+    @apply transition-none hover:bg-transparent hover:text-current hover:border-current;
+  }
+  
+  /* Override any hover effects */
+  .no-hover {
+    @apply hover:bg-transparent hover:text-current;
   }
 }
