@@ -1,17 +1,13 @@
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
+import '../aspnet-login-styles.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
+  const [currentView, setCurrentView] = useState<'Login' | 'Register'>('Login');
   
   // Login form state
   const [loginData, setLoginData] = useState({
@@ -42,23 +38,19 @@ const Login = () => {
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    // Simulate login process for preview
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Login bem-sucedido",
-        description: "Bem-vindo de volta ao sistema.",
-      });
-      navigate('/');
-    }, 1500);
+    // Simulate login process
+    toast({
+      title: "Login bem-sucedido",
+      description: "Bem-vindo de volta ao sistema.",
+    });
+    navigate('/');
   };
 
   const handleRegisterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation
+    // Basic validation
     if (registerData.password !== registerData.confirmPassword) {
       toast({
         title: "Erro de validação",
@@ -68,164 +60,136 @@ const Login = () => {
       return;
     }
     
-    setIsLoading(true);
-    
-    // Simulate registration process for preview
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Cadastro realizado",
-        description: "Sua conta foi criada com sucesso.",
-      });
-      navigate('/');
-    }, 1500);
+    // Simulate registration process
+    toast({
+      title: "Cadastro realizado",
+      description: "Sua conta foi criada com sucesso.",
+    });
+    navigate('/');
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-md">
-        {activeTab === 'login' ? (
+    <div className="min-h-screen w-full flex items-center justify-center bg-white">
+      <div className="login-container">
+        {currentView === 'Login' ? (
           <>
-            <div className="mb-6">
-              <h1 className="text-2xl font-medium text-gray-900">Login.</h1>
-              <p className="text-gray-600">Use your account credentials to login.</p>
+            <div className="login-header">
+              <h1 className="login-title">Login.</h1>
+              <p className="login-subtitle">Use suas credenciais para acessar o sistema.</p>
             </div>
+            
             <form onSubmit={handleLoginSubmit}>
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</Label>
-                  <Input 
-                    id="email" 
-                    name="email"
-                    type="email" 
-                    required
-                    className="mt-1 border border-gray-300"
-                    value={loginData.email}
-                    onChange={handleLoginChange}
-                  />
-                </div>
-                
-                <div>
-                  <div className="flex justify-between items-center">
-                    <Label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</Label>
-                    <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
-                      Forgot password?
-                    </Link>
-                  </div>
-                  <Input 
-                    id="password" 
-                    name="password"
-                    type="password" 
-                    required
-                    className="mt-1 border border-gray-300"
-                    value={loginData.password}
-                    onChange={handleLoginChange}
-                  />
-                </div>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="rememberMe"
-                    name="rememberMe"
-                    checked={loginData.rememberMe}
-                    onChange={handleLoginChange}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  />
-                  <Label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">Remember me</Label>
-                </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Logging in...
-                    </>
-                  ) : "Log in"}
-                </Button>
+              <div className="form-group">
+                <label className="form-label" htmlFor="email">Email</label>
+                <input 
+                  type="email" 
+                  id="email"
+                  name="email"
+                  className="form-input"
+                  value={loginData.email}
+                  onChange={handleLoginChange}
+                  required
+                />
               </div>
+              
+              <div className="form-group">
+                <div className="d-flex justify-between">
+                  <label className="form-label" htmlFor="password">Senha</label>
+                  <Link to="/forgot-password" className="forgot-password">Esqueceu a senha?</Link>
+                </div>
+                <input 
+                  type="password" 
+                  id="password"
+                  name="password"
+                  className="form-input"
+                  value={loginData.password}
+                  onChange={handleLoginChange}
+                  required
+                />
+              </div>
+              
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={loginData.rememberMe}
+                  onChange={handleLoginChange}
+                />
+                <label htmlFor="rememberMe">Lembrar de mim</label>
+              </div>
+              
+              <button type="submit" className="btn">Entrar</button>
             </form>
-            <div className="mt-4 text-center">
-              <button 
-                onClick={() => setActiveTab('register')}
-                className="text-sm text-blue-600 hover:underline"
+            
+            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+              <a 
+                href="#" 
+                onClick={(e) => { e.preventDefault(); setCurrentView('Register'); }}
+                style={{ color: 'var(--primary-color)', fontSize: '0.875rem' }}
               >
-                Don't have an account? Register
-              </button>
+                Não tem uma conta? Cadastre-se
+              </a>
             </div>
           </>
         ) : (
           <>
-            <div className="mb-6">
-              <h1 className="text-2xl font-medium text-gray-900">Register.</h1>
-              <p className="text-gray-600">Create a new account.</p>
+            <div className="login-header">
+              <h1 className="login-title">Register.</h1>
+              <p className="login-subtitle">Crie uma nova conta.</p>
             </div>
+            
             <form onSubmit={handleRegisterSubmit}>
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="register-email" className="block text-sm font-medium text-gray-700">Email</Label>
-                  <Input 
-                    id="register-email" 
-                    name="email"
-                    type="email" 
-                    required
-                    className="mt-1 border border-gray-300"
-                    value={registerData.email}
-                    onChange={handleRegisterChange}
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="register-password" className="block text-sm font-medium text-gray-700">Password</Label>
-                  <Input 
-                    id="register-password" 
-                    name="password"
-                    type="password" 
-                    required
-                    className="mt-1 border border-gray-300"
-                    value={registerData.password}
-                    onChange={handleRegisterChange}
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm password</Label>
-                  <Input 
-                    id="confirm-password" 
-                    name="confirmPassword"
-                    type="password" 
-                    required
-                    className="mt-1 border border-gray-300"
-                    value={registerData.confirmPassword}
-                    onChange={handleRegisterChange}
-                  />
-                </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Registering...
-                    </>
-                  ) : "Register"}
-                </Button>
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-email">Email</label>
+                <input 
+                  type="email" 
+                  id="register-email"
+                  name="email"
+                  className="form-input"
+                  value={registerData.email}
+                  onChange={handleRegisterChange}
+                  required
+                />
               </div>
+              
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-password">Senha</label>
+                <input 
+                  type="password" 
+                  id="register-password"
+                  name="password"
+                  className="form-input"
+                  value={registerData.password}
+                  onChange={handleRegisterChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label className="form-label" htmlFor="confirm-password">Confirmar senha</label>
+                <input 
+                  type="password" 
+                  id="confirm-password"
+                  name="confirmPassword"
+                  className="form-input"
+                  value={registerData.confirmPassword}
+                  onChange={handleRegisterChange}
+                  required
+                />
+              </div>
+              
+              <button type="submit" className="btn">Cadastrar</button>
             </form>
-            <div className="mt-4 text-center">
-              <button 
-                onClick={() => setActiveTab('login')}
-                className="text-sm text-blue-600 hover:underline"
+            
+            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+              <a 
+                href="#" 
+                onClick={(e) => { e.preventDefault(); setCurrentView('Login'); }}
+                style={{ color: 'var(--primary-color)', fontSize: '0.875rem' }}
               >
-                Already have an account? Login
-              </button>
+                Já tem uma conta? Faça login
+              </a>
             </div>
           </>
         )}
