@@ -35,12 +35,11 @@ const App = () => {
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/obras" element={<Obras />} />
-              <Route path="/projeto-tcc-obra/*" element={<Index />} />
               <Route path="/clientes" element={<Clientes />} />
             </Route>
             <Route path="*" element={<NotFound />} />
-            {/* Redirecionar para a página de login por padrão */}
-            <Route index element={<Navigate to="/login" replace />} />
+            {/* Redirecionar para a página principal após login */}
+            <Route index element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
