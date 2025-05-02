@@ -1,14 +1,13 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProjectsSection from '@/components/dashboard/ProjectsSection';
-import EventsSection from '@/components/dashboard/EventsSection';
 import { 
   Card, 
   CardHeader, 
   CardTitle, 
   CardContent, 
-  CardDescription 
+  CardDescription,
+  CardFooter
 } from '@/components/ui/card';
 import { 
   Building, 
@@ -17,6 +16,9 @@ import {
   FileText,
   Calendar
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import ProjectsSection from '@/components/dashboard/ProjectsSection';
+import EventsSection from '@/components/dashboard/EventsSection';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ export default function Dashboard() {
       address: 'Curitiba, PR',
       image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2670&auto=format&fit=crop'
     },
-  ].slice(0, 3);
+  ];
 
   const upcomingEvents = [
     {
@@ -60,7 +62,7 @@ export default function Dashboard() {
       users: ['JC', 'MF', 'RS'],
       location: 'Porto Alegre, RS'
     }
-  ].slice(0, 1); // Ensure only 1 event is shown
+  ];
 
   const handleViewAllProjects = () => {
     navigate('/obras');
@@ -71,10 +73,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="space-y-8 max-w-[1400px] mx-auto">
+    <div className="space-y-8 p-6 max-w-[1400px] mx-auto">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Painel</h1>
-        <p className="text-muted-foreground">Bem-vindo ao seu painel de controle, aqui você pode monitorar todas as suas obras.</p>
+        <p className="text-muted-foreground">Bem vindo ao seu painel de controle, aqui você pode monitorar todas as suas obras.</p>
       </div>
 
       <Card className="border-none shadow-md overflow-hidden">
