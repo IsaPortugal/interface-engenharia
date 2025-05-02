@@ -1,7 +1,6 @@
 
 import React from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Calendar } from "lucide-react";
 import UpcomingEventCard from "@/components/dashboard/UpcomingEventCard";
 
 const proximoEventos = [
@@ -29,7 +28,7 @@ const proximoEventos = [
 ];
 
 const UpcomingEvents = () => (
-  <Card className="card-hover lg:col-span-1">
+  <Card>
     <CardHeader>
       <CardTitle>Próximos Eventos</CardTitle>
       <CardDescription>Seus próximos compromissos</CardDescription>

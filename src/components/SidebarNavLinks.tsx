@@ -84,7 +84,7 @@ export const NavItem = ({
       to={href}
       className={({ isActive }) =>
         cn(
-          "flex items-center gap-x-2 px-3 py-2 rounded-md text-sm no-hover",
+          "flex items-center gap-x-2 px-3 py-2 rounded-md text-sm",
           isActive 
             ? "bg-primary/10 text-primary font-medium" 
             : "text-muted-foreground font-normal",

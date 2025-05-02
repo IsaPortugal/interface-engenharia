@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { 
@@ -33,7 +33,7 @@ const NavItem = ({ icon: Icon, label, href, active, collapsed, onClick }: NavIte
           <Link
             to={href}
             className={cn(
-              "flex items-center gap-3 px-4 py-3 my-1 rounded-lg text-sm font-medium no-hover",
+              "flex items-center gap-3 px-4 py-3 my-1 rounded-lg text-sm font-medium",
               active 
                 ? "bg-white/20 text-white shadow-sm" 
                 : "text-white/80"
@@ -100,7 +100,7 @@ const SidebarNav = ({ collapsed, onToggle }: SidebarNavProps) => {
           variant="ghost" 
           size="icon" 
           onClick={onToggle}
-          className="text-white ml-auto no-hover"
+          className="text-white ml-auto"
         >
           {collapsed ? <PanelLeft className="h-5 w-5" /> : <PanelRight className="h-5 w-5" />}
         </Button>
